@@ -1,0 +1,12 @@
+@media(min-width: 1000px){
+   .form-item{
+       margin-left: 250px;
+       margin-right: 250px;
+   }
+
+   .image{
+       width: 500px;
+       height: 400px;
+   }
+}
+
