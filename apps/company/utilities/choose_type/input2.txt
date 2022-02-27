@@ -1,0 +1,114 @@
+11
+
+¿A cuál de estas categorías pertenece el lugar?
+9
+Almacenamiento
+A
+Fabricación o industrial
+F
+Comercial
+C
+Lugar de reunión
+L
+Institucional
+I
+Residencial
+R
+Mas de una de las anteriores
+M
+Cambia constantemente
+T
+Ninguna de las anteriores
+E
+
+A F C
+¿Trata con materiales peligrosos pertenecientes a la siguiente lista? [lista de P]
+2
+Si 
+P
+No
+A F C
+
+A
+¿Utiliza uno o más de los siguientes materiales? [lista de A1]
+2
+Si
+A1
+No
+A
+
+A
+¿Utiliza uno o más de los siguientes materiales? [lista de A2]
+2
+Si
+A2
+No
+E
+
+F
+¿Utiliza uno o más de los siguientes materiales? [lista de F1]
+2
+Si
+F1
+No
+F
+
+F
+¿Es alguna de estas industrias? [lista de F2]
+2
+Si
+F2
+No
+E
+
+C
+¿Se ofrecen principalmente servicios o bienes? [listas en C]
+2
+Servicios
+C1
+Bienes
+C2
+
+L
+¿Qué tipo de reuniones? [listas en L]
+5
+Deportivos
+L1
+Culturales o de teatro
+L2
+Sociales o recreativos
+L3
+Religiosos
+L4
+De transporte
+L5
+
+I
+A cuál de estos grupos pertenece la institución?
+5
+Reclusión
+I1
+Salud o incapacidad
+I2 
+Educación
+I3
+Seguridad pública
+I4
+Servicio público
+I5
+
+R
+¿Cuántas personas pueden llegar a vivir en el lugar?
+2
+Menos de 20
+R1
+20 o mas 
+R
+
+R
+¿Pertenece a alguno de estos grupos? [Mostrar lista en R3]
+2
+Si 
+R3
+No 
+R2

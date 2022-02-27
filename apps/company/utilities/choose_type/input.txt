@@ -1,0 +1,26 @@
+3
+
+Cuantos pisos tiene la edificacion?
+2
+Mas de 3
+A1
+3 o menos
+A2
+
+A1
+Tienen escaleras de emergencia?
+2
+Si
+A1
+No
+P
+
+A2
+Cuantos extintores hay?
+3
+Ninguno
+P
+Uno o dos
+A1
+Mas de dos
+A2

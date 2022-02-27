@@ -1,0 +1,32 @@
+4
+
+¿A cuál de estas categorías pertenece el lugar?
+2
+Almacenamiento
+A
+Ninguna de las anteriores
+E
+
+A F C
+¿Trata con materiales peligrosos pertenecientes a la siguiente lista? [lista de P]
+2
+Si 
+P
+No
+A F C
+
+A
+¿Utiliza uno o más de los siguientes materiales? [lista de A1]
+2
+Si
+A1
+No
+A
+
+A
+¿Utiliza uno o más de los siguientes materiales? [lista de A2]
+2
+Si
+A2
+No
+E
