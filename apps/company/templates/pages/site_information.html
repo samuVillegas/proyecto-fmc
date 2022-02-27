@@ -1,0 +1,30 @@
+{% extends 'containers/base.html' %}
+{% block body %}
+<div class="container mt-3 building_form" >
+    <h4 class="text-center">Información general del edificio</h4>
+    <form >
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Nombre del establecimiento</label>
+          <input name="site_name" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="León XIII">
+        </div>
+        <div class="mb-3 mb-4">
+            <label for="exampleInputEmail1" class="form-label">Dirección</label>
+            <input name="address" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Cra. 51B #69-1-51">
+          </div>
+          <span >Información de contacto del establecimiento</span>
+          <hr>
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Email</label>
+            <input name="contact_email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="ejemplo@dominio.com">
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Celular</label>
+            <input name="contact_mobile_number" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="301932029">
+          </div>
+        <div>
+            <button type="submit" class="btn btn-success button_style">Guardar</button>
+            <a><button class="btn btn-info button_style">Caracterizar establecimiento</button></a>
+        </div>
+      </form>
+</div>
+{% endblock %}

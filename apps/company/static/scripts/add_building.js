@@ -15,3 +15,8 @@ const next = () => {
     const current_ids_input = document.getElementById('current_ids');
     current_ids_input.value = localStorage.getItem('current_ids')
 }
+
+const clean_local = () =>{
+    localStorage.removeItem('current_ids')
+    localStorage.removeItem('current_id')
+}
