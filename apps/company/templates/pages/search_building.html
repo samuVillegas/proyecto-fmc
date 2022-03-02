@@ -1,0 +1,33 @@
+{% extends 'containers/base.html' %}
+{% block body %}
+<div class="container">
+    <h1>Buscar edificio</h1>
+    <form class="d-flex">
+        <input class="form-control me-2" type="search" placeholder="Nombre del edificio" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Buscar</button>
+    </form>
+
+    <table class="table mt-3">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Direccion</th>
+                <th scope="col">Categoria</th>
+                <th scope="col">Acción</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for b in buildings_list %}
+            <tr>
+                <th scope="row">{{forloop.counter}}</th>
+                <td>{{b.site_name}}</td>
+                <td>{{b.address}}</td>
+                <td>{{b.site_type}}</td>
+                <td><button class="btn btn-info">Ver información</button></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

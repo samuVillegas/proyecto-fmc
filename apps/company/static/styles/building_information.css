@@ -1,0 +1,14 @@
+@media(min-width: 600px){
+    .building_form{
+        width: 50%;
+    }
+ }
+
+ @media(max-width: 600px){
+    .building_form{
+        width: 90%;
+    }
+    .button_style{
+        margin: 2px;
+    }
+ }
