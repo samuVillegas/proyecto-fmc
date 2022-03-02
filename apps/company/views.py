@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from apps.company.utilities.choose_type.Group import getQuestions
 
+from .models import Building
+
 # Create your views here
 def index(request):
     return render(request,"pages/index.html",{'message':'Hola mundo'})
@@ -8,9 +10,10 @@ def index(request):
 def site_parameterization(request): 
     current_question = getQuestions([])
     return render(request,"pages/site_parameterization.html",{'current_question':current_question})
-    
+
 def search_building(request): 
-    return render(request,"pages/search_building.html")
+    buildings_list = Building.objects.all()
+    return render(request,"pages/search_building.html", {"buildings_list":buildings_list})
 
 def search_key(request):
     current_ids = request.POST.get('current_ids')
@@ -21,5 +24,29 @@ def search_key(request):
 def site_information(request):
     return render(request,"pages/site_information.html")
 
+def add_building(request):
+    site_name = request.POST['site_name']
+    address = request.POST['address']
+    contact_email = request.POST['contact_email']
+    contact_mobile_number = request.POST['contact_mobile_number']
 
-    
+    building = Building.objects.create(
+            site_name=site_name,address=address,contact_email=contact_email, contact_mobile_number=contact_mobile_number)
+
+    return redirect('/')
+
+def add_building_type(request):
+    site_name = request.POST['site_name']
+    address = request.POST['address']
+    contact_email = request.POST['contact_email']
+    contact_mobile_number = request.POST['contact_mobile_number']
+
+    building = Building.objects.create(
+            site_name=site_name,address=address,contact_email=contact_email, contact_mobile_number=contact_mobile_number)
+    current_question = getQuestions([])
+    return render(request,"pages/site_parameterization.html",{'building_id': building.code, 'building_name': site_name, 'current_question': current_question})
+
+def set_building_type(request):
+    #print(request.POST['building_name'])
+    #building.site_type = building_type
+    return redirect('/')

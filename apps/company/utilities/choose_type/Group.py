@@ -42,7 +42,7 @@ def FindGroup(answers):
 
 
 def getQuestions(list):
-    questions = readFile('apps\\company\\utilities\\choose_type\\input2.txt')
+    questions = readFile('apps/company/utilities/choose_type/input2.txt')
     key = ''
     cont = 0
     for q in questions:

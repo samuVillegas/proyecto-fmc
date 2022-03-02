@@ -11,35 +11,22 @@
         <thead>
             <tr>
                 <th scope="col">#</th>
-                <th scope="col">Código</th>
                 <th scope="col">Nombre</th>
+                <th scope="col">Direccion</th>
                 <th scope="col">Categoria</th>
                 <th scope="col">Acción</th>
             </tr>
         </thead>
         <tbody>
+        {% for b in buildings_list %}
             <tr>
-                <th scope="row">1</th>
-                <td>000001</td>
-                <td>Catedral Metropolitana de Medellín</td>
-                <td>A1</td>
+                <th scope="row">{{forloop.counter}}</th>
+                <td>{{b.site_name}}</td>
+                <td>{{b.address}}</td>
+                <td>{{b.site_type}}</td>
                 <td><button class="btn btn-info">Ver información</button></td>
             </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>000002</td>
-                <td>Torre del café</td>
-                <td>A2</td>
-                <td><button class="btn btn-info">Ver información</button></td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td>000003</td>
-                <td>Torre Junín</td>
-                <td>P</td>
-                <td><button class="btn btn-info">Ver información</button></td>
-            </tr>
-
+        {% endfor %}
         </tbody>
     </table>
 </div>
