@@ -7,19 +7,19 @@ from .models import Building
 def index(request):
     return render(request,"pages/index.html",{'message':'Hola mundo'})
 
-def site_parameterization(request): 
+def site_parameterization(request):
     current_question = getQuestions([])
     return render(request,"pages/site_parameterization.html",{'current_question':current_question})
 
-def search_building(request): 
+def search_building(request):
     buildings_list = Building.objects.all()
     return render(request,"pages/search_building.html", {"buildings_list":buildings_list})
 
-def search_key(request):
+def search_key(request, building_id):
     current_ids = request.POST.get('current_ids')
     split_current_ids = current_ids.split(',')
     current_question = getQuestions(split_current_ids)
-    return render(request,"pages/site_parameterization.html",{'current_question':current_question})
+    return render(request,"pages/site_parameterization.html",{'current_question':current_question, 'building_id':building_id})
 
 def site_information(request):
     return render(request,"pages/site_information.html")
@@ -44,9 +44,10 @@ def add_building_type(request):
     building = Building.objects.create(
             site_name=site_name,address=address,contact_email=contact_email, contact_mobile_number=contact_mobile_number)
     current_question = getQuestions([])
-    return render(request,"pages/site_parameterization.html",{'building_id': building.code, 'building_name': site_name, 'current_question': current_question})
+    return render(request,"pages/site_parameterization.html",{'building_id': building.code, 'building_name': site_name, 'current_question':current_question})
 
-def set_building_type(request):
-    #print(request.POST['building_name'])
-    #building.site_type = building_type
+def set_building_type(request, building_id, building_type):
+    building = Building.objects.get(code=building_id)
+    building.site_type = building_type
+    building.save()
     return redirect('/')
