@@ -5,7 +5,7 @@ from .models import Building
 
 # Create your views here
 def index(request):
-    return render(request,"pages/index.html",{'message':'Hola mundo'})
+    return render(request,"pages/index.html")
 
 def site_parameterization(request):
     current_question = getQuestions([])
@@ -33,7 +33,7 @@ def add_building(request):
     building = Building.objects.create(
             site_name=site_name,address=address,contact_email=contact_email, contact_mobile_number=contact_mobile_number)
 
-    return redirect('/')
+    return redirect('/company')
 
 def add_building_type(request):
     site_name = request.POST['site_name']

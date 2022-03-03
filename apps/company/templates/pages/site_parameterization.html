@@ -1,6 +1,6 @@
 {% extends 'containers/base.html' %}
 {% block body %}
-<div class="container">
+  <div class="container">
   <h4 class="text-center mt-3 mb-4">Encuesta para saber a que grupo pertenece el edificio {{building_name}}</h2>
         <div class="container">
 	  <form action="/company/search_key/{{building_id}}" method="POST">{% csrf_token %}
@@ -21,7 +21,7 @@
                     <input id="current_ids" name="current_ids" value="" style="visibility: hidden;"></input>
                 </div>
                 <div class="text-end">
-                    <button type="submit" class="btn btn-primary" onclick="next()">Siguiente</button>
+		  <button type="submit" id="set_type" class="btn btn-primary" onclick="next()">Siguiente</button>
                 </div>
                 {% endif%}
 
