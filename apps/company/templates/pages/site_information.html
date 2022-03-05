@@ -1,10 +1,5 @@
 {% extends 'containers/base.html' %}
 {% block body %}
-<script>    
-    localStorage.removeItem('current_ids')
-    localStorage.removeItem('current_id')
-</script>
-
 <div class="container mt-3 building_form" >
     <h4 class="text-center">Información general del edificio</h4>
     <form action="" method="POST">{% csrf_token %}
@@ -28,7 +23,7 @@
           </div>
         <div>
             <button type="submit" onclick="this.form.action='add_building';this.form.submit();" class="btn btn-success button_style">Guardar</button>
-	    <button type="submit"  onclick="this.form.action='add_building_type';this.form.submit();" class="btn btn-info button_style">Caracterizar establecimiento</button>
+            <button type="submit"  onclick="this.form.action='add_building_type';this.form.submit();" class="btn btn-info button_style">Caracterizar establecimiento</button>
         </div>
       </form>
 </div>
