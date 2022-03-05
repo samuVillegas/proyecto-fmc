@@ -11,6 +11,10 @@ def site_parameterization(request):
     current_question = getQuestions([])
     return render(request,"pages/site_parameterization.html",{'current_question':current_question})
 
+def site_parameterization_from_edit(request, building_id, building_name):
+    current_question = getQuestions([])
+    return render(request,"pages/site_parameterization.html",{'current_question':current_question, 'building_id': building_id, 'building_name': building_name})
+
 def search_building(request):
     searchTerm = request.GET.get('searchTerm')
 
@@ -21,11 +25,11 @@ def search_building(request):
 
     return render(request,"pages/search_building.html", {"buildings_list":buildings_list, "searchTerm":searchTerm   })
 
-def search_key(request, building_id):
+def search_key(request, building_id, building_name):
     current_ids = request.POST.get('current_ids')
     split_current_ids = current_ids.split(',')
     current_question = getQuestions(split_current_ids)
-    return render(request,"pages/site_parameterization.html",{'current_question':current_question, 'building_id':building_id})
+    return render(request,"pages/site_parameterization.html",{'current_question':current_question, 'building_id':building_id, 'building_name':building_name})
 
 def site_information(request):
     return render(request,"pages/site_information.html")
@@ -40,6 +44,25 @@ def add_building(request):
             site_name=site_name,address=address,contact_email=contact_email, contact_mobile_number=contact_mobile_number)
 
     return redirect('/company')
+
+def edition_building(request, building_id):
+    building = Building.objects.get(code=building_id)
+    return render(request, "pages/edit_building.html", {'building':building})
+
+def edit_building(request, building_id):
+    site_name = request.POST['site_name']
+    address = request.POST['address']
+    contact_email = request.POST['contact_email']
+    contact_mobile_number = request.POST['contact_mobile_number']
+
+    building = Building.objects.get(code=building_id)
+    building.site_name = site_name
+    building.address = address
+    building.contact_email = contact_email
+    building.contact_mobile_number = contact_mobile_number
+    building.save()
+
+    return redirect('/')
 
 def add_building_type(request):
     site_name = request.POST['site_name']
@@ -56,4 +79,11 @@ def set_building_type(request, building_id, building_type):
     building = Building.objects.get(code=building_id)
     building.site_type = building_type
     building.save()
+
+    return redirect('/')
+
+def delete_building(request, building_id):
+    building = Building.objects.get(code=building_id)
+    building.delete()
+
     return redirect('/')
