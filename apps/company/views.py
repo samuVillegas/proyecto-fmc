@@ -16,8 +16,14 @@ def site_parameterization_from_edit(request, building_id, building_name):
     return render(request,"pages/site_parameterization.html",{'current_question':current_question, 'building_id': building_id, 'building_name': building_name})
 
 def search_building(request):
-    buildings_list = Building.objects.all()
-    return render(request,"pages/search_building.html", {"buildings_list":buildings_list})
+    searchTerm = request.GET.get('searchTerm')
+
+    if searchTerm:
+        buildings_list = Building.objects.filter(site_name__icontains=searchTerm)
+    else:
+        buildings_list = Building.objects.all()
+
+    return render(request,"pages/search_building.html", {"buildings_list":buildings_list, "searchTerm":searchTerm   })
 
 def search_key(request, building_id, building_name):
     current_ids = request.POST.get('current_ids')

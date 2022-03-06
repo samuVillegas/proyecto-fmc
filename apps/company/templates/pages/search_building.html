@@ -1,12 +1,12 @@
 {% extends 'containers/base.html' %}
 {% block body %}
 <div class="container">
-    <h1>Buscar edificio</h1>
-    <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Nombre del edificio" aria-label="Search">
+    <h1>Buscar edificio{% if searchTerm != None and searchTerm != '' %}: {{searchTerm}}{% endif %}
+    </h1>
+    <form class="d-flex" action="search_building">
+        <input class="form-control me-2" type="search" placeholder="Nombre del edificio" aria-label="Search" name="searchTerm">
         <button class="btn btn-outline-success" type="submit">Buscar</button>
     </form>
-
     <table class="table mt-3">
         <thead>
             <tr>
@@ -31,5 +31,8 @@
         {% endfor %}
         </tbody>
     </table>
+    {% if buildings_list|length == 0 %}
+        <h3 class="text-center">No hay edificios con el filtro '{{searchTerm}}'</h3>
+    {% endif %}
 </div>
 {% endblock %}
