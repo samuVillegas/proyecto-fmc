@@ -41,8 +41,13 @@ def add_building(request):
     contact_email = request.POST['contact_email']
     contact_mobile_number = request.POST['contact_mobile_number']
 
-    building = Building.objects.create(site_name=site_name,address=address,contact_email=contact_email, contact_mobile_number=contact_mobile_number)
-    messages.success(request, 'Edificio creado con exito')
+    try:
+        Building.objects.filter(site_name__iexact=site_name).get()
+        messages.error(request, 'Edificio ya existe')
+    except:
+        Building.objects.create(site_name=site_name,address=address,contact_email=contact_email, contact_mobile_number=contact_mobile_number)
+        messages.success(request, 'Edificio creado con exito')
+
     return render(request, 'pages/site_information.html')
 
 def edition_building(request, building_id):
@@ -70,11 +75,16 @@ def add_building_type(request):
     address = request.POST['address']
     contact_email = request.POST['contact_email']
     contact_mobile_number = request.POST['contact_mobile_number']
+    building = None
 
-    building = Building.objects.create(
-            site_name=site_name,address=address,contact_email=contact_email, contact_mobile_number=contact_mobile_number)
-    current_question = getQuestions([])
-    return render(request,"pages/site_parameterization.html",{'building_id': building.code, 'building_name': site_name, 'current_question':current_question})
+    try:
+        Building.objects.filter(site_name__iexact=site_name).get()
+        messages.error(request, 'Edificio ya existe')
+        return render(request, 'pages/site_information.html')
+    except:
+        building = Building.objects.create(site_name=site_name,address=address,contact_email=contact_email, contact_mobile_number=contact_mobile_number)
+        current_question = getQuestions([])
+        return render(request,"pages/site_parameterization.html",{'building_id': building.code, 'building_name': site_name, 'current_question':current_question})
 
 def set_building_type(request, building_id, building_type):
     building = Building.objects.get(code=building_id)
@@ -82,7 +92,7 @@ def set_building_type(request, building_id, building_type):
     building.save()
 
     messages.success(request, 'Edificio creado con caracterizacion')
-    return render(request,'pages/site_information.html')
+    return redirect('/company/search_building')
 
 def delete_building(request, building_id):
     building = Building.objects.get(code=building_id)
