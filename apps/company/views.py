@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from apps.company.utilities.choose_type.Group import getQuestions
+from django.contrib import messages
 
 from .models import Building
 
@@ -40,10 +41,9 @@ def add_building(request):
     contact_email = request.POST['contact_email']
     contact_mobile_number = request.POST['contact_mobile_number']
 
-    building = Building.objects.create(
-            site_name=site_name,address=address,contact_email=contact_email, contact_mobile_number=contact_mobile_number)
-
-    return redirect('/company/search_building')
+    building = Building.objects.create(site_name=site_name,address=address,contact_email=contact_email, contact_mobile_number=contact_mobile_number)
+    messages.success(request, 'Edificio creado con exito')
+    return render(request, 'pages/site_information.html')
 
 def edition_building(request, building_id):
     building = Building.objects.get(code=building_id)
@@ -62,6 +62,7 @@ def edit_building(request, building_id):
     building.contact_mobile_number = contact_mobile_number
     building.save()
 
+    messages.success(request, 'Edificio editado con exito')
     return redirect('/company/search_building')
 
 def add_building_type(request):
@@ -80,12 +81,14 @@ def set_building_type(request, building_id, building_type):
     building.site_type = building_type
     building.save()
 
-    return redirect('/company/search_building')
+    messages.success(request, 'Edificio creado con caracterizacion')
+    return render(request,'pages/site_information.html')
 
 def delete_building(request, building_id):
     building = Building.objects.get(code=building_id)
     building.delete()
 
+    messages.success(request, 'Edificio eliminado con exito')
     return redirect('/company/search_building')
 
 def view_building_information(request, building_id):

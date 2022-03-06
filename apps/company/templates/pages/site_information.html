@@ -2,14 +2,23 @@
 {% block body %}
 <div class="container mt-3 building_form" >
     <h4 class="text-center">Información general del edificio</h4>
+    {% if messages %}
+       {% for message in messages %}
+           <div class="alert alert-dismissible alert-success">
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+              <strong class="text-dark">{{ message }}</strong>
+           </div>
+        {% endfor %}
+    {% endif %}
+
     <form action="" method="POST">{% csrf_token %}
         <div class="mb-3">
           <label for="site_name" class="form-label">Nombre del establecimiento</label>
-        <input name="site_name" type="text" class="form-control" id="site_name" aria-describedby="emailHelp" placeholder="León XIII">
+        <input name="site_name" type="text" class="form-control" id="site_name" aria-describedby="emailHelp" placeholder="Edificio A">
         </div>
         <div class="mb-3 mb-4">
         <label for="address" class="form-label">Dirección</label>
-        <input name="address" type="text" class="form-control" id="address" aria-describedby="emailHelp" placeholder="Cra. 51B #69-1-51">
+        <input name="address" type="text" class="form-control" id="address" aria-describedby="emailHelp" placeholder="Cra. 51B #66-1-51">
           </div>
           <span >Información de contacto del establecimiento</span>
           <hr>
@@ -19,7 +28,7 @@
           </div>
           <div class="mb-3">
           <label for="contact_mobile_number" class="form-label">Celular</label>
-          <input name="contact_mobile_number" type="number" class="form-control" id="contact_mobile_number" aria-describedby="emailHelp" placeholder="301932029">
+          <input name="contact_mobile_number" type="number" class="form-control" id="contact_mobile_number" aria-describedby="emailHelp" placeholder="123456789">
           </div>
         <div>
             <button type="submit" onclick="this.form.action='add_building';this.form.submit();" class="btn btn-success button_style">Guardar</button>
