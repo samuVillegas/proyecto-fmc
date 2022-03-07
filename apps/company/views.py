@@ -41,8 +41,11 @@ def add_building(request):
         Building.objects.filter(site_name__iexact=building_information_list[0]).get()
         messages.error(request, 'Edificio ya existe')
     except:
-        Building.objects.create(site_name=building_information_list[0],address=building_information_list[1],contact_email=building_information_list[2], contact_mobile_number=building_information_list[3])
-        messages.success(request, 'Edificio creado con exito')
+        try:
+            Building.objects.create(site_name=building_information_list[0],address=building_information_list[1],contact_email=building_information_list[2], contact_mobile_number=building_information_list[3])
+            messages.success(request, 'Edificio creado con exito')
+        except:
+            messages.error(request, 'No es posible crear edificio')
 
     return render(request, 'pages/site_information.html')
 
@@ -51,16 +54,20 @@ def edition_building(request, building_id):
     return render(request, "pages/edit_building.html", {'building':building})
 
 def edit_building(request, building_id):
-    building_information_list = get_building_information(request)    
+    building_information_list = get_building_information(request)
 
-    building = Building.objects.get(code=building_id)
-    building.site_name = building_information_list[0]
-    building.address = building_information_list[1]
-    building.contact_email = building_information_list[2]
-    building.contact_mobile_number = building_information_list[3]
-    building.save()
+    try:
+        Building.objects.filter(site_name__iexact=building_information_list[0]).get()
+        messages.error(request, 'Existe un edificio con el mismo nombre')
+    except:
+        building = Building.objects.get(code=building_id)
+        building.site_name = building_information_list[0]
+        building.address = building_information_list[1]
+        building.contact_email = building_information_list[2]
+        building.contact_mobile_number = building_information_list[3]
+        building.save()
+        messages.success(request, 'Edificio editado con exito')
 
-    messages.success(request, 'Edificio editado con exito')
     return redirect('/company/search_building')
 
 def add_building_type(request):
@@ -72,9 +79,13 @@ def add_building_type(request):
         messages.error(request, 'Edificio ya existe')
         return render(request, 'pages/site_information.html')
     except:
-        building = Building.objects.create(site_name=building_information_list[0],address=building_information_list[1],contact_email=building_information_list[2], contact_mobile_number=building_information_list[3])
-        current_question = getQuestions([])
-        return render(request,"pages/site_parameterization.html",{'building_id': building.code, 'building_name': building.site_name, 'current_question':current_question})
+        try:
+            building = Building.objects.create(site_name=building_information_list[0],address=building_information_list[1],contact_email=building_information_list[2], contact_mobile_number=building_information_list[3])
+            current_question = getQuestions([])
+            return render(request,"pages/site_parameterization.html",{'building_id': building.code, 'building_name': building.site_name, 'current_question':current_question})
+        except:
+            messages.error(request, 'No es posible crear edificio')
+            return render(request, 'pages/site_information.html')
 
 def set_building_type(request, building_id, building_type):
     building = Building.objects.get(code=building_id)
