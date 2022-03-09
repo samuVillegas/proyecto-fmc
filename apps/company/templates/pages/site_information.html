@@ -20,22 +20,22 @@
 
     <form action="" method="POST">{% csrf_token %}
         <div class="mb-3">
-          <label for="site_name" class="form-label">Nombre del establecimiento</label>
-        <input name="site_name" type="text" class="form-control" id="site_name" aria-describedby="emailHelp" placeholder="Edificio A">
+            <label for="site_name" class="form-label">Nombre del establecimiento</label>
+            <input name="site_name" type="text" class="form-control" id="site_name" aria-describedby="emailHelp" placeholder="Edificio A" required>
         </div>
         <div class="mb-3 mb-4">
-        <label for="address" class="form-label">Dirección</label>
-        <input name="address" type="text" class="form-control" id="address" aria-describedby="emailHelp" placeholder="Cra. 51B #66-1-51">
-          </div>
+            <label for="address" class="form-label">Dirección</label>
+            <input name="address" type="text" class="form-control" id="address" aria-describedby="emailHelp" placeholder="Cra. 51B #66-1-51" required>
+        </div>
           <span >Información de contacto del establecimiento</span>
           <hr>
           <div class="mb-3">
-          <label for="contact_email" class="form-label">Email</label>
-         <input name="contact_email" type="email" class="form-control" id="contact_email" aria-describedby="emailHelp" placeholder="ejemplo@dominio.com">
+              <label for="contact_email" class="form-label">Email</label>
+              <input name="contact_email" type="email" class="form-control" id="contact_email" aria-describedby="emailHelp" placeholder="ejemplo@dominio.com" required>
           </div>
           <div class="mb-3">
-          <label for="contact_mobile_number" class="form-label">Celular</label>
-          <input name="contact_mobile_number" type="number" class="form-control" id="contact_mobile_number" aria-describedby="emailHelp" placeholder="123456789">
+              <label for="contact_mobile_number" class="form-label">Celular</label>
+              <input name="contact_mobile_number" type="number" class="form-control" id="contact_mobile_number" aria-describedby="emailHelp" placeholder="123456789" required>
           </div>
         <div>
             <button type="submit" onclick="this.form.action='add_building';this.form.submit();" class="btn btn-success button_style">Guardar</button>

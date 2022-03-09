@@ -41,11 +41,8 @@ def add_building(request):
         Building.objects.filter(site_name__iexact=building_information_list[0]).get()
         messages.error(request, 'Edificio ya existe')
     except:
-        try:
-            Building.objects.create(site_name=building_information_list[0],address=building_information_list[1],contact_email=building_information_list[2], contact_mobile_number=building_information_list[3])
-            messages.success(request, 'Edificio creado con exito')
-        except:
-            messages.error(request, 'No es posible crear edificio')
+        Building.objects.create(site_name=building_information_list[0],address=building_information_list[1],contact_email=building_information_list[2], contact_mobile_number=building_information_list[3])
+        messages.success(request, 'Edificio creado con exito')
 
     return render(request, 'pages/site_information.html')
 
@@ -79,13 +76,9 @@ def add_building_type(request):
         messages.error(request, 'Edificio ya existe')
         return render(request, 'pages/site_information.html')
     except:
-        try:
-            building = Building.objects.create(site_name=building_information_list[0],address=building_information_list[1],contact_email=building_information_list[2], contact_mobile_number=building_information_list[3])
-            current_question = getQuestions([])
-            return render(request,"pages/site_parameterization.html",{'building_id': building.code, 'building_name': building.site_name, 'current_question':current_question})
-        except:
-            messages.error(request, 'No es posible crear edificio')
-            return render(request, 'pages/site_information.html')
+        building = Building.objects.create(site_name=building_information_list[0],address=building_information_list[1],contact_email=building_information_list[2], contact_mobile_number=building_information_list[3])
+        current_question = getQuestions([])
+        return render(request,"pages/site_parameterization.html",{'building_id': building.code, 'building_name': building.site_name, 'current_question':current_question})
 
 def set_building_type(request, building_id, building_type):
     building = Building.objects.get(code=building_id)
