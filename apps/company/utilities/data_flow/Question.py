@@ -1,13 +1,18 @@
+import re
+
+
 class Question:
     lock = ''
     question = ''
+    reference = ''
     image = ''
     options = []
     outputs = []
 
-    def __init__(self, lock, question, image):
+    def __init__(self, lock, question, reference, image):
         self.lock = lock
         self.question = question
+        self.reference = reference
         self.image = image
         self.options = []
         self.outputs = []

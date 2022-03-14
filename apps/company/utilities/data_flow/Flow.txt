@@ -1,12 +1,12 @@
 16
 
-C1 C2
 Flujo
+C1 C2
 J.4.2.2.1
 Debe estar protegidas por un sistema de detección y alarma de incendio, diseñado tomando como referencia la norma NFPA 72.
 
-C1
 Pregunta
+C1
 J.4.2.2.1
 En la edificación:
 [Grafica mostrando niveles de carga de personas]
@@ -17,8 +17,8 @@ Se requiere un sistema de alarma con iniciación manual
 Ninguna de las anteriores
 
 
-C2
 Pregunta
+C2
 J.4.2.2.1
 En la edificación:
 [Grafica mostrando niveles de carga de personas]
@@ -29,8 +29,8 @@ Se requiere un sistema de alarma con iniciación manual
 Ninguna de las anteriores
 
 
-C2
 Pregunta
+C2
 J.4.2.2.2
 ¿Es un centro comercial cubierto con área construida superior a 5000m^2?
 []
@@ -39,13 +39,13 @@ Se requiere un sistema de evacuación de emergencia Voz/Sirena el cual debe ser 
 No
 
 
-F1 F2
 Flujo
+F1 F2
 J.4.2.3
 Deben estar protegidas por un sistema detección y alarma de incendio diseñado tomando como referencia la norma NFPA 72
 
-F1 F2
 Pregunta
+F1 F2
 J.4.2.2.1
 En la edificación:
 [Grafica mostrando niveles de carga de personas]
@@ -56,18 +56,18 @@ Se requiere un sistema de alarma con iniciación manual
 Ninguna de las anteriores
 
 
-I1 I4 I5
 Flujo
+I1 I4 I5
 J.4.2.4.1
 Debe esta provista de un sistema de iniciación manual y un sistema automático de detección de incendio instalado para alertar al personal de seguridad. Los dispositivos de iniciación manual en las zonas de detenidos pueden disponer de una cerradura con llave. El sistema automático de detección de incendio se instalará en las celdas y en los espacios destinados a actividades en grupo y otros espacios comunes normalmente accesibles a los reclusos. Los dispositivos deben ser acondicionados para impedir su manipulación.
 
-I2
 Flujo
+I2
 J.4.2.4.2
 Se debe instalar un sistema de detección automática de incendios en cada habitación, en cada espacio que quede en la trayectoria de evacuación de las habitaciones y en cada piso de la unidad de acuerdo con la norma NFPA 72. El sistema de detección en corredores no se requiere cuando las habitaciones de pacientes estén equipadas con detectores de incendio y posean una visualización directa al corredor y puedan generar una alarma en el cuarto de enfermeras.
 
-I3
 Pregunta
+I3
 J.4.2.4.3
 ¿Cumple todas las condiciones de la tabla o tiene una carga de ocupación menor a 50 personas?
 [lista de J.4.2.4.3]
@@ -78,13 +78,13 @@ Tiene una carga de ocupación menor a 50 personas
 Ninguna de las anteriores
 Se debe contar con un sistema de iniciación manual que permita la activación del sistema de notificación de alarma
 
-I3
 Flujo
+I3
 J.4.2.4.3
 Cuando se cuente con sistemas de rociadores automáticos o detectores de incendio estos deben conectarse al sistema de alarma contra incendios. 
 
-L1 L2 L3 L4 L5
 Pregunta
+L1 L2 L3 L4 L5
 J.4.2.5
 ¿Tiene una carga de ocupación mayor de 50 personas?
 []
@@ -93,13 +93,13 @@ Debe estar protegida por un sistema de alarma de incendio, manual o automático,
 No
 
 
-P
 Flujo
+P
 J.4.2.7
 Debe estar protegida por un sistema de alarmas contra incendio diseñado tomando como referencia la norma NFPA 72. Se dispondrá de un sistema de iniciación manual y un sistema de detección de incendio automático que podrá activar el sistema de notificación.
 
-R1 
 Pregunta
+R1 
 J.4.2.8.1
 ¿Tiene más de 100m^2 de área construida?
 Si
@@ -107,13 +107,13 @@ Debe estar protegida mediante un sistema de alarma y detección de incendio, con
 No
 Debe estar protegida mediante un sistema de alarma y detección de incendio, conformado por detectores con base sonora, en cada nivel.
 
-R2
 Flujo
+R2
 J.4.2.8.2
 deberá estar protegida mediante un sistema de alarma y detección de incendio conformado por al menos un detector con base sonora. No hay necesidad que este detector esté interconectado con la alarma general de incendio.
 
-R3
 Pregunta
+R3
 J.4.2.8.3
 ¿Se cumple al menos una de las siguientes caracteristicas?
 []
@@ -124,8 +124,8 @@ El edificio se encuentra completamente equipado con un sistema de rociadores aut
 Ninguna de las anteriores
 Debe estar provista de un sistema de iniciación manual y un sistema automático de detección de incendio instalado para alertar al personal.
 
-A1 A2 C1 C2 F1 F2 L1 L2 L3 L4 L5 I1 I2 I3 I4 I5 R1 R2 R3 E
 Pregunta
+A1 A2 C1 C2 F1 F2 L1 L2 L3 L4 L5 I1 I2 I3 I4 I5 R1 R2 R3 E
 J.4.2.9
 Tiene aire acondicionado?
 Si
