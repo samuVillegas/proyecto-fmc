@@ -4,26 +4,27 @@
     <h1>Buscar edificio{% if searchTerm != None and searchTerm != '' %}: {{searchTerm}}{% endif %}
     </h1>
     {% if messages %}
-       {% for message in messages %}
-           {% if message.tags == 'error' %}
-              <div class="alert alert-dismissible alert-danger">
-                 <button type="button" class="close" data-dismiss="alert">&times;</button>
-                 <strong class="text-dark">{{ message }}</strong>
-              </div>
-           {% else %}
-                 <div class="alert alert-dismissible alert-success">
-                     <button type="button" class="close" data-dismiss="alert">&times;</button>
-                     <strong class="text-dark">{{ message }}</strong>
-                 </div>
-          {% endif %}
-      {% endfor %}
+    {% for message in messages %}
+    {% if message.tags == 'error' %}
+    <div class="alert alert-dismissible alert-danger">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong class="text-dark">{{ message }}</strong>
+    </div>
+    {% else %}
+    <div class="alert alert-dismissible alert-success">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong class="text-dark">{{ message }}</strong>
+    </div>
+    {% endif %}
+    {% endfor %}
     {% endif %}
 
     <form class="d-flex" action="search_building">
-        <input class="form-control me-2" type="search" placeholder="Nombre del edificio" aria-label="Search" name="searchTerm">
+        <input class="form-control me-2" type="search" placeholder="Nombre del edificio" aria-label="Search"
+            name="searchTerm">
         <button class="btn btn-outline-success" type="submit">Buscar</button>
     </form>
-    <table class="table mt-3">
+    <table class="table mt-3" id="table">
         <thead>
             <tr>
                 <th scope="col">#</th>
@@ -33,22 +34,42 @@
                 <th scope="col">Acción</th>
             </tr>
         </thead>
-        <tbody>
-        {% for b in buildings_list %}
-            <tr>
-                <th scope="row">{{forloop.counter}}</th>
-                <td>{{b.site_name}}</td>
-                <td>{{b.address}}</td>
-                <td>{{b.site_type}}</td>
-                <td><a href="view_building_information/{{b.code}}" class="btn btn-info">Ver información</a></td>
-                <td><a href="edition_building/{{b.code}}" class="btn btn-info">Editar</a></td>
-                <td><a href="delete_building/{{b.code}}" class="btn btn-danger">Eliminar</a></td>
-            </tr>
-        {% endfor %}
-        </tbody>
+        <div id="table-body">
+            <tbody>
+                {% for b in buildings_list %}
+                <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td>{{b.site_name}}</td>
+                    <td>{{b.address}}</td>
+                    <td>{{b.site_type}}</td>
+                    <td><a href="view_building_information/{{b.code}}" class="btn btn-info">Ver información</a></td>
+                    <td><a href="edition_building/{{b.code}}" class="btn btn-info" onclick="clean_local()">Editar</a></td>
+                    <td><a href="" data-bs-toggle="modal" class="btn btn-danger" data-bs-target="#exampleModal" id="{{b.code}}">Eliminar</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </div>
     </table>
     {% if buildings_list|length == 0 %}
-        <h3 class="text-center">No hay edificios con el filtro '{{searchTerm}}'</h3>
+    <h3 class="text-center">No hay edificios con el filtro '{{searchTerm}}'</h3>
     {% endif %}
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <form action="delete_building" method="POST">{% csrf_token %}
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <p>¿Estás seguro de eliminar el edificio?</p>
+                        <div class="float-end">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-danger">Eliminar</button>
+                        </div>
+                    </div>
+                    <input id="delete_id_item" name="delete_id_item" value="" style="visibility: hidden;"></input>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 {% endblock %}

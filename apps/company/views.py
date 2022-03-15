@@ -88,8 +88,9 @@ def set_building_type(request, building_id, building_type):
     messages.success(request, 'Edificio creado con caracterizacion')
     return redirect('/company/search_building')
 
-def delete_building(request, building_id):
-    building = Building.objects.get(code=building_id)
+def delete_building(request):
+    code_building = request.POST.get('delete_id_item')
+    building = Building.objects.get(code=code_building)
     building.delete()
 
     messages.success(request, 'Edificio eliminado con exito')
