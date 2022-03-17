@@ -1,5 +1,8 @@
 {% extends 'containers/base.html' %}
 {% block body %}
+<script>
+    localStorage.clear()
+</script>
 <div class="container">
     <h1>Buscar edificio{% if searchTerm != None and searchTerm != '' %}: {{searchTerm}}{% endif %}
     </h1>
