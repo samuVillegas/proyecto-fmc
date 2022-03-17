@@ -1,6 +1,3 @@
-import re
-
-
 class Question:
     lock = ''
     question = ''
@@ -24,5 +21,13 @@ class Question:
     def select(self, number):
         return self.outputs[number]
     
-    
+class Flow:
+    lock = ''
+    reference = ''
+    law = ''
+
+    def __init__(self, lock, reference, law):
+        self.lock = lock
+        self.reference = reference
+        self.law = law  
     

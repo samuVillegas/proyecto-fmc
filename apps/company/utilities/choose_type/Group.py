@@ -37,7 +37,7 @@ def getQuestions(list):
     return {'exist_key':True,'key':key}
 
 
-#Viejo
+#Testing
 def FindGroup():
     #questions = readFile('apps\\company\\utilities\\choose_type\\Group.txt')
     questions = readFile('Group.txt')
