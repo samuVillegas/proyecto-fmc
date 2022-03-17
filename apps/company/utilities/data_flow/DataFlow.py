@@ -49,8 +49,8 @@ def getQuestions(list, key):
             if hasattr(q, 'law'):
                 flow += q.law + '\n'
             else:
-                flow = q.select(int(list[cont]) - 1) + '\n'
-                cont+=1
+                flow += q.select(int(list[cont]) - 1) + '\n'
+                cont += 1
     return {'exist_flow':True,'flow':flow}
 
 #Testing
