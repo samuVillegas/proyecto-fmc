@@ -1,6 +1,6 @@
 {% extends 'containers/base.html' %}
 {% block body %}
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+{% load static %}
 <div class="container">
     <h1>Buscar edificio{% if searchTerm != None and searchTerm != '' %}: {{searchTerm}}{% endif %}
     </h1>
@@ -51,7 +51,7 @@
             </tbody>
         </div>
     </table>
-    {% if buildings_list|length == 0 %}
+    {% if buildings_list|length == 0 and searchTerm%}
     <h3 class="text-center">No hay edificios con el filtro '{{searchTerm}}'</h3>
     {% endif %}
 
@@ -73,15 +73,5 @@
         </div>
     </div>
 </div>
-<script>
-    localStorage.clear()
-
-    $(document).ready(function(){
-       window.setTimeout(function() {
-            $(".alert").fadeTo(500, 0).slideUp(500, function(){
-            $(this).remove();
-         });
-       }, 5000);
-    });
-</script>
+<script src="{% static 'scripts/notification.js' %}"></script>
 {% endblock %}
