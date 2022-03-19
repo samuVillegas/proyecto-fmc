@@ -22,6 +22,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -38,9 +39,9 @@
      inkscape:window-height="697"
      id="namedview9"
      showgrid="false"
-     inkscape:zoom="0.11755471"
-     inkscape:cx="2437.3964"
-     inkscape:cy="680.02045"
+     inkscape:zoom="0.16624747"
+     inkscape:cx="1525.68"
+     inkscape:cy="1095.712"
      inkscape:window-x="-8"
      inkscape:window-y="-8"
      inkscape:window-maximized="1"
@@ -54,11 +55,26 @@
         fill-rule: evenodd;
       }
     </style>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath904">
+      <rect
+         style="fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:25"
+         id="rect906"
+         width="3880.1931"
+         height="1814.4486"
+         x="-3854.3008"
+         y="-2163.9446"
+         ry="0.122048"
+         transform="rotate(-179.96622)" />
+    </clipPath>
   </defs>
   <path
      id="Forma_1"
      data-name="Forma 1"
      class="cls-1"
-     d="M-250.006,91.048S302.986-80.442,657.372,74.516C1111.05,272.889,1316.36,172.363,1433,146,1809.87,60.82,2281.93.264,2761,212,3290.68,446.107,3960.39,34.394,3994-40l12,2248-4254,33Z"
-     style="fill:#ff0000;fill-opacity:0.77999997" />
+     d="m -2985.0382,481.67721 c 0,0 925.6635,-171.49 1518.8769,-16.532 759.4199,198.373 1103.09212,97.847 1298.33797,71.484 630.84972,-85.18 1421.03973,-145.736 2222.96383,66 886.6412,234.107 2007.6812,-177.606 2063.9415,-252 l 20.0871,2248.00009 -7120.8494,33 z"
+     style="fill:#ff2a2a;fill-opacity:1;fill-rule:evenodd;stroke-width:1.2938"
+     clip-path="url(#clipPath904)"
+     transform="matrix(1.6051587,0.00750063,-0.01204003,0.99997187,-1096.0195,4.9678459)" />
 </svg>
