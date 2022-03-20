@@ -1,6 +1,5 @@
-#from apps.company.utilities.data_flow.Question import Question
-#from apps.company.utilities.data_flow.Flow import Flow
-from Question import Question, Flow
+from apps.company.utilities.data_flow.Question import Question, Flow
+#from Question import Question, Flow
 
 def readFile(txt):
     f = open(txt,"r",encoding='utf-8')
