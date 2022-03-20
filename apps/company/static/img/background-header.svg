@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="3840"
+   height="2160"
+   viewBox="0 0 3840 2160"
+   version="1.1"
+   id="svg7"
+   sodipodi:docname="background-header.svg"
+   inkscape:version="1.0.2-2 (e86c870879, 2021-01-15)">
+  <metadata
+     id="metadata11">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1366"
+     inkscape:window-height="697"
+     id="namedview9"
+     showgrid="false"
+     inkscape:zoom="0.11263879"
+     inkscape:cx="1898.8391"
+     inkscape:cy="1531.9872"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg7"
+     inkscape:document-rotation="0" />
+  <defs
+     id="defs4">
+    <style
+       id="style2">
+      .cls-1 {
+        fill: #eff3f5;
+        fill-rule: evenodd;
+      }
+    </style>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath10">
+      <rect
+         style="fill:#ffffff;fill-opacity:0;stroke:#ffffff;stroke-width:25"
+         id="rect12"
+         width="3861.9023"
+         height="2157.3386"
+         x="-8.8779364"
+         y="8.8779364"
+         ry="0.122048" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath10-4">
+      <rect
+         style="fill:#ffffff;fill-opacity:0;stroke:#ffffff;stroke-width:25"
+         id="rect12-0"
+         width="3861.9023"
+         height="2157.3386"
+         x="-8.8779364"
+         y="8.8779364"
+         ry="0.122048" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath10-1">
+      <rect
+         style="fill:#ffffff;fill-opacity:0;stroke:#ffffff;stroke-width:25"
+         id="rect12-5"
+         width="3861.9023"
+         height="2157.3386"
+         x="-8.8779364"
+         y="8.8779364"
+         ry="0.122048" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath904">
+      <rect
+         style="fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:25"
+         id="rect906"
+         width="3880.1931"
+         height="1814.4486"
+         x="-3854.3008"
+         y="-2163.9446"
+         ry="0.122048"
+         transform="rotate(-179.96622)" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath908">
+      <rect
+         style="fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:20.1957"
+         id="rect910"
+         width="2763.6699"
+         height="1662.4487"
+         x="-3622.0181"
+         y="-2122.0444"
+         ry="0.1118238"
+         transform="rotate(-179.96622)" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath904-0">
+      <rect
+         style="fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:25"
+         id="rect906-4"
+         width="3880.1931"
+         height="1814.4486"
+         x="-3854.3008"
+         y="-2163.9446"
+         ry="0.122048"
+         transform="rotate(-179.96622)" />
+    </clipPath>
+  </defs>
+  <path
+     id="Forma_1-7"
+     data-name="Forma 1"
+     class="cls-1"
+     d="m -2985.0382,481.67721 c 0,0 925.6635,-171.49 1518.8769,-16.532 759.4199,198.373 1103.09212,97.847 1298.33797,71.484 630.84972,-85.18 1421.03973,-145.736 2222.96383,66 886.6412,234.107 2007.6812,-177.606 2063.9415,-252 l 20.0871,2248.00009 -7120.8494,33 z"
+     style="fill:#ff7f2a;fill-opacity:0.78;fill-rule:evenodd;stroke-width:1.2938"
+     clip-path="url(#clipPath908)"
+     transform="matrix(-1.404,6.434775e-4,-8.2775952e-4,-1.0914311,5075.9016,2321.5942)" />
+  <path
+     id="Forma_1"
+     data-name="Forma 1"
+     class="cls-1"
+     d="m -2985.0382,481.67721 c 0,0 925.6635,-171.49 1518.8769,-16.532 759.4199,198.373 1103.09212,97.847 1298.33797,71.484 630.84972,-85.18 1421.03973,-145.736 2222.96383,66 886.6412,234.107 2007.6812,-177.606 2063.9415,-252 l 20.0871,2248.00009 -7120.8494,33 z"
+     style="fill:#ff2a2a;fill-opacity:1;stroke-width:1.2938"
+     clip-path="url(#clipPath904)"
+     transform="rotate(179.96622,1922.1243,1085.3032)" />
+</svg>

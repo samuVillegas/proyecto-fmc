@@ -1,52 +1,102 @@
 from django.shortcuts import render, redirect
-from apps.company.utilities.choose_type.Group import getQuestions
+from django.contrib import messages
 
 from .models import Building
+from apps.company.utilities.choose_type.Group import getQuestions
+from apps.company.utilities.input_request import get_building_information
 
-# Create your views here
 def index(request):
-    return render(request,"pages/index.html",{'message':'Hola mundo'})
+    return render(request,"pages/index.html")
 
-def site_parameterization(request): 
+def site_parameterization(request):
     current_question = getQuestions([])
     return render(request,"pages/site_parameterization.html",{'current_question':current_question})
 
-def search_building(request): 
-    buildings_list = Building.objects.all()
-    return render(request,"pages/search_building.html", {"buildings_list":buildings_list})
+def site_parameterization_from_edit(request, building_id, building_name):
+    current_question = getQuestions([])
+    return render(request,"pages/site_parameterization.html",{'current_question':current_question, 'building_id': building_id, 'building_name': building_name})
 
-def search_key(request):
+def search_building(request):
+    searchTerm = request.GET.get('searchTerm')
+
+    if searchTerm:
+        buildings_list = Building.objects.filter(site_name__icontains=searchTerm)
+    else:
+        buildings_list = Building.objects.all()
+
+    return render(request,"pages/search_building.html", {"buildings_list":buildings_list, "searchTerm":searchTerm   })
+
+def search_key(request, building_id, building_name):
     current_ids = request.POST.get('current_ids')
     split_current_ids = current_ids.split(',')
     current_question = getQuestions(split_current_ids)
-    return render(request,"pages/site_parameterization.html",{'current_question':current_question})
+    return render(request,"pages/site_parameterization.html",{'current_question':current_question, 'building_id':building_id, 'building_name':building_name})
 
 def site_information(request):
     return render(request,"pages/site_information.html")
 
 def add_building(request):
-    site_name = request.POST['site_name']
-    address = request.POST['address']
-    contact_email = request.POST['contact_email']
-    contact_mobile_number = request.POST['contact_mobile_number']
+    building_information_list = get_building_information(request)
+    try:
+        Building.objects.filter(site_name__iexact=building_information_list[0]).get()
+        messages.error(request, 'Edificio ya existe')
+    except:
+        Building.objects.create(site_name=building_information_list[0],address=building_information_list[1],contact_email=building_information_list[2], contact_mobile_number=building_information_list[3])
+        messages.success(request, 'Edificio creado con exito')
 
-    building = Building.objects.create(
-            site_name=site_name,address=address,contact_email=contact_email, contact_mobile_number=contact_mobile_number)
+    return render(request, 'pages/site_information.html')
 
-    return redirect('/')
+def edition_building(request, building_id):
+    building = Building.objects.get(code=building_id)
+    return render(request, "pages/edit_building.html", {'building':building})
+
+def edit_building(request, building_id):
+    building_information_list = get_building_information(request)
+
+    try:
+        Building.objects.filter(site_name__iexact=building_information_list[0]).get()
+        messages.error(request, 'Existe un edificio con el mismo nombre')
+    except:
+        building = Building.objects.get(code=building_id)
+        building.site_name = building_information_list[0]
+        building.address = building_information_list[1]
+        building.contact_email = building_information_list[2]
+        building.contact_mobile_number = building_information_list[3]
+        building.save()
+        messages.success(request, 'Edificio editado con exito')
+
+    return redirect('/company/search_building')
 
 def add_building_type(request):
-    site_name = request.POST['site_name']
-    address = request.POST['address']
-    contact_email = request.POST['contact_email']
-    contact_mobile_number = request.POST['contact_mobile_number']
+    building_information_list = get_building_information(request)
+    building = None
 
-    building = Building.objects.create(
-            site_name=site_name,address=address,contact_email=contact_email, contact_mobile_number=contact_mobile_number)
-    current_question = getQuestions([])
-    return render(request,"pages/site_parameterization.html",{'building_id': building.code, 'building_name': site_name, 'current_question': current_question})
+    try:
+        Building.objects.filter(site_name__iexact=building_information_list[0]).get()
+        messages.error(request, 'Edificio ya existe')
+        return render(request, 'pages/site_information.html')
+    except:
+        building = Building.objects.create(site_name=building_information_list[0],address=building_information_list[1],contact_email=building_information_list[2], contact_mobile_number=building_information_list[3])
+        current_question = getQuestions([])
+        return render(request,"pages/site_parameterization.html",{'building_id': building.code, 'building_name': building.site_name, 'current_question':current_question})
 
-def set_building_type(request):
-    #print(request.POST['building_name'])
-    #building.site_type = building_type
-    return redirect('/')
+def set_building_type(request, building_id, building_type):
+    building = Building.objects.get(code=building_id)
+    building.site_type = building_type
+    building.save()
+
+    messages.success(request, 'Edificio creado con caracterizacion')
+    return redirect('/company/search_building')
+
+def delete_building(request):
+    code_building = request.POST.get('delete_id_item')
+    building = Building.objects.get(code=code_building)
+    building.delete()
+
+    messages.success(request, 'Edificio eliminado con exito')
+    return redirect('/company/search_building')
+
+def view_building_information(request, building_id):
+    building = Building.objects.get(code=building_id)
+
+    return render(request, "pages/view_building_information.html", {'building':building})

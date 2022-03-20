@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="3840"
+   height="2160"
+   viewBox="0 0 3840 2160"
+   version="1.1"
+   id="svg7"
+   sodipodi:docname="background-footer.svg"
+   inkscape:version="1.0.2-2 (e86c870879, 2021-01-15)">
+  <metadata
+     id="metadata11">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1366"
+     inkscape:window-height="697"
+     id="namedview9"
+     showgrid="false"
+     inkscape:zoom="0.16624747"
+     inkscape:cx="1525.68"
+     inkscape:cy="1095.712"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg7" />
+  <defs
+     id="defs4">
+    <style
+       id="style2">
+      .cls-1 {
+        fill: #eff3f5;
+        fill-rule: evenodd;
+      }
+    </style>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath904">
+      <rect
+         style="fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:25"
+         id="rect906"
+         width="3880.1931"
+         height="1814.4486"
+         x="-3854.3008"
+         y="-2163.9446"
+         ry="0.122048"
+         transform="rotate(-179.96622)" />
+    </clipPath>
+  </defs>
+  <path
+     id="Forma_1"
+     data-name="Forma 1"
+     class="cls-1"
+     d="m -2985.0382,481.67721 c 0,0 925.6635,-171.49 1518.8769,-16.532 759.4199,198.373 1103.09212,97.847 1298.33797,71.484 630.84972,-85.18 1421.03973,-145.736 2222.96383,66 886.6412,234.107 2007.6812,-177.606 2063.9415,-252 l 20.0871,2248.00009 -7120.8494,33 z"
+     style="fill:#ff2a2a;fill-opacity:1;fill-rule:evenodd;stroke-width:1.2938"
+     clip-path="url(#clipPath904)"
+     transform="matrix(1.6051587,0.00750063,-0.01204003,0.99997187,-1096.0195,4.9678459)" />
+</svg>
