@@ -1,5 +1,5 @@
-#from apps.company.utilities.choose_type.Question import Question
-from Question import Question
+from apps.company.utilities.choose_type.Question import Question
+#from Question import Question
 
 def readFile(txt):
     f = open(txt,"r",encoding='utf-8')
