@@ -15,4 +15,6 @@ urlpatterns = [
     path('site_parameterization_from_edit/<building_id>/<building_name>',views.site_parameterization_from_edit),
     path('delete_building', views.delete_building),
     path('view_building_information/<building_id>', views.view_building_information),
+    path('site_inspection/<building_name>/<building_type>/<building_id>', views.site_inspection),
+    path('choose_regulation/<building_name>/<building_type>/<building_id>', views.choose_regulation),
 ]

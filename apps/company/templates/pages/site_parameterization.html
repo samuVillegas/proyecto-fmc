@@ -9,6 +9,9 @@
                 <button type="submit"
                     onclick="this.form.action='/company/set_building_type/{{building_id}}/{{current_question.key}}';this.form.submit()"
                     class="btn btn-primary">Terminar</button>
+                <button type="submit"
+                    onclick="this.form.action='/company/choose_regulation/{{building_name}}/{{current_question.key}}/{{building_id}}';this.form.submit()"
+                    class="btn btn-primary">Inspeccionar</button>
                 {% else %}
                 <h6 class="text-center">{{current_question.question}}</h6>
                 <div id="options">

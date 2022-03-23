@@ -1,7 +1,7 @@
 {% extends 'containers/base.html' %}
 {% block body %}
 <div class="row">
-    <div class="col-md-4 offset-md-4">
+    <div class="col-md-5 offset-md-4">
         <h2>Edición de Curso</h2>
         <div class="card">
             <div class="card-body">
@@ -27,9 +27,10 @@
                       <button type="submit" class="btn btn-success btn-block text-white"
                         onclick="this.form.action='/company/edit_building/{{building.code}}';this.form.submit()" >Guardar</button>
                       <button type="submit" class="btn btn-success btn-block text-white"
-			onclick="this.form.action='/company/site_parameterization_from_edit/{{building.code}}/{{building.site_name}}';this.form.submit()" >Cambiar tipo</button>
+			                  onclick="this.form.action='/company/site_parameterization_from_edit/{{building.code}}/{{building.site_name}}';this.form.submit()" >Cambiar tipo</button>
+                      <button type="submit" class="btn btn-success btn-block text-white">Nueva inspeccion</button>
                       <button type="submit" class="btn btn-danger btn-block text-white"
-					    onclick="this.form.action='/company/search_building';this.form.submit()" >Cancelar</button>
+					              onclick="this.form.action='/company/search_building';this.form.submit()" >Cancelar</button>
                     </div>
                 </form>
             </div>

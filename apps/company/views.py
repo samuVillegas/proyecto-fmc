@@ -3,6 +3,7 @@ from django.contrib import messages
 
 from .models import Building
 from apps.company.utilities.choose_type.Group import getQuestions
+from apps.company.utilities.data_flow.DataFlow import getQuestions as getQuestionsInsp
 from apps.company.utilities.input_request import get_building_information
 
 def index(request):
@@ -12,9 +13,23 @@ def site_parameterization(request):
     current_question = getQuestions([])
     return render(request,"pages/site_parameterization.html",{'current_question':current_question})
 
+def choose_regulation(request, building_name, building_type, building_id):
+    building = Building.objects.get(code=building_id)
+    building.site_type = building_type
+    building.save()
+
+    return render(request, "pages/site_choose_regulation.html",{'building_id': building_id, 'building_name': building_name, 'building_type': building_type})
+
+def site_inspection(request, building_name, building_type, building_id):
+    current_question = getQuestionsInsp([], building_type)
+    #print(current_question)
+    return render(request,"pages/site_inspection.html", {'current_question_insp':current_question, 
+                    'building_id': building_id, 'building_name': building_name, 'building_type': building_type})
+
 def site_parameterization_from_edit(request, building_id, building_name):
     current_question = getQuestions([])
-    return render(request,"pages/site_parameterization.html",{'current_question':current_question, 'building_id': building_id, 'building_name': building_name})
+    return render(request,"pages/site_parameterization.html",{'current_question':current_question , 
+                    'building_name': building_name, 'building_type': building_type})
 
 def search_building(request):
     searchTerm = request.GET.get('searchTerm')
