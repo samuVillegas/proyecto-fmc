@@ -22,7 +22,7 @@ Ninguna de las anteriores
 E
 
 A F C
-¿Trata con materiales peligrosos pertenecientes a la siguiente lista? 
+¿Trata con materiales peligrosos pertenecientes a la siguiente lista? [lista de P]
 [lista de P]
 Si 
 P
@@ -30,7 +30,7 @@ No
 A F C
 
 A
-¿Utiliza uno o más de los siguientes materiales? 
+¿Utiliza uno o más de los siguientes materiales? [lista de A1]
 [lista de A1]
 Si
 A1
@@ -38,7 +38,7 @@ No
 A
 
 A
-¿Utiliza uno o más de los siguientes materiales? 
+¿Utiliza uno o más de los siguientes materiales? [lista de A2]
 [lista de A2]
 Si
 A2
@@ -46,7 +46,7 @@ No
 E
 
 F
-¿Utiliza uno o más de los siguientes materiales? 
+¿Utiliza uno o más de los siguientes materiales? [lista de F1]
 [lista de F1]
 Si
 F1
@@ -54,7 +54,7 @@ No
 F
 
 F
-¿Es alguna de estas industrias? 
+¿Es alguna de estas industrias? [lista de F2]
 [lista de F2]
 Si
 F2
@@ -62,7 +62,7 @@ No
 E
 
 C
-¿Se ofrecen principalmente servicios o bienes? 
+¿Se ofrecen principalmente servicios o bienes? [listas en C]
 [listas en C]
 Servicios
 C1
@@ -70,7 +70,7 @@ Bienes
 C2
 
 L
-¿Qué tipo de reuniones? 
+¿Qué tipo de reuniones? [listas en L]
 [listas en L]
 Deportivos
 L1
@@ -106,7 +106,7 @@ R1
 R
 
 R
-¿Pertenece a alguno de estos grupos? 
+¿Pertenece a alguno de estos grupos? [lista en R3]
 [lista en R3]
 Si 
 R3
