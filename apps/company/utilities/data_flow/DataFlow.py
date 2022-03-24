@@ -39,18 +39,20 @@ def typeFlow(f):
 
 def getQuestions(list, key):
     fullFlow = readFile('apps/company/utilities/data_flow/Flow.txt')
-    flow = ''
+    flow = []
+    references = []
     cont = 0
     for q in fullFlow:
         if key in q.lock:
-            if cont == len(list):
-                return {'question':q.question,'options':q.options,'exist_key':False}
-            if hasattr(q, 'law'):
-                flow += q.law + '\n'
+            if cont == len(list) and isinstance(q,Question):
+                return {'question':q.question,'options':q.options,'image':q.image,'exist_flow':False}
+            if isinstance(q,Flow):
+                flow.append(q.law)
             else:
-                flow += q.select(int(list[cont]) - 1) + '\n'
+                flow.append(q.select(int(list[cont])-1))
                 cont += 1
-    return {'exist_flow':True,'flow':flow}
+            references.append(q.reference)
+    return {'exist_flow':True,'flow':flow, 'references':references, 'law':q.lock}
 
 #Testing
 def FindGroup(key):

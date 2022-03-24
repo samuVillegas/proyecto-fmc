@@ -1,7 +1,7 @@
 11
 
 ¿A cuál de estas categorías pertenece el lugar?
-[]
+img/questions_assets/undraw_houses-3-_xwf7.svg
 Almacenamiento
 A
 Fabricación o industrial
@@ -23,7 +23,7 @@ E
 
 A F C
 ¿Trata con materiales peligrosos pertenecientes a la siguiente lista? 
-[lista de P]
+Productos combustibles Industrias de plásticos Explosivos;Productos inflamables Álcalis Ropa sintética;Productos explosivos Ácidos Polvorerias;Productos corrosivos Gas acetileno Cerillas;Productos tóxicos Productos piroxílicos Procesadoras de papel;Industrias de armas y municiones Estaciones de gasolina Expendios de Cocinol;Productos químicos tóxicos Depósitos de algodón Aceites;Destilerías Kerosene;Industrias de pinturas y esmaltes Expendios de combustibles
 Si 
 P
 No
@@ -31,7 +31,7 @@ A F C
 
 A
 ¿Utiliza uno o más de los siguientes materiales? 
-[lista de A1]
+Papel Muebles Cera;Vestidos Maderas Pieles;Zapatos Linóleo Establos y galpones;Paja Azúcares Estacionamientos;Cuero Seda Talleres mecánicos;Cartón;Tabaco Productos fotográficos;Adhesivos Cigarrillos Otros similares;Cales Granos
 Si
 A1
 No
@@ -39,7 +39,7 @@ A
 
 A
 ¿Utiliza uno o más de los siguientes materiales? 
-[lista de A2]
+Asbestos;Productos alimenticios;Vidrio;Metales;Porcelana;Talcos;Otros similares
 Si
 A2
 No
@@ -47,7 +47,7 @@ E
 
 F
 ¿Utiliza uno o más de los siguientes materiales? 
-[lista de F1]
+Plantas de asfalto Cueros;Industria farmacéutica Papel;Lavanderías y tintorerías Tabaco;Subestaciones eléctricas Plásticos y cauchos;Madera Textil;Elementos fotográficos Automotriz;Vidrio Otros similares;Gráficas Industria metal mecánica
 Si
 F1
 No
@@ -55,7 +55,7 @@ F
 
 F
 ¿Es alguna de estas industrias? 
-[lista de F2]
+Industrias alimenticias;Industria artesanal
 Si
 F2
 No
@@ -63,7 +63,7 @@ E
 
 C
 ¿Se ofrecen principalmente servicios o bienes? 
-[listas en C]
+Bancos;Consultorios;Salas de belleza y afines;Aseguradoras;Oficinas;Edificaciones administrativas;Tiendas;Mercados;Supermercados;Centros comerciales;Farmacias;Centros de distribución al detal y por mayor;Otros similares
 Servicios
 C1
 Bienes
@@ -85,7 +85,7 @@ L5
 
 I
 A cuál de estos grupos pertenece la institución?
-[]
+img/questions_assets/buildings_institutions.svg
 Reclusión
 I1
 Salud o incapacidad
@@ -99,7 +99,7 @@ I5
 
 R
 ¿Cuántas personas pueden llegar a vivir en el lugar?
-[]
+img/questions_assets/undraw_people_re_8spw.svg
 Menos de 20
 R1
 20 o mas 
@@ -107,7 +107,7 @@ R
 
 R
 ¿Pertenece a alguno de estos grupos? 
-[lista en R3]
+Hoteles;Pensiones;Apartahoteles;Moteles;Hospederías
 Si 
 R3
 No 

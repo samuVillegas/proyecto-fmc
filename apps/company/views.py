@@ -3,6 +3,7 @@ from django.contrib import messages
 
 from .models import Building
 from apps.company.utilities.choose_type.Group import getQuestions
+from apps.company.utilities.data_flow.DataFlow import getQuestions as getQuestionsInsp
 from apps.company.utilities.input_request import get_building_information
 
 def index(request):
@@ -10,7 +11,9 @@ def index(request):
 
 def site_parameterization(request):
     current_question = getQuestions([])
-    return render(request,"pages/site_parameterization.html",{'current_question':current_question})
+    is_material_list = False
+
+    return render(request,"pages/site_parameterization.html",{'current_question':current_question, "is_material_list": is_material_list})
 
 def choose_regulation(request, building_name, building_type, building_id):
     building = Building.objects.get(code=building_id)
@@ -20,7 +23,9 @@ def choose_regulation(request, building_name, building_type, building_id):
     return render(request, "pages/site_choose_regulation.html",{'building_id': building_id, 'building_name': building_name, 'building_type': building_type})
 
 def site_national_inspection(request, building_name, building_type, building_id):
-    return render(request,"pages/site_inspection.html", {'building_id': building_id, 'building_name': building_name, 'building_type': building_type})
+    current_question = getQuestionsInsp([], building_type)
+    print(current_question)
+    return render(request,"pages/site_inspection.html", {'building_id': building_id, 'building_name': building_name, 'building_type': building_type, "is_national_regulation": True, "current_question":current_question})
 
 def site_parameterization_from_edit(request, building_id, building_name):
     current_question = getQuestions([])
@@ -41,7 +46,14 @@ def search_key(request, building_id, building_name):
     current_ids = request.POST.get('current_ids')
     split_current_ids = current_ids.split(',')
     current_question = getQuestions(split_current_ids)
-    return render(request,"pages/site_parameterization.html",{'current_question':current_question, 'building_id':building_id, 'building_name':building_name})
+    is_material_list = False
+    try:
+        if 'img' not in current_question['image']:
+            is_material_list = True
+            current_question['image'] = current_question['image'].split(';')
+    except:
+        print("error")
+    return render(request,"pages/site_parameterization.html",{'current_question':current_question, 'building_id':building_id, 'building_name':building_name, "is_material_list": is_material_list})
 
 def site_information(request):
     return render(request,"pages/site_information.html")

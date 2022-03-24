@@ -28,7 +28,7 @@ def getQuestions(list):
     for q in questions:
         if key in q.lock:
             if cont == len(list):
-                return {'question':q.question,'options':q.options,'exist_key':False}
+                return {'question':q.question,'options':q.options, 'image':q.image,'exist_key':False}
             else:
                 selected = q.select(int(list[cont]) - 1)
                 cont+=1
