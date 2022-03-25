@@ -24,13 +24,14 @@ def choose_regulation(request, building_name, building_type, building_id):
 
 def site_national_inspection(request, building_name, building_type, building_id):
     current_question = getQuestionsInsp([], building_type)
-    print(current_question)
+    #print(current_question)
     return render(request,"pages/site_inspection.html", {'building_id': building_id, 'building_name': building_name, 'building_type': building_type, "is_national_regulation": True, "current_question":current_question})
 
 def site_parameterization_from_edit(request, building_id, building_name):
     current_question = getQuestions([])
+    is_material_list = False
     return render(request,"pages/site_parameterization.html",{'current_question':current_question , 
-                    'building_name': building_name, 'building_type': building_type})
+                    'building_name': building_name, 'building_type': building_type, "is_material_list": is_material_list})
 
 def search_building(request):
     searchTerm = request.GET.get('searchTerm')
@@ -54,6 +55,12 @@ def search_key(request, building_id, building_name):
     except:
         print("error")
     return render(request,"pages/site_parameterization.html",{'current_question':current_question, 'building_id':building_id, 'building_name':building_name, "is_material_list": is_material_list})
+
+def search_flow(request, building_id, building_name, building_type):
+    current_ids = request.POST.get('current_ids_flow')
+    split_current_ids = current_ids.split(',')
+    current_question = getQuestionsInsp(split_current_ids, building_type)
+    return render(request,"pages/site_inspection.html",{'current_question':current_question, 'building_id':building_id, 'building_name':building_name, "building_type": building_type})
 
 def site_information(request):
     return render(request,"pages/site_information.html")
