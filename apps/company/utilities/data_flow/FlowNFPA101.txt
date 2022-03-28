@@ -128,6 +128,7 @@ Pregunta
 A1 A2 C1 C2 F1 F2 L1 L2 L3 L4 L5 I1 I2 I3 I4 I5 R1 R2 R3 E
 J.4.2.9
 Tiene aire acondicionado?
+[]
 Si
 Se deberá disponer de detectores de humo en los ductos principales, que actúen desconectando automáticamente el sistema. Adicionalmente se dispondrá de un tablero de desconexión del sistema central de aire acondicionado ubicado adyacente al tablero general eléctrico y para el uso exclusivo del cuerpo de bomberos.
 No

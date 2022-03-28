@@ -1,0 +1,114 @@
+11
+
+¿A cuál de estas categorías pertenece el lugar?
+img/questions_assets/undraw_houses-3-_xwf7.svg
+Almacenamiento
+A
+Fabricación o industrial
+F
+Comercial
+C
+Lugar de reunión
+L
+Institucional
+I
+Residencial
+R
+Mas de una de las anteriores
+M
+Cambia constantemente
+T
+Ninguna de las anteriores
+E
+
+A F C
+¿Trata con materiales peligrosos pertenecientes a la siguiente lista? 
+Productos combustibles Industrias de plásticos Explosivos;Productos inflamables Álcalis Ropa sintética;Productos explosivos Ácidos Polvorerias;Productos corrosivos Gas acetileno Cerillas;Productos tóxicos Productos piroxílicos Procesadoras de papel;Industrias de armas y municiones Estaciones de gasolina Expendios de Cocinol;Productos químicos tóxicos Depósitos de algodón Aceites;Destilerías Kerosene;Industrias de pinturas y esmaltes Expendios de combustibles
+Si 
+P
+No
+A F C
+
+A
+¿Utiliza uno o más de los siguientes materiales? 
+Papel Muebles Cera;Vestidos Maderas Pieles;Zapatos Linóleo Establos y galpones;Paja Azúcares Estacionamientos;Cuero Seda Talleres mecánicos;Cartón;Tabaco Productos fotográficos;Adhesivos Cigarrillos Otros similares;Cales Granos
+Si
+A1
+No
+A
+
+A
+¿Utiliza uno o más de los siguientes materiales? 
+Asbestos;Productos alimenticios;Vidrio;Metales;Porcelana;Talcos;Otros similares
+Si
+A2
+No
+E
+
+F
+¿Utiliza uno o más de los siguientes materiales? 
+Plantas de asfalto Cueros;Industria farmacéutica Papel;Lavanderías y tintorerías Tabaco;Subestaciones eléctricas Plásticos y cauchos;Madera Textil;Elementos fotográficos Automotriz;Vidrio Otros similares;Gráficas Industria metal mecánica
+Si
+F1
+No
+F
+
+F
+¿Es alguna de estas industrias? 
+Industrias alimenticias;Industria artesanal
+Si
+F2
+No
+E
+
+C
+¿Se ofrecen principalmente servicios o bienes? 
+Bancos;Consultorios;Salas de belleza y afines;Aseguradoras;Oficinas;Edificaciones administrativas;Tiendas;Mercados;Supermercados;Centros comerciales;Farmacias;Centros de distribución al detal y por mayor;Otros similares
+Servicios
+C1
+Bienes
+C2
+
+L
+¿Qué tipo de reuniones? 
+[listas en L]
+Deportivos
+L1
+Culturales o de teatro
+L2
+Sociales o recreativos
+L3
+Religiosos
+L4
+De transporte
+L5
+
+I
+A cuál de estos grupos pertenece la institución?
+img/questions_assets/buildings_institutions.svg
+Reclusión
+I1
+Salud o incapacidad
+I2 
+Educación
+I3
+Seguridad pública
+I4
+Servicio público
+I5
+
+R
+¿Cuántas personas pueden llegar a vivir en el lugar?
+img/questions_assets/undraw_people_re_8spw.svg
+Menos de 20
+R1
+20 o mas 
+R
+
+R
+¿Pertenece a alguno de estos grupos? 
+Hoteles;Pensiones;Apartahoteles;Moteles;Hospederías
+Si 
+R3
+No 
+R2

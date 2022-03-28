@@ -1,5 +1,7 @@
 from apps.company.utilities.data_flow.Question import Question, Flow
 #from Question import Question, Flow
+import os
+dir = os.path.dirname(os.path.realpath(__file__))
 
 def readFile(txt):
     f = open(txt,"r",encoding='utf-8')
@@ -37,8 +39,8 @@ def typeFlow(f):
     return flow
 
 
-def getQuestions(list, key):
-    fullFlow = readFile('apps/company/utilities/data_flow/Flow.txt')
+def getQuestions(list, law, key):
+    fullFlow = readFile(dir + '/Flow' + law + '.txt')
     flow = []
     references = []
     cont = 0
@@ -55,9 +57,8 @@ def getQuestions(list, key):
     return {'exist_flow':True,'flow':flow, 'references':references, 'law':q.lock}
 
 #Testing
-def FindGroup(key):
-    #fullFlow = readFile('apps\\company\\utilities\\data_flow\\Flow.txt')
-    fullFlow = readFile('apps/company/utilities/data_flow/Flow.txt')
+def FindGroup(law, key):
+    fullFlow = readFile(dir + '/Flow' + law + '.txt')
     flow = ''
     for q in fullFlow:
         if key in q.lock:
@@ -76,4 +77,4 @@ def FindGroup(key):
 
     print('\n' + flow)
 
-#FindGroup('C2')
+#FindGroup('NSR10','C2')

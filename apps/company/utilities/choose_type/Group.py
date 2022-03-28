@@ -1,5 +1,7 @@
 from apps.company.utilities.choose_type.Question import Question
 #from Question import Question
+import os
+dir = os.path.dirname(os.path.realpath(__file__))
 
 def readFile(txt):
     f = open(txt,"r",encoding='utf-8')
@@ -21,8 +23,8 @@ def readFile(txt):
     return questions
 
 
-def getQuestions(list):
-    questions = readFile('apps/company/utilities/choose_type/Group.txt')
+def getQuestions(list, law):
+    questions = readFile(dir + '/Group' + law + '.txt')
     key = ''
     cont = 0
     for q in questions:
@@ -38,9 +40,8 @@ def getQuestions(list):
 
 
 #Testing
-def FindGroup():
-    #questions = readFile('apps\\company\\utilities\\choose_type\\Group.txt')
-    questions = readFile('Group.txt')
+def FindGroup(law):
+    questions = readFile(dir + '/Group' + law + '.txt')
     key = ''
     for q in questions:
         if key in q.lock:
@@ -59,4 +60,4 @@ def FindGroup():
             print()
     print('Pertenece al grupo ' + key)
 
-#FindGroup()
+#FindGroup('NSR10')
