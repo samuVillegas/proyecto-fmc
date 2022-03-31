@@ -1,0 +1,66 @@
+5
+
+¿A cuál de estas categorías pertenece el lugar?
+img/questions_assets/undraw_houses-3-_xwf7.svg
+Mercantil o productos
+Mercantil
+Negocios o servicios
+Negocios
+Industrial
+Industrial
+Almacenamiento
+Almacenamiento
+Residencial
+Residencial
+Reuniones Públicas
+Reuniones Públicas
+Educacional
+Educacional
+Salud
+Salud
+Detención
+Detención
+Mas de una de las anteriores
+Múltiple
+Ninguna de las anteriores
+E
+
+Residencial
+¿Que tipo de vivienda es? 
+Unidad de vivienda unifamiliar y bifamiliar. Edificio que contiene no más de dos unidades de vivienda con instalaciones independientes de cocina y baño;Edificio de apartamentos. Edificio o parte de éste que contiene tres o más unidades de vivienda con instalaciones de cocina y cuarto de baño independientes; Hotel. Edificio o grupos de edificios bajo la misma administración en el que existen acomodaciones para que duerman más de 16 personas y que es utilizado principalmente por ocupantes transitorios como alojamiento, con comidas o sin ellas;Dormitorio. Edificio o espacio en un edificio en el que se provee, en una misma habitación o en una serie de habitaciones cercanas asociadas, comodidades grupales para dormir a más de 16 personas, que no son miembros de la misma familia, bajo una administración única y para el conjunto colectivo, con comidas o sin ellas, pero sin instalaciones individuales para cocinar;Casas de huéspedes o pensión. Edificio o parte de un edificio que no califica como vivienda unifamiliar o bifamiliar, que provee acomodaciones para dormir para un total de 16 personas o menos, en un régimen transitorio o permanente, sin servicio de asistencia personal, con comidas o sin ellas, pero sin instalaciones separadas para cocinar para ocupantes individuales;Asilos y centros de acogida. Ocupación que se utiliza para brindar alojamiento y comida a cuatro o más residentes, sin relación de parentesco por sangre o matrimonio con los propietarios u operadores, con el fin de proporcionables servicios de asistencia personal.
+Unifamiliar o bifamiliar
+Familiar
+Edificio de apartamentos
+Apartamentos
+Hotel
+Hotel
+Dormitorio
+Dormitorio
+Casas de huéspedes o pensión
+Huéspedes
+Asilos y centros de acogida residenciales
+Asilos
+
+Reuniones Públicas
+¿Qué tipo de reuniones? 
+[listas en L]
+50 o más personas para deliberación, culto, entretenimiento, comida, bebida, diversión, espera de transporte o usos similares
+Reuniones Públicas Ocupación 1
+Edificio de divertimento especial
+Reuniones Públicas Ocupación 2
+
+Educacional
+Es una Guardería?
+img/questions_assets/buildings_institutions.svg
+Si
+Guardería
+No
+Educacional 
+
+Salud
+¿Hay pacientes internados en el lugar?
+img/questions_assets/undraw_people_re_8spw.svg
+Si, hay pacientes que son incapaces de autopreservación en una emergencia
+Salud
+No, los pacientes se retiran luego de recibir tratamiento
+Salud ambulatoria

@@ -1,5 +1,7 @@
 from apps.company.utilities.data_flow.Question import Question, Flow
 #from Question import Question, Flow
+import os
+dir = os.path.dirname(os.path.realpath(__file__))
 
 def readFile(txt):
     f = open(txt,"r",encoding='utf-8')
@@ -38,24 +40,26 @@ def typeFlow(f):
 
 
 def getQuestions(list, key):
-    fullFlow = readFile('apps/company/utilities/data_flow/Flow.txt')
-    flow = ''
+    law = 'NSR10'
+    fullFlow = readFile(dir + '/Flow' + law + '.txt')
+    flow = []
+    references = []
     cont = 0
     for q in fullFlow:
         if key in q.lock:
-            if cont == len(list):
-                return {'question':q.question,'options':q.options,'exist_key':False}
-            if hasattr(q, 'law'):
-                flow += q.law + '\n'
+            if cont == len(list) and isinstance(q,Question):
+                return {'question':q.question,'options':q.options,'image':q.image,'exist_flow':False}
+            if isinstance(q,Flow):
+                flow.append(q.law)
             else:
-                flow += q.select(int(list[cont]) - 1) + '\n'
+                flow.append(q.select(int(list[cont])-1))
                 cont += 1
-    return {'exist_flow':True,'flow':flow}
+            references.append(q.reference)
+    return {'exist_flow':True,'flow':flow, 'references':references, 'law':q.lock}
 
 #Testing
-def FindGroup(key):
-    #fullFlow = readFile('apps\\company\\utilities\\data_flow\\Flow.txt')
-    fullFlow = readFile('Flow.txt')
+def FindGroup(law, key):
+    fullFlow = readFile(dir + '/Flow' + law + '.txt')
     flow = ''
     for q in fullFlow:
         if key in q.lock:
@@ -74,4 +78,4 @@ def FindGroup(key):
 
     print('\n' + flow)
 
-#FindGroup('C2')
+#FindGroup('NSR10','C2')
