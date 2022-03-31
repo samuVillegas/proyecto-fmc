@@ -39,7 +39,8 @@ def typeFlow(f):
     return flow
 
 
-def getQuestions(list, law, key):
+def getQuestions(list, key):
+    law = 'NSR10'
     fullFlow = readFile(dir + '/Flow' + law + '.txt')
     flow = []
     references = []

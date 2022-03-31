@@ -23,7 +23,8 @@ def readFile(txt):
     return questions
 
 
-def getQuestions(list, law):
+def getQuestions(list):
+    law = 'NSR10'
     questions = readFile(dir + '/Group' + law + '.txt')
     key = ''
     cont = 0
