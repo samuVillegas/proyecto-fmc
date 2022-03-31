@@ -60,4 +60,4 @@ def FindGroup(law):
             print()
     print('Pertenece al grupo ' + key)
 
-#FindGroup('NSR10')
+#FindGroup('NFPA101')

@@ -1,114 +1,66 @@
-11
+5
 
 ¿A cuál de estas categorías pertenece el lugar?
 img/questions_assets/undraw_houses-3-_xwf7.svg
+Mercantil o productos
+Mercantil
+Negocios o servicios
+Negocios
+Industrial
+Industrial
 Almacenamiento
-A
-Fabricación o industrial
-F
-Comercial
-C
-Lugar de reunión
-L
-Institucional
-I
+Almacenamiento
 Residencial
-R
+Residencial
+Reuniones Públicas
+Reuniones Públicas
+Educacional
+Educacional
+Salud
+Salud
+Detención
+Detención
 Mas de una de las anteriores
-M
-Cambia constantemente
-T
+Múltiple
 Ninguna de las anteriores
 E
 
-A F C
-¿Trata con materiales peligrosos pertenecientes a la siguiente lista? 
-Productos combustibles Industrias de plásticos Explosivos;Productos inflamables Álcalis Ropa sintética;Productos explosivos Ácidos Polvorerias;Productos corrosivos Gas acetileno Cerillas;Productos tóxicos Productos piroxílicos Procesadoras de papel;Industrias de armas y municiones Estaciones de gasolina Expendios de Cocinol;Productos químicos tóxicos Depósitos de algodón Aceites;Destilerías Kerosene;Industrias de pinturas y esmaltes Expendios de combustibles
-Si 
-P
-No
-A F C
+Residencial
+¿Que tipo de vivienda es? 
+Unidad de vivienda unifamiliar y bifamiliar. Edificio que contiene no más de dos unidades de vivienda con instalaciones independientes de cocina y baño;Edificio de apartamentos. Edificio o parte de éste que contiene tres o más unidades de vivienda con instalaciones de cocina y cuarto de baño independientes; Hotel. Edificio o grupos de edificios bajo la misma administración en el que existen acomodaciones para que duerman más de 16 personas y que es utilizado principalmente por ocupantes transitorios como alojamiento, con comidas o sin ellas;Dormitorio. Edificio o espacio en un edificio en el que se provee, en una misma habitación o en una serie de habitaciones cercanas asociadas, comodidades grupales para dormir a más de 16 personas, que no son miembros de la misma familia, bajo una administración única y para el conjunto colectivo, con comidas o sin ellas, pero sin instalaciones individuales para cocinar;Casas de huéspedes o pensión. Edificio o parte de un edificio que no califica como vivienda unifamiliar o bifamiliar, que provee acomodaciones para dormir para un total de 16 personas o menos, en un régimen transitorio o permanente, sin servicio de asistencia personal, con comidas o sin ellas, pero sin instalaciones separadas para cocinar para ocupantes individuales;Asilos y centros de acogida. Ocupación que se utiliza para brindar alojamiento y comida a cuatro o más residentes, sin relación de parentesco por sangre o matrimonio con los propietarios u operadores, con el fin de proporcionables servicios de asistencia personal.
+Unifamiliar o bifamiliar
+Familiar
+Edificio de apartamentos
+Apartamentos
+Hotel
+Hotel
+Dormitorio
+Dormitorio
+Casas de huéspedes o pensión
+Huéspedes
+Asilos y centros de acogida residenciales
+Asilos
 
-A
-¿Utiliza uno o más de los siguientes materiales? 
-Papel Muebles Cera;Vestidos Maderas Pieles;Zapatos Linóleo Establos y galpones;Paja Azúcares Estacionamientos;Cuero Seda Talleres mecánicos;Cartón;Tabaco Productos fotográficos;Adhesivos Cigarrillos Otros similares;Cales Granos
-Si
-A1
-No
-A
-
-A
-¿Utiliza uno o más de los siguientes materiales? 
-Asbestos;Productos alimenticios;Vidrio;Metales;Porcelana;Talcos;Otros similares
-Si
-A2
-No
-E
-
-F
-¿Utiliza uno o más de los siguientes materiales? 
-Plantas de asfalto Cueros;Industria farmacéutica Papel;Lavanderías y tintorerías Tabaco;Subestaciones eléctricas Plásticos y cauchos;Madera Textil;Elementos fotográficos Automotriz;Vidrio Otros similares;Gráficas Industria metal mecánica
-Si
-F1
-No
-F
-
-F
-¿Es alguna de estas industrias? 
-Industrias alimenticias;Industria artesanal
-Si
-F2
-No
-E
-
-C
-¿Se ofrecen principalmente servicios o bienes? 
-Bancos;Consultorios;Salas de belleza y afines;Aseguradoras;Oficinas;Edificaciones administrativas;Tiendas;Mercados;Supermercados;Centros comerciales;Farmacias;Centros de distribución al detal y por mayor;Otros similares
-Servicios
-C1
-Bienes
-C2
-
-L
+Reuniones Públicas
 ¿Qué tipo de reuniones? 
 [listas en L]
-Deportivos
-L1
-Culturales o de teatro
-L2
-Sociales o recreativos
-L3
-Religiosos
-L4
-De transporte
-L5
+50 o más personas para deliberación, culto, entretenimiento, comida, bebida, diversión, espera de transporte o usos similares
+Reuniones Públicas Ocupación 1
+Edificio de divertimento especial
+Reuniones Públicas Ocupación 2
 
-I
-A cuál de estos grupos pertenece la institución?
+Educacional
+Es una Guardería?
 img/questions_assets/buildings_institutions.svg
-Reclusión
-I1
-Salud o incapacidad
-I2 
-Educación
-I3
-Seguridad pública
-I4
-Servicio público
-I5
+Si
+Guardería
+No
+Educacional 
 
-R
-¿Cuántas personas pueden llegar a vivir en el lugar?
+Salud
+¿Hay pacientes internados en el lugar?
 img/questions_assets/undraw_people_re_8spw.svg
-Menos de 20
-R1
-20 o mas 
-R
-
-R
-¿Pertenece a alguno de estos grupos? 
-Hoteles;Pensiones;Apartahoteles;Moteles;Hospederías
-Si 
-R3
-No 
-R2
+Si, hay pacientes que son incapaces de autopreservación en una emergencia
+Salud
+No, los pacientes se retiran luego de recibir tratamiento
+Salud ambulatoria
