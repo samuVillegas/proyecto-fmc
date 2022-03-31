@@ -1,0 +1,14 @@
+@media(min-width: 600px){
+    .login-container{
+        width: 25%;
+    }
+ }
+
+ @media(max-width: 600px){
+    .login-container{
+        width: 90%;
+    }
+    .login-container{
+        margin: 2px;
+    }
+ }
