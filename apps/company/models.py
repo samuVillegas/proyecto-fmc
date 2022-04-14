@@ -17,6 +17,7 @@ class Building(models.Model):
     contact_email=models.CharField(max_length=40, unique=False)
     contact_mobile_number=models.PositiveIntegerField(unique=False)
     site_type=models.CharField(max_length=3,null=True, default=None, unique=False)
+    regulation=models.CharField(max_length=7,null=True, default=None, unique=False)
     inspections = models.ForeignKey(Inspection, on_delete=models.CASCADE, null=True)
 
     class Meta:

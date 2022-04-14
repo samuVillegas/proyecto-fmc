@@ -30,7 +30,7 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Nombre</th>
-                <th scope="col">Direccion</th>
+                <th scope="col">Normativa</th>
                 <th scope="col">Categoria</th>
                 <th scope="col">Acción</th>
             </tr>
@@ -41,7 +41,7 @@
                 <tr>
                     <th scope="row">{{forloop.counter}}</th>
                     <td>{{b.site_name}}</td>
-                    <td>{{b.address}}</td>
+                    <td>{{b.regulation}}</td>
                     <td>{{b.site_type}}</td>
                     <td><a href="view_building_information/{{b.code}}" class="btn btn-info">Ver información</a></td>
                     <td><a href="edition_building/{{b.code}}" class="btn btn-info" onclick="clean_local()">Editar</a></td>

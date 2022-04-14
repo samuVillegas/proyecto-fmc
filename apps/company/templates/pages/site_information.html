@@ -38,11 +38,23 @@
               <label for="contact_mobile_number" class="form-label">Celular</label>
               <input name="contact_mobile_number" type="number" class="form-control" id="contact_mobile_number" aria-describedby="emailHelp" placeholder="123456789" value="{{building_number}}" required>
           </div>
-        <div>
+
+        <hr>
+
+        <div class="mb-5">
+          <label for="select1">Selecciona la normativa</label>
+          <select class="form-select" id="sel_regulation" name="sel_regulation" aria-label="Default select example">
+            <option value="NSR10">Normativa Nacional</option>
+            <option value="NFPA101">Normativa Internacional</option>
+          </select>
+        </div>
+
+        <div class="mt-2">
             <button type="submit" onclick="this.form.action='add_building';this.form.submit();" class="btn btn-success button_style">Guardar</button>
             <button type="submit"  onclick="this.form.action='add_building_type';this.form.submit();" class="btn btn-info button_style">Caracterizar establecimiento</button>
         </div>
       </form>
 </div>
+
 <script src="{% static 'scripts/notification.js' %}"></script>
 {% endblock %}
