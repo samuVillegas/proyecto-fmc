@@ -15,9 +15,10 @@ def login(request):
         if user and check_password(password,user[0].password):
             if user[0].is_superuser:
                 print('Admin')
-                return redirect('/company/')
+                return redirect('/administration/')
             else: 
                 print('Employee')
+                return redirect('/company/')
         else:
             messages.error(request,'No existen usuarios con esas credenciales')  
     return render(request,"pages/login.html")

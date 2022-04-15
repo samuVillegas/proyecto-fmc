@@ -1,0 +1,60 @@
+{% extends 'containers/base_admin.html' %}
+{% block body %}
+{% load static %}
+<div class="container">
+    <h1>Buscar edificio{% if searchTerm != None and searchTerm != '' %}: {{searchTerm}}{% endif %}
+    </h1>
+    {% if messages %}
+    {% for message in messages %}
+    {% if message.tags == 'error' %}
+    <div class="alert alert-dismissible alert-danger">
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        <strong class="text-dark">{{ message }}</strong>
+    </div>
+    {% else %}
+    <div class="alert alert-dismissible alert-success">
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        <strong class="text-dark">{{ message }}</strong>
+    </div>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+
+    <form class="d-flex" action="">
+        <input class="form-control me-2" type="search" placeholder="Nombre del edificio" aria-label="Search"
+            name="searchTerm">
+        <button class="btn btn-outline-success" type="submit">Buscar</button>
+    </form>
+    <table class="table mt-3" id="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Direccion</th>
+                <th scope="col">Categoria</th>
+                <th scope="col">Email de contacto</th>
+                <th scope="col">Telefono de contacto</th>
+            </tr>
+        </thead>
+        <div id="table-body">
+            <tbody>
+                {% for b in buildings_list %}
+                <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td>{{b.site_name}}</td>
+                    <td>{{b.address}}</td>
+                    <td>{{b.site_type}}</td>
+                    <td>{{b.contact_email}}</td>
+                    <td>{{b.contact_mobile_number}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </div>
+    </table>
+    {% if buildings_list|length == 0 and searchTerm%}
+    <h3 class="text-center">No hay edificios con el filtro '{{searchTerm}}'</h3>
+    {% endif %}
+
+</div>
+<script src="{% static 'scripts/notification.js' %}"></script>
+{% endblock %}
