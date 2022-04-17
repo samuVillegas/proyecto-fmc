@@ -1,7 +1,8 @@
+from cgi import print_directory
 from django.shortcuts import render, redirect
 from django.contrib import messages
 
-from .models import Building
+from .models import Building, Inspection
 from apps.company.utilities.choose_type.Group import getQuestions
 from apps.company.utilities.data_flow.DataFlow import getQuestions as getQuestionsInsp
 from apps.company.utilities.input_request import get_building_information
@@ -15,17 +16,25 @@ def index(request):
 
    # return render(request,"pages/site_parameterization.html",{'current_question':current_question, "is_material_list": is_material_list})
 
-def choose_regulation(request, building_name, building_type, building_id):
+#def choose_regulation(request, building_name, building_type, building_id):
+ #   building = Building.objects.get(code=building_id)
+  #  building.site_type = building_type
+   # building.save()
+
+    #return render(request, "pages/site_choose_regulation.html",{'building_id': building_id, 'building_name': building_name, 'building_type': building_type})
+
+#def site_national_inspection(request, building_name, building_type, building_id):
+    #current_question = getQuestionsInsp([], building_type)
+    #print(current_question)
+ #   return render(request,"pages/site_inspection.html", {'building_id': building_id, 'building_name': building_name, 'building_type': building_type, "is_national_regulation": True, "current_question":current_question})
+
+def site_inspection(request, building_name, building_type, building_regulation, building_id):
     building = Building.objects.get(code=building_id)
     building.site_type = building_type
     building.save()
-
-    return render(request, "pages/site_choose_regulation.html",{'building_id': building_id, 'building_name': building_name, 'building_type': building_type})
-
-def site_national_inspection(request, building_name, building_type, building_id):
-    #current_question = getQuestionsInsp([], building_type)
+    current_question =  getQuestionsInsp([], building_regulation, building_type)
     #print(current_question)
-    return render(request,"pages/site_inspection.html", {'building_id': building_id, 'building_name': building_name, 'building_type': building_type, "is_national_regulation": True, "current_question":current_question})
+    return render(request, "pages/site_inspection.html", {'current_question':current_question, 'building_id': building_id, 'building_name': building_name, 'building_type': building_type, 'building_regulation': building_regulation})
 
 def site_parameterization_from_edit(request, building_id, building_name, building_regulation):
     current_question = getQuestions([], building_regulation)
@@ -40,8 +49,15 @@ def search_building(request):
         buildings_list = Building.objects.filter(site_name__icontains=searchTerm)
     else:
         buildings_list = Building.objects.all()
+        inspections_list = Inspection.objects.all()
 
-    return render(request,"pages/search_building.html", {"buildings_list":buildings_list, "searchTerm":searchTerm   })
+        #for b in buildings_list:
+         #   inspections = Building.objects.get(site_name=b.site_name).inspection_set.all()
+          #  if(len(inspections) > 0):
+           #     inspection = inspections[len(inspections) - 1]
+            #    inspections_list.append(inspection)
+
+    return render(request,"pages/search_building.html", {"buildings_list":buildings_list, "inspections_list":inspections_list, "searchTerm":searchTerm})
 
 def search_key(request, building_id, building_name, building_regulation):
     current_ids = request.POST.get('current_ids')
@@ -56,11 +72,29 @@ def search_key(request, building_id, building_name, building_regulation):
         is_material_list = False
     return render(request,"pages/site_parameterization.html",{'current_question':current_question, 'building_id':building_id, 'building_name':building_name, 'building_regulation': building_regulation, "is_material_list": is_material_list})
 
-def search_flow(request, building_id, building_name, building_type):
-    current_ids = request.POST.get('current_ids_flow')
-    split_current_ids = current_ids.split(',')
-    current_question = getQuestionsInsp(split_current_ids, building_type)
-    return render(request,"pages/site_inspection.html",{'current_question':current_question, 'building_id':building_id, 'building_name':building_name, "building_type": building_type})
+def search_flow(request, building_id, building_name, building_type, building_regulation):
+    try:
+        current_ids = request.POST.get('current_ids_flow')
+        split_current_ids = current_ids.split(',')
+        current_question = getQuestionsInsp(split_current_ids, building_regulation, building_type)
+        return render(request,"pages/site_inspection.html",{'current_question':current_question, 'building_regulation': building_regulation, 'building_id':building_id, 'building_name':building_name, "building_type": building_type})
+    except:
+        current_final_ids = request.POST.get('ids_final_flow')
+        final_flow = request.POST.get('final_flow')
+        url = f"/company/check_inspection/{final_flow}/{current_final_ids}/{building_name}"
+        return redirect(url)
+
+def check_inspection(request, final_flow, current_final_ids, building_name):
+    list_option = current_final_ids.split(',')
+    flow = final_flow.split("', ")
+    is_inspection_succesfull = False
+
+    if len(list_option) == len(flow):
+         is_inspection_succesfull = True
+    
+    b = Building.objects.filter(site_name__iexact=building_name).get()
+    Inspection.objects.create(description=final_flow, is_inspection_successful=is_inspection_succesfull, building=b)
+    return redirect('/company/search_building')
 
 def site_information(request):
     return render(request,"pages/site_information.html")
@@ -146,5 +180,8 @@ def delete_building(request):
 
 def view_building_information(request, building_id):
     building = Building.objects.get(code=building_id)
-
-    return render(request, "pages/view_building_information.html", {'building':building})
+    insps = Building.objects.get(site_name=building.site_name).inspection_set.all()
+    inspection = ''
+    if len(insps) > 0:
+        inspection = insps[len(insps) - 1]
+    return render(request, "pages/view_building_information.html", {'building':building, 'inspection': inspection})

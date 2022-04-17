@@ -1,20 +1,23 @@
 {% extends 'containers/base.html' %}
 {% block body %}
+{% load static %}
 <div class="container">
-    <form action="/company/search_flow/{{building_id}}/{{building_name}}/{{building_type}}" method="POST">{% csrf_token %}
-    {% if current_question.exist_flow %}
-        <h3>Resultado de la inspeccion:</h3>
+    <form action="/company/search_flow/{{building_id}}/{{building_name}}/{{building_type}}/{{building_regulation}}" method="POST">{% csrf_token %}
+        {% if current_question.exist_flow %}
+        <h3>Seleccione solo los que cumple el edificio</h3>
         <div id="inspection_result">
             {% for f in current_question.flow %}
             <div class="form-check d-flex justify-content-center p-1">
-                <input class="form-check-input" type="checkbox" name="flexRadioDefault" id="{{forloop.counter}}">
-                <label class="form-check-label" for="{{forloop.counter}}">
+                <input class="form-check-input" type="checkbox" id="{{forloop.counter}}">
+                <label class="form-check-label" for="{{forloop.counter}}" id="{{forloop.counter}}">
                     {{f}}
                 </label>
             </div>
             {% endfor %}
-            <input id="current_ids" name="current_ids" value="" style="visibility: hidden;"></input>
         </div>
+        <input id="ids_final_flow" name="ids_final_flow" value="" style="visibility: hidden;"></input>
+        <input id="final_flow" name="final_flow" value="{{current_question.flow}}" style="visibility: hidden;"></input>
+        <button type="submit" id="set_flow" class="btn btn-primary" onclick="checking()">Siguiente</button>
     {% else %}
         <div class="container">
             <h4 class="text-center">Inspeccion del edificio {{building_name}} - Tipo {{building_type}}</h4>   
