@@ -38,6 +38,8 @@ def getQuestions(list, law):
                     key = selected
     return {'exist_key':True,'key':key}
 
+def getQuestions(law):
+    return readFile(dir + '/Group' + law + '.txt')
 
 #Testing
 def FindGroup(law):

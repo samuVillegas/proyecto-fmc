@@ -23,11 +23,14 @@ def law_interface(request):
             messages.error(request,'No existen usuarios con esas credenciales')  
     return render(request,"pages/login.html")
 
+from apps.company.utilities.choose_type.Group import getQuestions
 def login(request):
+    questions = getQuestions('NSR10')
     if request.method == 'POST':
-        form = ColorfulContactForm(request.POST)
+        form = ContactForm(request.POST)
         if form.is_valid():
             pass  # does nothing, just trigger the validation
     else:
-        form = ColorfulContactForm()
+        form = ContactForm()
+        form.initials(questions[1])
     return render(request, 'pages/law_interface.html', {'form': form})

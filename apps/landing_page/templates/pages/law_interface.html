@@ -12,18 +12,42 @@
   <table border="1">
 
       <tr>
-        <th>{{ form.name.label_tag }}</th>
+        <th>{{ form.lock.label_tag }}</th>
         <td>
-          {{ form.name.errors }}
-          {{ form.name }}
+          {{ form.lock.errors }}
+          {{ form.lock }}
         </td>
       </tr>
 
       <tr>
-        <th>{{ form.email.label_tag }}</th>
+        <th>{{ form.question.label_tag }}</th>
         <td>
-          {{ form.email.errors }}
-          {{ form.email }}
+          {{ form.question.errors }}
+          {{ form.question }}
+        </td>
+      </tr>
+
+      <tr>
+        <th>{{ form.image.label_tag }}</th>
+        <td>
+          {{ form.image.errors }}
+          {{ form.image }}
+        </td>
+      </tr>
+
+      <tr>
+        <th>{{ form.options.label_tag }}</th>
+        <td>
+          {{ form.options.errors }}
+          {{ form.options }}
+        </td>
+      </tr>
+
+      <tr>
+        <th>{{ form.outputs.label_tag }}</th>
+        <td>
+          {{ form.outputs.errors }}
+          {{ form.outputs }}
         </td>
       </tr>
 
