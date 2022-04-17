@@ -4,26 +4,28 @@ from apps.company.utilities.choose_type.Question import Question
 from apps.company.utilities.choose_type.Group import getQuestions
 
 class ContactForm(forms.Form):
-
-    #def __init__(self, quest, *args, **kwargs):
-
-    lock = forms.CharField(max_length=1000)
-    question = forms.CharField(max_length=1000)
-    image = forms.CharField(max_length=1000)
-    options = forms.CharField(max_length=1000)
-    outputs = forms.CharField(max_length=1000)
-
     source = forms.CharField(       # A hidden input for internal use
             max_length=50,              # tell from which page the user sent the message
             widget=forms.HiddenInput()
         )
-        
-    def initials(self, quest):
-        self.fields['lock'].initial = quest.lock
-        self.fields['question'].initial = quest.question
-        self.fields['image'].initial = quest.image
-        self.fields['options'].initial = quest.options
-        self.fields['outputs'].initial = quest.outputs
+
+    def initials(self, questions):
+        count = 1
+        for q in questions:
+            self.fields['lock' + str(count)] = forms.CharField()
+            self.fields['lock' + str(count)].initial = q.lock
+            self.fields['question' + str(count)] = forms.CharField()
+            self.fields['question' + str(count)].initial = q.question
+            self.fields['image' + str(count)] = forms.CharField()
+            self.fields['image' + str(count)].initial = q.image
+            count2 = 1
+            for opt, out in zip(q.options, q.outputs):
+                self.fields['options' + str(count) + '_' + str(count2)] = forms.CharField()
+                self.fields['options' + str(count) + '_' + str(count2)].initial = opt
+                self.fields['outputs' + str(count) + '_' + str(count2)] = forms.CharField()
+                self.fields['outputs' + str(count) + '_' + str(count2)].initial = out
+                count2 += 1
+            count += 1
 
     def clean(self):
         cleaned_data = super(ContactForm, self).clean()

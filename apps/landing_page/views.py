@@ -32,5 +32,5 @@ def login(request):
             pass  # does nothing, just trigger the validation
     else:
         form = ContactForm()
-        form.initials(questions[1])
+        form.initials(questions)
     return render(request, 'pages/law_interface.html', {'form': form})
