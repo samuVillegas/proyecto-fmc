@@ -23,6 +23,39 @@ function exists_id(id_actual){
     }
 }
 
+function check_id(id_actual, list_ids){
+    const split_id = list_ids.split(',')
+    let exist_id = false
+    for(let i = 0; i < split_id.length; i++){
+        if(id_actual == split_id[i]){
+            exist_id = true
+            split_id.splice(i,1)
+            break
+        }
+    }
+
+    if(exist_id == false){
+        if(list_ids != [] && id_actual != ''){
+            const temp = `${list_ids},${id_actual}`
+            localStorage.setItem('current_ids_final_flow',temp)
+        }else if(id_actual != ''){
+            localStorage.setItem('current_ids_final_flow',id_actual)
+        }else if(list_ids != []){
+            localStorage.setItem('current_ids_final_flow',list_ids)
+        }
+    }else{
+        let string = ""
+        for(let i = 0; i < split_id.length; i++){
+            if(string == ""){
+                string = split_id[i]
+            }else{
+                string = string + "," + split_id[i]
+            }
+        }
+        localStorage.setItem('current_ids_final_flow',string)            
+    }
+}
+
 if(result_flow!==null){
     result_flow.addEventListener("click",(e)=>{
         //localStorage.setItem('current_id_final_flow',e.target.id)
@@ -30,37 +63,11 @@ if(result_flow!==null){
         id_actual = e.target.id
         list_ids = localStorage.getItem('current_ids_final_flow')
         if(list_ids == null){
-            localStorage.setItem('current_ids_final_flow',id_actual)
+            if(id_actual != ''){
+                localStorage.setItem('current_ids_final_flow',id_actual)
+            }
         }else{
-            const split_id = list_ids.split(',')
-            //console.log(split_id)
-            let exist_id = false
-            let string_ids = ""
-
-            for(let i = 0; i < split_id.length; i++){
-                if(split_id[i] == id_actual){
-                    exist_id = true
-                    //split_id.splice(i,1)
-                    break
-                }
-
-                if(exist_id == false){
-                    if(string_ids == ""){
-                        string_ids = split_id[i]
-                    }else{
-                        string_ids = string_ids + ',' + split_id[i]
-                    }
-                }
-            }
-
-            console.log(string_ids)
-            console.log(exist_id)
-            if(exist_id == false){
-                const temp = `${string_ids},${id_actual}`
-                localStorage.setItem('current_ids_final_flow',temp)
-            }
-
-            
+            check_id(id_actual, list_ids)
         }
     })
 }

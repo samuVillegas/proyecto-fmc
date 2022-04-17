@@ -3,7 +3,7 @@ from . import views
 
 urlpatterns = [
     path('',views.index),
-    path('check_inspection/<final_flow>/<current_final_ids>/<building_name>', views.check_inspection),
+    path('check_inspection/<building_name>', views.check_inspection),
     #path('site_parameterization',views.site_parameterization, name = "site_parameterization"),
     path('search_building',views.search_building),
     path('search_key/<building_id>/<building_name>/<building_regulation>',views.search_key),

@@ -1,6 +1,8 @@
 from cgi import print_directory
+from typing import final
 from django.shortcuts import render, redirect
 from django.contrib import messages
+import re
 
 from .models import Building, Inspection
 from apps.company.utilities.choose_type.Group import getQuestions
@@ -50,14 +52,17 @@ def search_building(request):
     else:
         buildings_list = Building.objects.all()
         inspections_list = Inspection.objects.all()
+        list = []
 
-        #for b in buildings_list:
-         #   inspections = Building.objects.get(site_name=b.site_name).inspection_set.all()
-          #  if(len(inspections) > 0):
-           #     inspection = inspections[len(inspections) - 1]
-            #    inspections_list.append(inspection)
+        for b in buildings_list:
+            inspections = Building.objects.get(site_name=b.site_name).inspection_set.all()
+            if(len(inspections) > 0):
+                inspection = inspections[len(inspections) - 1]
+                list.append([b,inspection])
+            else:
+                list.append([b,''])
 
-    return render(request,"pages/search_building.html", {"buildings_list":buildings_list, "inspections_list":inspections_list, "searchTerm":searchTerm})
+    return render(request,"pages/search_building.html", {"buildings_list":buildings_list, "inspections_list":inspections_list, "list": list, "searchTerm":searchTerm})
 
 def search_key(request, building_id, building_name, building_regulation):
     current_ids = request.POST.get('current_ids')
@@ -73,25 +78,36 @@ def search_key(request, building_id, building_name, building_regulation):
     return render(request,"pages/site_parameterization.html",{'current_question':current_question, 'building_id':building_id, 'building_name':building_name, 'building_regulation': building_regulation, "is_material_list": is_material_list})
 
 def search_flow(request, building_id, building_name, building_type, building_regulation):
-    try:
-        current_ids = request.POST.get('current_ids_flow')
-        split_current_ids = current_ids.split(',')
-        current_question = getQuestionsInsp(split_current_ids, building_regulation, building_type)
-        return render(request,"pages/site_inspection.html",{'current_question':current_question, 'building_regulation': building_regulation, 'building_id':building_id, 'building_name':building_name, "building_type": building_type})
-    except:
-        current_final_ids = request.POST.get('ids_final_flow')
-        final_flow = request.POST.get('final_flow')
-        url = f"/company/check_inspection/{final_flow}/{current_final_ids}/{building_name}"
-        return redirect(url)
+    current_ids = request.POST.get('current_ids_flow')
+    split_current_ids = current_ids.split(',')
+    current_question = getQuestionsInsp(split_current_ids, building_regulation, building_type)
+    return render(request,"pages/site_inspection.html",{'current_question':current_question, 'building_regulation': building_regulation, 'building_id':building_id, 'building_name':building_name, "building_type": building_type})
 
-def check_inspection(request, final_flow, current_final_ids, building_name):
-    list_option = current_final_ids.split(',')
-    flow = final_flow.split("', ")
+def check_inspection(request, building_name):
+    current_final_ids = request.POST.get('ids_final_flow')
+    final_flow = request.POST.get('final_flow')
+
+    current_final_ids = current_final_ids.split(',')
+    final_flow = re.sub("\[|\]","",final_flow)
+    final_flow = final_flow.split("', ")
+    print(current_final_ids)
+
     is_inspection_succesfull = False
 
-    if len(list_option) == len(flow):
-         is_inspection_succesfull = True
-    
+    for ite, d in enumerate(final_flow):
+        final_flow[ite] = re.sub("\'","",d)
+
+    if(current_final_ids != ['']):
+        if len(current_final_ids) == len(final_flow):
+            is_inspection_succesfull = True
+
+    print(is_inspection_succesfull)
+
+    if current_final_ids != ['']:
+        for id in current_final_ids:
+            final_flow.pop(int(id) - 1)
+
+    print(final_flow)
     b = Building.objects.filter(site_name__iexact=building_name).get()
     Inspection.objects.create(description=final_flow, is_inspection_successful=is_inspection_succesfull, building=b)
     return redirect('/company/search_building')
@@ -180,8 +196,14 @@ def delete_building(request):
 
 def view_building_information(request, building_id):
     building = Building.objects.get(code=building_id)
-    insps = Building.objects.get(site_name=building.site_name).inspection_set.all()
-    inspection = ''
-    if len(insps) > 0:
-        inspection = insps[len(insps) - 1]
-    return render(request, "pages/view_building_information.html", {'building':building, 'inspection': inspection})
+    inspections = Building.objects.get(site_name=building.site_name).inspection_set.all()
+
+    #print(inspections[1].description)
+    descriptions = []
+    desc = []
+    for i in inspections:
+        desc = re.sub("\[|\]","",i.description)
+        descs = desc.split("', ")
+        descriptions.append([i,descs])
+
+    return render(request, "pages/view_building_information.html", {'building':building, 'inspections': inspections, 'descriptions':descriptions})

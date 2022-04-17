@@ -9,7 +9,7 @@
             {% for f in current_question.flow %}
             <div class="form-check d-flex justify-content-center p-1">
                 <input class="form-check-input" type="checkbox" id="{{forloop.counter}}">
-                <label class="form-check-label" for="{{forloop.counter}}" id="{{forloop.counter}}">
+                <label>
                     {{f}}
                 </label>
             </div>
@@ -17,7 +17,7 @@
         </div>
         <input id="ids_final_flow" name="ids_final_flow" value="" style="visibility: hidden;"></input>
         <input id="final_flow" name="final_flow" value="{{current_question.flow}}" style="visibility: hidden;"></input>
-        <button type="submit" id="set_flow" class="btn btn-primary" onclick="checking()">Siguiente</button>
+        <button type="submit" id="set_flow" class="btn btn-primary" onclick="checking();this.form.action='/company/check_inspection/{{building_name}}';this.form.submit()">Terminar</button>
     {% else %}
         <div class="container">
             <h4 class="text-center">Inspeccion del edificio {{building_name}} - Tipo {{building_type}}</h4>   

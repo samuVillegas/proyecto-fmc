@@ -32,21 +32,28 @@
                 <th scope="col">Nombre</th>
                 <th scope="col">Normativa</th>
                 <th scope="col">Categoria</th>
-                <th scope="col">Resultado inspeccion</th>
+                <th scope="col">Resultado ultima inspeccion</th>
                 <th scope="col">Acción</th>
             </tr>
         </thead>
         <div id="table-body">
             <tbody>
-                {% for b in buildings_list %}
+                {% for b in list %}
                 <tr>
                     <th scope="row">{{forloop.counter}}</th>
-                    <td>{{b.site_name}}</td>
-                    <td>{{b.regulation}}</td>
-                    <td>{{b.site_type}}</td>
-                    <td><a href="view_building_information/{{b.code}}" class="btn btn-info">Ver información</a></td>
-                    <td><a href="edition_building/{{b.code}}" class="btn btn-info" onclick="clean_local()">Editar</a></td>
-                    <td><a href="" data-bs-toggle="modal" class="btn btn-danger" data-bs-target="#exampleModal" id="{{b.code}}">Eliminar</a></td>
+                    <td>{{b.0.site_name}}</td>
+                    <td>{{b.0.regulation}}</td>
+                    <td>{{b.0.site_type}}</td>
+                    {% if b.1.is_inspection_successful == True %}
+                        <td><button type="button" class="btn btn-outline-success" disabled="true">Aprobado</button></td>
+                    {% elif b.1.is_inspection_successful == False %}
+                        <td><button type="button" class="btn btn-outline-danger" disabled="true">No aprobado</button></td>
+                    {% else %}
+                        <td><button type="button" class="btn btn-outline-secondary" disabled="true">Sin inspeccion</button></td>
+                    {% endif %}
+                    <td><a href="view_building_information/{{b.0.code}}" class="btn btn-info">Ver información</a></td>
+                    <td><a href="edition_building/{{b.0.code}}" class="btn btn-info" onclick="clean_local()">Editar</a></td>
+                    <td><a href="" data-bs-toggle="modal" class="btn btn-danger" data-bs-target="#exampleModal" id="{{b.0.code}}">Eliminar</a></td>
                 </tr>
                 {% endfor %}
             </tbody>
