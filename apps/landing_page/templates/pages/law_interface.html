@@ -11,117 +11,20 @@
 
   <table border="5">
 
+    {% for x in form %}
+      {% if 'lock' in x.label_tag %}
+        <tr><th><td><br></br></td></th></tr>
+      {% endif %}
+      
       <tr>
-        <th>{{ form.lock1.label_tag }}</th>
+        <th>{{ x.label_tag }}</th>
         <td>
-          {{ form.lock1.errors }}
-          {{ form.lock1 }}
+          {{ x.errors }}
+          {{ x }}
         </td>
       </tr>
 
-      <tr>
-        <th>{{ form.question1.label_tag }}</th>
-        <td>
-          {{ form.question1.errors }}
-          {{ form.question1 }}
-        </td>
-      </tr>
-
-      <tr>
-        <th>{{ form.image1.label_tag }}</th>
-        <td>
-          {{ form.image1errors }}
-          {{ form.image1 }}
-        </td>
-      </tr>
-
-      <tr>
-        <th>{{ form.options1_1.label_tag }}</th>
-        <td>
-          {{ form.options1_1.errors }}
-          {{ form.options1_1 }}
-        </td>
-      </tr>
-
-      <tr>
-        <th>{{ form.outputs1_1.label_tag }}</th>
-        <td>
-          {{ form.outputs1_1.errors }}
-          {{ form.outputs1_1 }}
-        </td>
-      </tr>
-
-      <tr>
-        <th>{{ form.options1_2.label_tag }}</th>
-        <td>
-          {{ form.options1_2.errors }}
-          {{ form.options1_2 }}
-        </td>
-      </tr>
-
-      <tr>
-        <th>{{ form.outputs1_2.label_tag }}</th>
-        <td>
-          {{ form.outputs1_2.errors }}
-          {{ form.outputs1_2 }}
-        </td>
-      </tr>
-
-      <tr>
-        <th>{{ form.lock2.label_tag }}</th>
-        <td>
-          {{ form.lock2.errors }}
-          {{ form.lock2 }}
-        </td>
-      </tr>
-
-      <tr>
-        <th>{{ form.question2.label_tag }}</th>
-        <td>
-          {{ form.question2.errors }}
-          {{ form.question2 }}
-        </td>
-      </tr>
-
-      <tr>
-        <th>{{ form.image2.label_tag }}</th>
-        <td>
-          {{ form.image2errors }}
-          {{ form.image2 }}
-        </td>
-      </tr>
-
-      <tr>
-        <th>{{ form.options2_1.label_tag }}</th>
-        <td>
-          {{ form.options2_1.errors }}
-          {{ form.options2_1 }}
-        </td>
-      </tr>
-
-      <tr>
-        <th>{{ form.outputs2_1.label_tag }}</th>
-        <td>
-          {{ form.outputs2_1.errors }}
-          {{ form.outputs2_1 }}
-        </td>
-      </tr>
-
-      <tr>
-        <th>{{ form.options2_2.label_tag }}</th>
-        <td>
-          {{ form.options2_2.errors }}
-          {{ form.options2_2 }}
-        </td>
-      </tr>
-
-      <tr>
-        <th>{{ form.outputs2_2.label_tag }}</th>
-        <td>
-          {{ form.outputs2_2.errors }}
-          {{ form.outputs2_2 }}
-        </td>
-      </tr>
+      {% endfor %}
 
   </table>
 

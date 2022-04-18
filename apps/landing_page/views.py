@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import check_password
-from .forms import ContactForm, ColorfulContactForm
+from .forms import ContactForm
 # Create your views here.
 
 def langing_page(request):
