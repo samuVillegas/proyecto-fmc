@@ -138,9 +138,15 @@ def check_inspection(request, building_name):
     #print(len(current_final_ids))
     if current_final_ids != ['']:
         for id in current_final_ids:
-            if int(id) - 1 < len(final_flow):
-                #print(int(id) - 1)
-                final_flow.pop(int(id) - 1)
+            if int(id) - 1 < len(current_final_ids):
+                final_flow[int(id) - 1] = ''
+
+    print(final_flow)
+    for ite,ef in enumerate(final_flow):
+        if ef == '':
+            final_flow.pop(ite)
+
+    print(final_flow)
 
     #print(final_flow)
     b = Building.objects.filter(site_name__iexact=building_name).get()
@@ -245,7 +251,7 @@ def view_building_information(request, building_id):
 
         for ite,d in enumerate(descs):
             text = re.sub("\'|\.","",d)
-            descs[ite] = text + '.'
+            descs[ite] = text
 
         descriptions.append([i,descs])
         
