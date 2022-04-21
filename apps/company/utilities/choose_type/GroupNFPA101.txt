@@ -43,7 +43,7 @@ Asilos
 
 Reuniones Públicas
 ¿Qué tipo de reuniones? 
-[listas en L]
+lugares de reunion deportivos;lugares de reunion culturales;lugares de reunion religiosos;lugares de reunion transporte
 50 o más personas para deliberación, culto, entretenimiento, comida, bebida, diversión, espera de transporte o usos similares
 Reuniones Públicas Ocupación 1
 Edificio de divertimento especial
