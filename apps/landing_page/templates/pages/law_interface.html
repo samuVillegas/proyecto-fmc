@@ -8,10 +8,11 @@
   {{ form.source.errors }}
   {{ form.source }}
 
-  <table border="2">
+  <table border="2", width="50%", bgcolor="white">
+    <table border="2", width="50%", bgcolor="white">
     {% for x in form %}
       {% if 'lock' in x.label_tag %}
-        <tr><th><td><br></td></th></tr>
+        </table><br><table border="2", width="50%", bgcolor="#ffdbdb">
       {% endif %}
 
       <tr>
@@ -21,8 +22,8 @@
           {{ x }}
         </td>
       </tr>
-
       {% endfor %}
+    </table>
   </table>
   <br>
   <button type="submit">Submit</button>

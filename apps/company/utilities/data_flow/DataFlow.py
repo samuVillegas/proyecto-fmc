@@ -56,6 +56,9 @@ def getQuestions(list, law, key):
             references.append(q.reference)
     return {'exist_flow':True,'flow':flow, 'references':references, 'law':q.lock}
 
+def getQuestions(law):
+    return readFile(dir + '/Flow' + law + '.txt')
+
 #Testing
 def FindGroup(law, key):
     fullFlow = readFile(dir + '/Flow' + law + '.txt')

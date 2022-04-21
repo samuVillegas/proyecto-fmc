@@ -23,7 +23,7 @@ def law_interface(request):
             messages.error(request,'No existen usuarios con esas credenciales')  
     return render(request,"pages/login.html")
 
-from apps.company.utilities.choose_type.Group import getQuestions
+from apps.company.utilities.data_flow.DataFlow import getQuestions
 def login(request):
     questions = getQuestions('NSR10')
     if request.method == 'POST':
