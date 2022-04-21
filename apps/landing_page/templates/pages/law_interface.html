@@ -9,20 +9,23 @@
   {{ form.source }}
 
   <table border="2", width="50%", bgcolor="white">
-    <table border="2", width="50%", bgcolor="white">
+    <table border="0", width="50%", bgcolor="white">
     {% for x in form %}
-      {% if 'lock' in x.label_tag %}
-        </table><br><table border="2", width="50%", bgcolor="#ffdbdb">
+      {% if 'type' not in x.label_tag and 'size' not in x.label_tag %}
+        {% if 'lock' in x.label_tag %}
+          </table><br><table border="2", width="50%", bgcolor="#ffdbdb">
+        {% endif %}
+        <tr>
+          <th>{{ x.label_tag }}</th>
+          <td>
+            {{ x.errors }}
+            {{ x }}
+          </td>
+        </tr>
+      {% else %}
+        <tr><th>{{ x.as_hidden }}</td></tr>
       {% endif %}
-
-      <tr>
-        <th>{{ x.label_tag }}</th>
-        <td>
-          {{ x.errors }}
-          {{ x }}
-        </td>
-      </tr>
-      {% endfor %}
+    {% endfor %}
     </table>
   </table>
   <br>

@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import check_password
 from .forms import ContactForm
+import logging
 # Create your views here.
 
 def langing_page(request):
@@ -23,14 +24,13 @@ def law_interface(request):
             messages.error(request,'No existen usuarios con esas credenciales')  
     return render(request,"pages/login.html")
 
-from apps.company.utilities.data_flow.DataFlow import getQuestions
+from apps.company.utilities.data_flow.DataFlow import getQuestions, writeFile
 def login(request):
-    questions = getQuestions('NSR10')
     if request.method == 'POST':
-        form = ContactForm(request.POST)
-        if form.is_valid():
-            pass  # does nothing, just trigger the validation
+        writeFile('NSR10', request.POST.dict())
+        return redirect('/company/')
     else:
+        questions = getQuestions('NSR10')
         form = ContactForm()
         form.initials(questions)
     return render(request, 'pages/law_interface.html', {'form': form})
