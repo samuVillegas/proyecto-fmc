@@ -24,13 +24,13 @@ def law_interface(request):
             messages.error(request,'No existen usuarios con esas credenciales')  
     return render(request,"pages/login.html")
 
-from apps.company.utilities.data_flow.DataFlow import getQuestions, writeFile
+from apps.company.utilities.data_flow.DataFlow import getQuestions2, writeFile
 def login(request):
     if request.method == 'POST':
         writeFile('NSR10', request.POST.dict())
         return redirect('/company/')
     else:
-        questions = getQuestions('NSR10')
+        questions = getQuestions2('NSR10')
         form = ContactForm()
         form.initials(questions)
     return render(request, 'pages/law_interface.html', {'form': form})

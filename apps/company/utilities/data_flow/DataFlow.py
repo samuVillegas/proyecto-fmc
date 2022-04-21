@@ -49,16 +49,24 @@ def getQuestions(list, law, key):
     for q in fullFlow:
         if key in q.lock:
             if cont == len(list) and isinstance(q,Question):
+                if len(flow[0]) == 0:
+                    flow = ['Ya se cumple la ley ' + law]
                 return {'question':q.question,'options':q.options,'image':q.image,'exist_flow':False}
             if isinstance(q,Flow):
-                flow.append(q.law)
+                if len(q.law) > 0:
+                    flow.append(q.law)
             else:
-                flow.append(q.select(int(list[cont])-1))
+                selected = q.select(int(list[cont])-1)
+                if len(selected) > 0:
+                    flow.append(selected)
                 cont += 1
             references.append(q.reference)
-    return {'exist_flow':True,'flow':flow, 'references':references, 'law':q.lock}
+    if len(flow[0]) == 0:
+        flow = ['Ya se cumple la ley ' + law]
+    return {'exist_flow':True,'flow':flow, 'references':references}
 
-def getQuestions(law):
+
+def getQuestions2(law):
     return readFile(dir + '/Flow' + law + '.txt')
 
 def writeFile(law, dic):
@@ -112,3 +120,4 @@ def FindGroup(law, key):
     print('\n' + flow)
 
 #FindGroup('NSR10','R2') 
+#print(getQuestions([2],'NSR10','A1'))
