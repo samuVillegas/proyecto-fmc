@@ -53,13 +53,17 @@
                     {% endif %}
                     <td><a href="view_building_information/{{b.0.code}}" class="btn btn-info">Ver información</a></td>
                     <td><a href="edition_building/{{b.0.code}}" class="btn btn-info" onclick="clean_local()">Editar</a></td>
-                    <td><a href="" data-bs-toggle="modal" class="btn btn-danger" data-bs-target="#exampleModal" id="{{b.0.code}}">Eliminar</a></td>
+                    {% if  b.1.is_inspection_successful == None %}
+                        <td><a href="" data-bs-toggle="modal" class="btn btn-danger" data-bs-target="#exampleModal" id="{{b.0.code}}">Eliminar</a></td>
+                    {% else %}
+                        <td><a href="" data-bs-toggle="modal" class="btn btn-danger" style="visibility: hidden;" data-bs-target="#exampleModal" id="{{b.0.code}}">Eliminar</a></td>
+                    {% endif %}
                 </tr>
                 {% endfor %}
             </tbody>
         </div>
     </table>
-    {% if buildings_list|length == 0 and searchTerm%}
+    {% if list|length == 0 and searchTerm%}
     <h3 class="text-center">No hay edificios con el filtro '{{searchTerm}}'</h3>
     {% endif %}
 

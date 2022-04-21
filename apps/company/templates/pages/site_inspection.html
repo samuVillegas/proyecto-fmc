@@ -4,11 +4,11 @@
 <div class="container">
     <form action="/company/search_flow/{{building_id}}/{{building_name}}/{{building_type}}/{{building_regulation}}" method="POST">{% csrf_token %}
         {% if current_question.exist_flow %}
-        <h3>Seleccione solo los que cumple el edificio</h3>
+        <h3>Seleccione solo los que cumple el edificio:</h3>
         <div id="inspection_result">
             {% for f in current_question.flow %}
-            <div class="form-check d-flex justify-content-center p-1">
-                <input class="form-check-input" type="checkbox" id="{{forloop.counter}}">
+            <div class="form-check d-flex p-1">
+                <input class="form-check-input p-2 me-2" type="checkbox" id="{{forloop.counter}}">
                 <label>
                     {{f}}
                 </label>
@@ -21,11 +21,20 @@
     {% else %}
         <div class="container">
             <h4 class="text-center">Inspeccion del edificio {{building_name}} - Tipo {{building_type}}</h4>   
-            <h6 class="text-center">{{current_question.question}}</h6>
-            <div id="options_flow">
+            <h6>{{current_question.question}}</h6>
+            {% if is_material_list %}
+                        <ul class="list-group">
+                            {% for m in current_question.image %}
+                                <li class="list-group-item">{{m}}</li> 
+                            {% endfor %}
+                        </ul>  
+                    {% else %}
+                        <img src="{% static current_question.image %}" alt="" width="300px" height="300px">
+                    {% endif %}
+            <div class="justify-content-center" id="options_flow">
                 {% for i in current_question.options %}
-                    <div class="form-check d-flex justify-content-center p-1">
-                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="{{forloop.counter}}">
+                    <div class="form-check d-flex p-1">
+                        <input class="form-check-input me-2" type="radio" name="flexRadioDefault" id="{{forloop.counter}}">
                         <label class="form-check-label" for="{{forloop.counter}}">
                             {{i}}
                         </label>

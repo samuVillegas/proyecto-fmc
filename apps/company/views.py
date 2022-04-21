@@ -46,13 +46,23 @@ def site_parameterization_from_edit(request, building_id, building_name, buildin
 
 def search_building(request):
     searchTerm = request.GET.get('searchTerm')
+    inspections_list = []
+    list = []
 
     if searchTerm:
-        buildings_list = Building.objects.filter(site_name__icontains=searchTerm)
+        try:
+            buildings = Building.objects.get(site_name__icontains=searchTerm)
+            inspections = Building.objects.get(site_name=buildings.site_name).inspection_set.all()
+            if(len(inspections) > 0):
+                inspection = inspections[len(inspections) - 1]
+                list.append([buildings,inspection])
+            else:
+                list.append([buildings,''])
+        except:
+            list = []
     else:
         buildings_list = Building.objects.all()
         inspections_list = Inspection.objects.all()
-        list = []
 
         for b in buildings_list:
             inspections = Building.objects.get(site_name=b.site_name).inspection_set.all()
@@ -62,26 +72,49 @@ def search_building(request):
             else:
                 list.append([b,''])
 
-    return render(request,"pages/search_building.html", {"buildings_list":buildings_list, "inspections_list":inspections_list, "list": list, "searchTerm":searchTerm})
+    return render(request,"pages/search_building.html", {"inspections_list":inspections_list, "list": list, "searchTerm":searchTerm})
 
 def search_key(request, building_id, building_name, building_regulation):
     current_ids = request.POST.get('current_ids')
+
     split_current_ids = current_ids.split(',')
-    current_question = getQuestions(split_current_ids, building_regulation)
-    #is_material_list = False
-    try:
-        if 'img' not in current_question['image']:
-            is_material_list = True
-            current_question['image'] = current_question['image'].split(';')
-    except:
-        is_material_list = False
+
+    current_question = None
+    is_material_list = None
+    #print(len(split_current_ids))
+    #print(split_current_ids)
+    if split_current_ids != ['']:
+        current_question = getQuestions(split_current_ids, building_regulation)
+        #is_material_list = False
+        try:
+            if 'img' not in current_question['image']:
+                is_material_list = True
+                current_question['image'] = current_question['image'].split(';')
+        except:
+            is_material_list = False
+    else:
+        current_question = getQuestions([], building_regulation)
+
     return render(request,"pages/site_parameterization.html",{'current_question':current_question, 'building_id':building_id, 'building_name':building_name, 'building_regulation': building_regulation, "is_material_list": is_material_list})
 
 def search_flow(request, building_id, building_name, building_type, building_regulation):
     current_ids = request.POST.get('current_ids_flow')
     split_current_ids = current_ids.split(',')
-    current_question = getQuestionsInsp(split_current_ids, building_regulation, building_type)
-    return render(request,"pages/site_inspection.html",{'current_question':current_question, 'building_regulation': building_regulation, 'building_id':building_id, 'building_name':building_name, "building_type": building_type})
+    #print(split_current_ids)
+    is_material_list = False
+
+    if split_current_ids != ['']:
+        current_question = getQuestionsInsp(split_current_ids, building_regulation, building_type)
+        try:
+            if 'img' not in current_question['image']:
+                is_material_list = True
+                current_question['image'] = current_question['image'].split(';')
+        except:
+            is_material_list = False
+    else:
+        current_question = getQuestionsInsp([], building_regulation, building_type)
+
+    return render(request,"pages/site_inspection.html",{'current_question':current_question, 'building_regulation': building_regulation, 'building_id':building_id, 'building_name':building_name, "building_type": building_type, 'is_material_list': is_material_list})
 
 def check_inspection(request, building_name):
     current_final_ids = request.POST.get('ids_final_flow')
@@ -90,7 +123,7 @@ def check_inspection(request, building_name):
     current_final_ids = current_final_ids.split(',')
     final_flow = re.sub("\[|\]","",final_flow)
     final_flow = final_flow.split("', ")
-    print(current_final_ids)
+    #print(current_final_ids)
 
     is_inspection_succesfull = False
 
@@ -101,13 +134,15 @@ def check_inspection(request, building_name):
         if len(current_final_ids) == len(final_flow):
             is_inspection_succesfull = True
 
-    print(is_inspection_succesfull)
-
+    #print(is_inspection_succesfull)
+    #print(len(current_final_ids))
     if current_final_ids != ['']:
         for id in current_final_ids:
-            final_flow.pop(int(id) - 1)
+            if int(id) - 1 < len(final_flow):
+                #print(int(id) - 1)
+                final_flow.pop(int(id) - 1)
 
-    print(final_flow)
+    #print(final_flow)
     b = Building.objects.filter(site_name__iexact=building_name).get()
     Inspection.objects.create(description=final_flow, is_inspection_successful=is_inspection_succesfull, building=b)
     return redirect('/company/search_building')
@@ -189,9 +224,12 @@ def set_building_type(request, building_id, building_type):
 def delete_building(request):
     code_building = request.POST.get('delete_id_item')
     building = Building.objects.get(code=code_building)
-    building.delete()
+    inspections_list = Building.objects.get(site_name=building.site_name).inspection_set.all()
 
-    messages.success(request, 'Edificio eliminado con exito')
+    if len(inspections_list) == 0:
+        building.delete()
+        messages.success(request, 'Edificio eliminado con exito')
+    
     return redirect('/company/search_building')
 
 def view_building_information(request, building_id):
@@ -204,6 +242,11 @@ def view_building_information(request, building_id):
     for i in inspections:
         desc = re.sub("\[|\]","",i.description)
         descs = desc.split("', ")
-        descriptions.append([i,descs])
 
+        for ite,d in enumerate(descs):
+            text = re.sub("\'|\.","",d)
+            descs[ite] = text + '.'
+
+        descriptions.append([i,descs])
+        
     return render(request, "pages/view_building_information.html", {'building':building, 'inspections': inspections, 'descriptions':descriptions})

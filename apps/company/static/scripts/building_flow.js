@@ -63,7 +63,7 @@ if(result_flow!==null){
         id_actual = e.target.id
         list_ids = localStorage.getItem('current_ids_final_flow')
         if(list_ids == null){
-            if(id_actual != ''){
+            if(id_actual != '' && id_actual != null){
                 localStorage.setItem('current_ids_final_flow',id_actual)
             }
         }else{
@@ -73,22 +73,29 @@ if(result_flow!==null){
 }
 
 const checking = () => {
-    console.log("llamando checking")
     const current_ids_input = document.getElementById('ids_final_flow');
     current_ids_input.value = localStorage.getItem('current_ids_final_flow');
 }
 
 const next_flow = () => {
     if(localStorage.getItem('current_ids_flow') === null){
-        localStorage.setItem('current_ids_flow',localStorage.getItem('current_id_flow'))
+        if(localStorage.getItem('current_id_flow') != null){
+            localStorage.setItem('current_ids_flow',localStorage.getItem('current_id_flow'))
+        }
     }else{
-        const temp = `${localStorage.getItem('current_ids_flow')},${localStorage.getItem('current_id_flow')}`
-        localStorage.setItem('current_ids_flow',temp)
+        if(localStorage.getItem('current_id_flow') != null && localStorage.getItem('current_ids_flow') != null){
+            const temp = `${localStorage.getItem('current_ids_flow')},${localStorage.getItem('current_id_flow')}`
+            localStorage.setItem('current_ids_flow',temp) 
+        }  
+        
     }
 
-    const current_ids_input = document.getElementById('current_ids_flow');
-    current_ids_input.value = localStorage.getItem('current_ids_flow');
-
+    if(localStorage.getItem('current_ids_flow') != null){
+        const current_ids_input = document.getElementById('current_ids_flow');
+        current_ids_input.value = localStorage.getItem('current_ids_flow');
+    }
+    
+    localStorage.removeItem('current_id_flow');
     //localStorage.clear()
 }
 

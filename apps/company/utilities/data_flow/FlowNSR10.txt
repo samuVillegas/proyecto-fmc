@@ -9,7 +9,7 @@ Pregunta
 C1
 J.4.2.2.1
 En la edificación:
-[Grafica mostrando niveles de carga de personas]
+img/questions_assets/capacity_people.svg
 La carga de ocupantes es 500 o más personas
 Se requiere un sistema de alarma con iniciación manual
 Se tienen cargas de ocupación mayores a 100 personas por encima o por debajo del nivel de descarga de la salida
@@ -21,7 +21,7 @@ Pregunta
 C2
 J.4.2.2.1
 En la edificación:
-[Grafica mostrando niveles de carga de personas]
+img/questions_assets/capacity_people.svg
 La carga de ocupantes de todos los pisos es superior a 500 personas
 Se requiere un sistema de alarma con iniciación manual
 Se tienen cargas de ocupación mayores a 100 personas por encima o por debajo del nivel de descarga de salida
@@ -48,7 +48,7 @@ Pregunta
 F1 F2
 J.4.2.2.1
 En la edificación:
-[Grafica mostrando niveles de carga de personas]
+img/questions_assets/capacity_people.svg
 La edificación es de dos o más pisos de altura
 Se requiere un sistema de alarma con iniciación manual
 Se tiene una carga de ocupación de 500 personas o más por encima o por debajo del nivel más bajo de la descarga de salida
