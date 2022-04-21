@@ -1,21 +1,19 @@
 {% extends 'containers/base_landing_page.html' %}
 {% block body %}
 {% load static %}
+<div align="center">
 <form method="post" novalidate>
   {% csrf_token %}
-
   {{ form.non_field_errors }}
-
   {{ form.source.errors }}
   {{ form.source }}
 
-  <table border="5">
-
+  <table border="2">
     {% for x in form %}
       {% if 'lock' in x.label_tag %}
-        <tr><th><td><br></br></td></th></tr>
+        <tr><th><td><br></td></th></tr>
       {% endif %}
-      
+
       <tr>
         <th>{{ x.label_tag }}</th>
         <td>
@@ -25,9 +23,9 @@
       </tr>
 
       {% endfor %}
-
   </table>
-
+  <br>
   <button type="submit">Submit</button>
 </form>
+</div>
 {% endblock %}
