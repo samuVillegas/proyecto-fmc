@@ -5,6 +5,8 @@ from .models import Building
 from apps.company.utilities.choose_type.Group import getQuestions
 from apps.company.utilities.data_flow.DataFlow import getQuestions as getQuestionsInsp
 from apps.company.utilities.input_request import get_building_information
+from apps.company.utilities.forms import ContactForm
+from apps.company.utilities.data_flow.DataFlow import getQuestions2, writeFile
 
 def index(request):
     return render(request,"pages/index.html")
@@ -148,3 +150,13 @@ def view_building_information(request, building_id):
     building = Building.objects.get(code=building_id)
 
     return render(request, "pages/view_building_information.html", {'building':building})
+
+def law_interface(request):
+    if request.method == 'POST':
+        writeFile('NSR10', request.POST.dict())
+        return redirect('/company/')
+    else:
+        questions = getQuestions2('NSR10')
+        form = ContactForm()
+        form.initials(questions)
+    return render(request, 'pages/law_interface.html', {'form': form})
