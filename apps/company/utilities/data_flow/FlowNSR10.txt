@@ -70,7 +70,7 @@ Pregunta
 I3
 J.4.2.4.3
 ¿Cumple todas las condiciones de la tabla o tiene una carga de ocupación menor a 50 personas?
-[lista de J.4.2.4.3]
+Los pasillos interiores están protegidos por los detectores de incendio;Los auditorios, cafeterías, gimnasios y áreas similares están protegidos por detectores de calor u otros dispositivos de detección;Los talleres y laboratorios están protegidos por detectores de calor o de otros dispositivos de detección apropiados;Se tiene la capacidad de activar la señal de evacuación desde un punto localizado cerca del centro de la edificación
 Cumple todas las condiciones
 
 Tiene una carga de ocupación menor a 50 personas

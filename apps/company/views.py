@@ -34,9 +34,20 @@ def site_inspection(request, building_name, building_type, building_regulation, 
     building = Building.objects.get(code=building_id)
     building.site_type = building_type
     building.save()
+    is_material_list = None
     current_question =  getQuestionsInsp([], building_regulation, building_type)
+    try:
+        if 'img' not in current_question['image']:
+            is_material_list = True
+            current_question['image'] = current_question['image'].split(';')
+    except:
+        try:
+            if current_question['image'] != '[]':
+                is_material_list = False
+        except:
+            is_material_list = None
     #print(current_question)
-    return render(request, "pages/site_inspection.html", {'current_question':current_question, 'building_id': building_id, 'building_name': building_name, 'building_type': building_type, 'building_regulation': building_regulation})
+    return render(request, "pages/site_inspection.html", {'current_question':current_question, 'building_id': building_id, 'building_name': building_name, 'building_type': building_type, 'building_regulation': building_regulation, 'is_material_list':is_material_list})
 
 def site_parameterization_from_edit(request, building_id, building_name, building_regulation):
     current_question = getQuestions([], building_regulation)
@@ -110,43 +121,57 @@ def search_flow(request, building_id, building_name, building_type, building_reg
                 is_material_list = True
                 current_question['image'] = current_question['image'].split(';')
         except:
-            is_material_list = False
+            try:
+                if current_question['image'] != '[]':
+                    is_material_list = False
+            except:
+                is_material_list = None
     else:
         current_question = getQuestionsInsp([], building_regulation, building_type)
 
+    print(is_material_list)
+    #print(type(current_question['image']))
     return render(request,"pages/site_inspection.html",{'current_question':current_question, 'building_regulation': building_regulation, 'building_id':building_id, 'building_name':building_name, "building_type": building_type, 'is_material_list': is_material_list})
 
 def check_inspection(request, building_name):
     current_final_ids = request.POST.get('ids_final_flow')
     final_flow = request.POST.get('final_flow')
+    
+    if current_final_ids != None:
+        current_final_ids = current_final_ids.split(',')
 
-    current_final_ids = current_final_ids.split(',')
-    final_flow = re.sub("\[|\]","",final_flow)
-    final_flow = final_flow.split("', ")
+    if final_flow != None:
+        final_flow = re.sub("\[|\]","",final_flow)
+        final_flow = final_flow.split("', ")
+
+        for ite, d in enumerate(final_flow):
+            final_flow[ite] = re.sub("\'","",d)
     #print(current_final_ids)
 
     is_inspection_succesfull = False
-
-    for ite, d in enumerate(final_flow):
-        final_flow[ite] = re.sub("\'","",d)
-
-    if(current_final_ids != ['']):
-        if len(current_final_ids) == len(final_flow):
+    #print(final_flow)
+    #print(current_final_ids)
+    if(current_final_ids != ['']) or (final_flow == None):
+        if final_flow == None:
+            is_inspection_succesfull = True
+        elif len(current_final_ids) == len(final_flow):
             is_inspection_succesfull = True
 
     #print(is_inspection_succesfull)
     #print(len(current_final_ids))
-    if current_final_ids != ['']:
+    
+    if current_final_ids != None and current_final_ids != ['']:
         for id in current_final_ids:
             if int(id) - 1 < len(current_final_ids):
                 final_flow[int(id) - 1] = ''
 
-    print(final_flow)
-    for ite,ef in enumerate(final_flow):
-        if ef == '':
-            final_flow.pop(ite)
+    #print(final_flow)
+    if final_flow != None:
+        for ite,ef in enumerate(final_flow):
+            if ef == '':
+                final_flow.pop(ite)
 
-    print(final_flow)
+    #print(final_flow)
 
     #print(final_flow)
     b = Building.objects.filter(site_name__iexact=building_name).get()
@@ -245,14 +270,16 @@ def view_building_information(request, building_id):
     #print(inspections[1].description)
     descriptions = []
     desc = []
+    descs = []
     for i in inspections:
-        desc = re.sub("\[|\]","",i.description)
-        descs = desc.split("', ")
+        if i.description != None:
+            desc = re.sub("\[|\]","",i.description)
+            descs = desc.split("', ")
 
         for ite,d in enumerate(descs):
             text = re.sub("\'|\.","",d)
             descs[ite] = text
 
         descriptions.append([i,descs])
-        
+
     return render(request, "pages/view_building_information.html", {'building':building, 'inspections': inspections, 'descriptions':descriptions})

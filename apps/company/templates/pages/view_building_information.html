@@ -32,12 +32,10 @@
                 <td><button type="button" class="btn btn-outline-danger" disabled="true">No aprobado</button></td>
               {% endif %}
               <td>
-                {% if i.1.description != "[]" %}
                 {% for d in i.1 %}
                   <h6>{{d}}</h6>
                 {% endfor %}
               </td>
-              {% endif %}
             </tr>
             {% endfor %}
         </tbody>
