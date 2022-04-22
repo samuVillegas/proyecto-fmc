@@ -3,11 +3,18 @@ from typing import final
 from django.shortcuts import render, redirect
 from django.contrib import messages
 import re
+import os
+
+from matplotlib import image
+from numpy import append
 
 from .models import Building, Inspection
 from apps.company.utilities.choose_type.Group import getQuestions
 from apps.company.utilities.data_flow.DataFlow import getQuestions as getQuestionsInsp
 from apps.company.utilities.input_request import get_building_information
+from apps.company.utilities.choose_type.Group import readFile as readFileType
+from apps.company.utilities.data_flow.DataFlow import readFile as readFileIns
+from apps.company.utilities.data_flow.Question import Question
 
 def index(request):
     return render(request,"pages/index.html")
@@ -283,3 +290,38 @@ def view_building_information(request, building_id):
         descriptions.append([i,descs])
 
     return render(request, "pages/view_building_information.html", {'building':building, 'inspections': inspections, 'descriptions':descriptions})
+
+def choose_regulation_to_show(request):
+    return render(request, "pages/choose_regulation_to_show.html")
+
+def show_regulation_information(request, regulation, is_inspection_question):
+    questions = []
+    table_list = []
+    if is_inspection_question == '0':
+        dir = 'apps/company/utilities/choose_type'
+        questions = readFileType(dir + '/Group' + regulation + '.txt')
+
+        for ite,q in enumerate(questions):
+            if 'img' not in q.image:
+                string = q.image
+                questions[ite].image = string.split(';')
+            else: 
+                questions[ite].image = ''
+    else:
+        dir = 'apps/company/utilities/data_flow'
+        questions = readFileIns(dir + '/Flow' + regulation + '.txt')
+        #print(questions)
+
+        for ite,q in enumerate(questions):
+            if not isinstance(q,Question):
+                questions.pop(ite)
+        
+        for ite,r in enumerate(questions):
+            if isinstance(r,Question):
+                if 'img' not in r.image and r.image != '[]':
+                    string = r.image
+                    questions[ite].image = string.split(';')
+                else: 
+                    questions[ite].image = ''
+
+    return render(request, "pages/show_regulation_information.html", {'questions':questions, 'is_inspection_question':is_inspection_question})
