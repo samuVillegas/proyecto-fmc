@@ -70,11 +70,11 @@ def getQuestions2(law):
     return readFile(dir + '/Flow' + law + '.txt')
 
 def writeFile(law, dic):
-    n = int(dic['size'])
+    n = int(dic['size']) - 2
     string = str(n) + '\n\n'
 
     count = 1
-    while count <= n:
+    while count < n + 1:
         type = dic['type' + str(count)]
         string += type + '\n'
         if type == 'Pregunta':

@@ -152,11 +152,19 @@ def view_building_information(request, building_id):
     return render(request, "pages/view_building_information.html", {'building':building})
 
 def law_interface(request):
+    form = ContactForm()
     if request.method == 'POST':
-        writeFile('NSR10', request.POST.dict())
-        return redirect('/company/')
+        dic = request.POST.dict()
+        if request.POST.get("add"):
+            form.addOption(dic)
+            return render(request, 'pages/law_interface.html', {'form': form})
+        if request.POST.get("remove"):
+            form.removeOption(dic)
+            return render(request, 'pages/law_interface.html', {'form': form})
+        else:
+            writeFile('NSR10', dic)
+            return redirect('/company/')
     else:
         questions = getQuestions2('NSR10')
-        form = ContactForm()
         form.initials(questions)
     return render(request, 'pages/law_interface.html', {'form': form})
