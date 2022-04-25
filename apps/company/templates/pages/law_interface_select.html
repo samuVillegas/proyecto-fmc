@@ -1,0 +1,19 @@
+{% extends 'containers/base_landing_page.html' %}
+{% block body %}
+{% load static %}
+<div align="center">
+<form method="post" novalidate>
+  {% csrf_token %}
+  {{ form.non_field_errors }}
+  {{ form.source.errors }}
+  {{ form.source }}
+  <br>
+  <br>
+  <input type="submit" name="GroupNSR10" value="Grupo NSR10">--- 
+  <input type="submit" name="GroupNFPA101" value="Grupo NFPA101">
+  <br>
+  <input type="submit" name="FlowNSR10" value="Flujo NSR10">---
+  <input type="submit" name="FlowNFPA101" value="Flujo NFPA101">
+</form>
+</div>
+{% endblock %}

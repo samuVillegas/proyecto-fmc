@@ -7,7 +7,8 @@ from apps.company.utilities.choose_type.Group import getQuestions
 from apps.company.utilities.data_flow.DataFlow import getQuestions as getQuestionsInsp
 from apps.company.utilities.input_request import get_building_information
 from apps.company.utilities.forms import ContactForm
-from apps.company.utilities.data_flow.DataFlow import getQuestions2, writeFile
+from apps.company.utilities.data_flow.DataFlow import getQuestionsFlow, writeFileFlow
+from apps.company.utilities.choose_type.Group import getQuestionsGroup, writeFileGroup
 
 def index(request):
     return render(request,"pages/index.html")
@@ -153,28 +154,129 @@ def view_building_information(request, building_id):
     return render(request, "pages/view_building_information.html", {'building':building})
 
 def law_interface(request):
+    if request.method == 'POST':
+        if request.POST.get("GroupNSR10"):
+            return redirect('/company/edit_group_law')
+            edit_group_law(request, 'NSR10')
+        elif request.POST.get("GroupNFPA101"):
+            return redirect('/company/edit_group_law1')
+            edit_group_law(request, 'NFPA101')
+        elif request.POST.get("FlowNSR10"):
+            return redirect('/company/edit_flow_law')
+            edit_flow_law(request, 'NSR10')
+        elif request.POST.get("FlowNFPA101"):
+            return redirect('/company/edit_flow_law1')
+            edit_flow_law(request, 'NFPA101')
+    return render(request, 'pages/law_interface_select.html')
+
+def edit_group_law(request):
+    law = 'NSR10'
     form = ContactForm()
     if request.method == 'POST':
         dic = request.POST.dict()
         if request.POST.get("addOption"):
             form.addOption(dic)
-            return render(request, 'pages/law_interface.html', {'form': form})
+            return render(request, 'pages/law_interface_edit.html', {'form': form})
         elif request.POST.get("removeOption"):
             form.removeOption(dic)
-            return render(request, 'pages/law_interface.html', {'form': form})
+            return render(request, 'pages/law_interface_edit.html', {'form': form})
         elif request.POST.get("addQuestion"):
             form.addQuestion(dic)
-            return render(request, 'pages/law_interface.html', {'form': form})
+            return render(request, 'pages/law_interface_edit.html', {'form': form})
         elif request.POST.get("addFlow"):
             form.addFlow(dic)
-            return render(request, 'pages/law_interface.html', {'form': form})
+            return render(request, 'pages/law_interface_edit.html', {'form': form})
         elif request.POST.get("remove"):
             form.remove(dic)
-            return render(request, 'pages/law_interface.html', {'form': form})
+            return render(request, 'pages/law_interface_edit.html', {'form': form})
         else:
-            writeFile('NSR10', dic)
+            writeFileGroup(law, dic)
             return redirect('/company/')
     else:
-        questions = getQuestions2('NSR10')
+        questions = getQuestionsGroup(law)
         form.initials(questions)
-    return render(request, 'pages/law_interface.html', {'form': form})
+    return render(request, 'pages/law_interface_edit.html', {'form': form})
+
+def edit_group_law1(request):
+    law = 'NFPA101'
+    form = ContactForm()
+    if request.method == 'POST':
+        dic = request.POST.dict()
+        if request.POST.get("addOption"):
+            form.addOption(dic)
+            return render(request, 'pages/law_interface_edit.html', {'form': form})
+        elif request.POST.get("removeOption"):
+            form.removeOption(dic)
+            return render(request, 'pages/law_interface_edit.html', {'form': form})
+        elif request.POST.get("addQuestion"):
+            form.addQuestion(dic)
+            return render(request, 'pages/law_interface_edit.html', {'form': form})
+        elif request.POST.get("addFlow"):
+            form.addFlow(dic)
+            return render(request, 'pages/law_interface_edit.html', {'form': form})
+        elif request.POST.get("remove"):
+            form.remove(dic)
+            return render(request, 'pages/law_interface_edit.html', {'form': form})
+        else:
+            writeFileGroup(law, dic)
+            return redirect('/company/')
+    else:
+        questions = getQuestionsGroup(law)
+        form.initials(questions)
+    return render(request, 'pages/law_interface_edit.html', {'form': form})
+
+def edit_flow_law(request):
+    law = 'NSR10'
+    form = ContactForm()
+    if request.method == 'POST':
+        dic = request.POST.dict()
+        if request.POST.get("addOption"):
+            form.addOption(dic)
+            return render(request, 'pages/law_interface_edit.html', {'form': form})
+        elif request.POST.get("removeOption"):
+            form.removeOption(dic)
+            return render(request, 'pages/law_interface_edit.html', {'form': form})
+        elif request.POST.get("addQuestion"):
+            form.addQuestion(dic)
+            return render(request, 'pages/law_interface_edit.html', {'form': form})
+        elif request.POST.get("addFlow"):
+            form.addFlow(dic)
+            return render(request, 'pages/law_interface_edit.html', {'form': form})
+        elif request.POST.get("remove"):
+            form.remove(dic)
+            return render(request, 'pages/law_interface_edit.html', {'form': form})
+        else:
+            writeFileFlow(law, dic)
+            return redirect('/company/')
+    else:
+        questions = getQuestionsFlow(law)
+        form.initials(questions)
+    return render(request, 'pages/law_interface_edit.html', {'form': form})
+
+def edit_flow_law1(request):
+    law = 'NFPA101'
+    form = ContactForm()
+    if request.method == 'POST':
+        dic = request.POST.dict()
+        if request.POST.get("addOption"):
+            form.addOption(dic)
+            return render(request, 'pages/law_interface_edit.html', {'form': form})
+        elif request.POST.get("removeOption"):
+            form.removeOption(dic)
+            return render(request, 'pages/law_interface_edit.html', {'form': form})
+        elif request.POST.get("addQuestion"):
+            form.addQuestion(dic)
+            return render(request, 'pages/law_interface_edit.html', {'form': form})
+        elif request.POST.get("addFlow"):
+            form.addFlow(dic)
+            return render(request, 'pages/law_interface_edit.html', {'form': form})
+        elif request.POST.get("remove"):
+            form.remove(dic)
+            return render(request, 'pages/law_interface_edit.html', {'form': form})
+        else:
+            writeFileFlow(law, dic)
+            return redirect('/company/')
+    else:
+        questions = getQuestionsFlow(law)
+        form.initials(questions)
+    return render(request, 'pages/law_interface_edit.html', {'form': form})

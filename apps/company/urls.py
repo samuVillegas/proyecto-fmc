@@ -19,4 +19,8 @@ urlpatterns = [
     path('choose_regulation/<building_name>/<building_type>/<building_id>', views.choose_regulation),
     path('search_flow/<building_id>/<building_name>/<building_type>', views.search_flow),
     path('law_interface', views.law_interface), 
+    path('edit_group_law', views.edit_group_law), 
+    path('edit_flow_law', views.edit_flow_law), 
+    path('edit_group_law1', views.edit_group_law1), 
+    path('edit_flow_law1', views.edit_flow_law1), 
 ]

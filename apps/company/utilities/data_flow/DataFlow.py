@@ -66,10 +66,10 @@ def getQuestions(list, law, key):
     return {'exist_flow':True,'flow':flow, 'references':references}
 
 
-def getQuestions2(law):
+def getQuestionsFlow(law):
     return readFile(dir + '/Flow' + law + '.txt')
 
-def writeFile(law, dic):
+def writeFileFlow(law, dic):
     n = int(dic['size'])
     string = str(n) + '\n\n'
 

@@ -105,8 +105,8 @@ class ContactForm(forms.Form):
         val_list = list(form.values())
         key_list.pop(0)
         val_list.pop(0)
-        key_list.pop()
-        val_list.pop()
+        val_list.pop(key_list.index('addQuestion'))
+        key_list.remove('addQuestion')
         self.fields.clear()
         for key,val in zip(key_list,val_list):
             if 'lock' in key:
@@ -137,8 +137,8 @@ class ContactForm(forms.Form):
         val_list = list(form.values())
         key_list.pop(0)
         val_list.pop(0)
-        key_list.pop()
-        val_list.pop()
+        val_list.pop(key_list.index('addFlow'))
+        key_list.remove('addFlow')
         self.fields.clear()
         for key,val in zip(key_list,val_list):
             if 'lock' in key:
@@ -148,7 +148,7 @@ class ContactForm(forms.Form):
                 self.fields[key] = forms.CharField(initial=val,
                     required=False, widget=forms.Textarea(attrs={"rows":(len(val)/size)+1, "cols":size}))
 
-        nextN = key_list[-2].replace('numOptions','')
+        nextN = key_list[-2].replace('numOptions','').replace('law','')
         nextN = str(int(nextN) + 1)
 
         self.fields['type' + nextN] = forms.CharField(initial='Flujo')
