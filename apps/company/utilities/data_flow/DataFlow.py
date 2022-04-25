@@ -81,7 +81,7 @@ def writeFileFlow(law, dic):
             string += dic['lock' + str(count)] + '\n'
             string += dic['reference' + str(count)] + '\n'
             string += dic['question' + str(count)] + '\n'
-            string += dic['image' + str(count)] + '\n'
+            string += dic['image' + str(count)].replace('\r\n',';') + '\n'
             count2 = 1
             while 'option' + str(count) + '_' + str(count2) in dic:
                 string += dic['option' + str(count) + '_' + str(count2)] + '\n'

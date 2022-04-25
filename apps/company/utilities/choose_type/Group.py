@@ -1,4 +1,4 @@
-from apps.company.utilities.data_flow.Question import Question
+from apps.company.utilities.choose_type.Question import Question
 #from Question import Question
 import os
 dir = os.path.dirname(os.path.realpath(__file__))
@@ -49,7 +49,7 @@ def writeFileGroup(law, dic):
     while count < n + 1:
         string += dic['lock' + str(count)] + '\n'
         string += dic['question' + str(count)] + '\n'
-        string += dic['image' + str(count)] + '\n'
+        string += dic['image' + str(count)].replace('\r\n',';') + '\n'
         count2 = 1
         while 'option' + str(count) + '_' + str(count2) in dic:
             string += dic['option' + str(count) + '_' + str(count2)] + '\n'

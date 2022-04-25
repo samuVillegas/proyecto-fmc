@@ -11,7 +11,7 @@
     <table border="2", width="50%", bgcolor="ffdbdb">
     <br>
     {% for x in form %}
-      {% if 'type' not in x.label_tag and 'size' not in x.label_tag and 'numOptions' not in x.label_tag and 'tag' not in x.label_tag %}
+      {% if 'type' not in x.label_tag and 'size' not in x.label_tag and 'numOptions' not in x.label_tag and 'reference' not in x.label_tag %}
         <tr>
           <th>{{ x.label_tag }}</th>
           <td>
@@ -36,8 +36,7 @@
 
     {% endfor %}
   <input type="submit" name="addQuestion" value="Nueva pregunta">--- 
-  <input type="submit" name="addFlow" value="Nuevo flujo">---
-  <input type="submit" name="remove" value="Eliminar ultimo">
+  <input type="submit" name="remove" value="Eliminar ultima">
   <br>
   <br>
   <input type="submit" value="Guardar cambios">
