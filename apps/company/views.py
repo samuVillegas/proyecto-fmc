@@ -1,20 +1,14 @@
-from cgi import print_directory
-from typing import final
+import logging
 from django.shortcuts import render, redirect
 from django.contrib import messages
-import re
-import os
 
-from matplotlib import image
-from numpy import append
-
-from .models import Building, Inspection
+from .models import Building
 from apps.company.utilities.choose_type.Group import getQuestions
 from apps.company.utilities.data_flow.DataFlow import getQuestions as getQuestionsInsp
 from apps.company.utilities.input_request import get_building_information
-from apps.company.utilities.choose_type.Group import readFile as readFileType
-from apps.company.utilities.data_flow.DataFlow import readFile as readFileIns
-from apps.company.utilities.data_flow.Question import Question
+from apps.company.utilities.forms import ContactForm
+from apps.company.utilities.data_flow.DataFlow import getQuestionsFlow, writeFileFlow
+from apps.company.utilities.choose_type.Group import getQuestionsGroup, writeFileGroup
 
 def index(request):
     return render(request,"pages/index.html")
@@ -25,36 +19,17 @@ def index(request):
 
    # return render(request,"pages/site_parameterization.html",{'current_question':current_question, "is_material_list": is_material_list})
 
-#def choose_regulation(request, building_name, building_type, building_id):
- #   building = Building.objects.get(code=building_id)
-  #  building.site_type = building_type
-   # building.save()
-
-    #return render(request, "pages/site_choose_regulation.html",{'building_id': building_id, 'building_name': building_name, 'building_type': building_type})
-
-#def site_national_inspection(request, building_name, building_type, building_id):
-    #current_question = getQuestionsInsp([], building_type)
-    #print(current_question)
- #   return render(request,"pages/site_inspection.html", {'building_id': building_id, 'building_name': building_name, 'building_type': building_type, "is_national_regulation": True, "current_question":current_question})
-
-def site_inspection(request, building_name, building_type, building_regulation, building_id):
+def choose_regulation(request, building_name, building_type, building_id):
     building = Building.objects.get(code=building_id)
     building.site_type = building_type
     building.save()
-    is_material_list = None
-    current_question =  getQuestionsInsp([], building_regulation, building_type)
-    try:
-        if 'img' not in current_question['image']:
-            is_material_list = True
-            current_question['image'] = current_question['image'].split(';')
-    except:
-        try:
-            if current_question['image'] != '[]':
-                is_material_list = False
-        except:
-            is_material_list = None
+
+    return render(request, "pages/site_choose_regulation.html",{'building_id': building_id, 'building_name': building_name, 'building_type': building_type})
+
+def site_national_inspection(request, building_name, building_type, building_id):
+    #current_question = getQuestionsInsp([], building_type)
     #print(current_question)
-    return render(request, "pages/site_inspection.html", {'current_question':current_question, 'building_id': building_id, 'building_name': building_name, 'building_type': building_type, 'building_regulation': building_regulation, 'is_material_list':is_material_list})
+    return render(request,"pages/site_inspection.html", {'building_id': building_id, 'building_name': building_name, 'building_type': building_type, "is_national_regulation": True, "current_question":current_question})
 
 def site_parameterization_from_edit(request, building_id, building_name, building_regulation):
     current_question = getQuestions([], building_regulation)
@@ -64,126 +39,32 @@ def site_parameterization_from_edit(request, building_id, building_name, buildin
 
 def search_building(request):
     searchTerm = request.GET.get('searchTerm')
-    inspections_list = []
-    list = []
 
     if searchTerm:
-        try:
-            buildings = Building.objects.get(site_name__icontains=searchTerm)
-            inspections = Building.objects.get(site_name=buildings.site_name).inspection_set.all()
-            if(len(inspections) > 0):
-                inspection = inspections[len(inspections) - 1]
-                list.append([buildings,inspection])
-            else:
-                list.append([buildings,''])
-        except:
-            list = []
+        buildings_list = Building.objects.filter(site_name__icontains=searchTerm)
     else:
         buildings_list = Building.objects.all()
-        inspections_list = Inspection.objects.all()
 
-        for b in buildings_list:
-            inspections = Building.objects.get(site_name=b.site_name).inspection_set.all()
-            if(len(inspections) > 0):
-                inspection = inspections[len(inspections) - 1]
-                list.append([b,inspection])
-            else:
-                list.append([b,''])
-
-    return render(request,"pages/search_building.html", {"inspections_list":inspections_list, "list": list, "searchTerm":searchTerm})
+    return render(request,"pages/search_building.html", {"buildings_list":buildings_list, "searchTerm":searchTerm   })
 
 def search_key(request, building_id, building_name, building_regulation):
     current_ids = request.POST.get('current_ids')
-
     split_current_ids = current_ids.split(',')
-
-    current_question = None
-    is_material_list = None
-    #print(len(split_current_ids))
-    #print(split_current_ids)
-    if split_current_ids != ['']:
-        current_question = getQuestions(split_current_ids, building_regulation)
-        #is_material_list = False
-        try:
-            if 'img' not in current_question['image']:
-                is_material_list = True
-                current_question['image'] = current_question['image'].split(';')
-        except:
-            is_material_list = False
-    else:
-        current_question = getQuestions([], building_regulation)
-
+    current_question = getQuestions(split_current_ids, building_regulation)
+    #is_material_list = False
+    try:
+        if 'img' not in current_question['image']:
+            is_material_list = True
+            current_question['image'] = current_question['image'].split(';')
+    except:
+        is_material_list = False
     return render(request,"pages/site_parameterization.html",{'current_question':current_question, 'building_id':building_id, 'building_name':building_name, 'building_regulation': building_regulation, "is_material_list": is_material_list})
 
-def search_flow(request, building_id, building_name, building_type, building_regulation):
+def search_flow(request, building_id, building_name, building_type):
     current_ids = request.POST.get('current_ids_flow')
     split_current_ids = current_ids.split(',')
-    #print(split_current_ids)
-    is_material_list = False
-
-    if split_current_ids != ['']:
-        current_question = getQuestionsInsp(split_current_ids, building_regulation, building_type)
-        try:
-            if 'img' not in current_question['image']:
-                is_material_list = True
-                current_question['image'] = current_question['image'].split(';')
-        except:
-            try:
-                if current_question['image'] != '[]':
-                    is_material_list = False
-            except:
-                is_material_list = None
-    else:
-        current_question = getQuestionsInsp([], building_regulation, building_type)
-
-    #print(is_material_list)
-    #print(type(current_question['image']))
-    return render(request,"pages/site_inspection.html",{'current_question':current_question, 'building_regulation': building_regulation, 'building_id':building_id, 'building_name':building_name, "building_type": building_type, 'is_material_list': is_material_list})
-
-def check_inspection(request, building_name):
-    current_final_ids = request.POST.get('ids_final_flow')
-    final_flow = request.POST.get('final_flow')
-    
-    if current_final_ids != None:
-        current_final_ids = current_final_ids.split(',')
-
-    if final_flow != None:
-        final_flow = re.sub("\[|\]","",final_flow)
-        final_flow = final_flow.split("', ")
-
-        for ite, d in enumerate(final_flow):
-            final_flow[ite] = re.sub("\'","",d)
-    #print(current_final_ids)
-
-    is_inspection_succesfull = False
-    #print(final_flow)
-    #print(current_final_ids)
-    if(current_final_ids != ['']) or (final_flow == None):
-        if final_flow == None:
-            is_inspection_succesfull = True
-        elif len(current_final_ids) == len(final_flow):
-            is_inspection_succesfull = True
-
-    #print(is_inspection_succesfull)
-    #print(len(current_final_ids))
-    
-    if current_final_ids != None and current_final_ids != ['']:
-        for id in current_final_ids:
-            if int(id) - 1 < len(current_final_ids):
-                final_flow[int(id) - 1] = ''
-
-    #print(final_flow)
-    if final_flow != None:
-        for ite,ef in enumerate(final_flow):
-            if ef == '':
-                final_flow.pop(ite)
-
-    #print(final_flow)
-
-    #print(final_flow)
-    b = Building.objects.filter(site_name__iexact=building_name).get()
-    Inspection.objects.create(description=final_flow, is_inspection_successful=is_inspection_succesfull, building=b)
-    return redirect('/company/search_building')
+    current_question = getQuestionsInsp(split_current_ids, building_type)
+    return render(request,"pages/site_inspection.html",{'current_question':current_question, 'building_id':building_id, 'building_name':building_name, "building_type": building_type})
 
 def site_information(request):
     return render(request,"pages/site_information.html")
@@ -262,66 +143,140 @@ def set_building_type(request, building_id, building_type):
 def delete_building(request):
     code_building = request.POST.get('delete_id_item')
     building = Building.objects.get(code=code_building)
-    inspections_list = Building.objects.get(site_name=building.site_name).inspection_set.all()
+    building.delete()
 
-    if len(inspections_list) == 0:
-        building.delete()
-        messages.success(request, 'Edificio eliminado con exito')
-    
+    messages.success(request, 'Edificio eliminado con exito')
     return redirect('/company/search_building')
 
 def view_building_information(request, building_id):
     building = Building.objects.get(code=building_id)
-    inspections = Building.objects.get(site_name=building.site_name).inspection_set.all()
 
-    #print(inspections[1].description)
-    descriptions = []
-    desc = []
-    descs = []
-    for i in inspections:
-        if i.description != None:
-            desc = re.sub("\[|\]","",i.description)
-            descs = desc.split("', ")
+    return render(request, "pages/view_building_information.html", {'building':building})
 
-        for ite,d in enumerate(descs):
-            text = re.sub("\'|\.","",d)
-            descs[ite] = text
+def law_interface(request):
+    if request.method == 'POST':
+        if request.POST.get("GroupNSR10"):
+            return redirect('/company/edit_group_law')
+            edit_group_law(request, 'NSR10')
+        elif request.POST.get("GroupNFPA101"):
+            return redirect('/company/edit_group_law1')
+            edit_group_law(request, 'NFPA101')
+        elif request.POST.get("FlowNSR10"):
+            return redirect('/company/edit_flow_law')
+            edit_flow_law(request, 'NSR10')
+        elif request.POST.get("FlowNFPA101"):
+            return redirect('/company/edit_flow_law1')
+            edit_flow_law(request, 'NFPA101')
+    return render(request, 'pages/law_interface_select.html')
 
-        descriptions.append([i,descs])
-
-    return render(request, "pages/view_building_information.html", {'building':building, 'inspections': inspections, 'descriptions':descriptions})
-
-def choose_regulation_to_show(request):
-    return render(request, "pages/choose_regulation_to_show.html")
-
-def show_regulation_information(request, regulation, is_inspection_question):
-    questions = []
-    table_list = []
-    if is_inspection_question == '0':
-        dir = 'apps/company/utilities/choose_type'
-        questions = readFileType(dir + '/Group' + regulation + '.txt')
-
-        for ite,q in enumerate(questions):
-            if 'img' not in q.image:
-                string = q.image
-                questions[ite].image = string.split(';')
-            else: 
-                questions[ite].image = ''
+def edit_group_law(request):
+    law = 'NSR10'
+    form = ContactForm()
+    if request.method == 'POST':
+        dic = request.POST.dict()
+        if request.POST.get("addOption"):
+            form.addOption(dic)
+            return render(request, 'pages/law_interface_edit.html', {'form': form})
+        elif request.POST.get("removeOption"):
+            form.removeOption(dic)
+            return render(request, 'pages/law_interface_edit.html', {'form': form})
+        elif request.POST.get("addQuestion"):
+            form.addQuestion(dic)
+            return render(request, 'pages/law_interface_edit.html', {'form': form})
+        elif request.POST.get("addFlow"):
+            form.addFlow(dic)
+            return render(request, 'pages/law_interface_edit.html', {'form': form})
+        elif request.POST.get("remove"):
+            form.remove(dic)
+            return render(request, 'pages/law_interface_edit.html', {'form': form})
+        else:
+            writeFileGroup(law, dic)
+            return redirect('/company/')
     else:
-        dir = 'apps/company/utilities/data_flow'
-        questions = readFileIns(dir + '/Flow' + regulation + '.txt')
-        #print(questions)
+        questions = getQuestionsGroup(law)
+        form.initials(questions)
+    return render(request, 'pages/law_interface_edit.html', {'form': form})
 
-        for ite,q in enumerate(questions):
-            if not isinstance(q,Question):
-                questions.pop(ite)
-        
-        for ite,r in enumerate(questions):
-            if isinstance(r,Question):
-                if 'img' not in r.image and r.image != '[]':
-                    string = r.image
-                    questions[ite].image = string.split(';')
-                else: 
-                    questions[ite].image = ''
+def edit_group_law1(request):
+    law = 'NFPA101'
+    form = ContactForm()
+    if request.method == 'POST':
+        dic = request.POST.dict()
+        if request.POST.get("addOption"):
+            form.addOption(dic)
+            return render(request, 'pages/law_interface_edit.html', {'form': form})
+        elif request.POST.get("removeOption"):
+            form.removeOption(dic)
+            return render(request, 'pages/law_interface_edit.html', {'form': form})
+        elif request.POST.get("addQuestion"):
+            form.addQuestion(dic)
+            return render(request, 'pages/law_interface_edit.html', {'form': form})
+        elif request.POST.get("addFlow"):
+            form.addFlow(dic)
+            return render(request, 'pages/law_interface_edit.html', {'form': form})
+        elif request.POST.get("remove"):
+            form.remove(dic)
+            return render(request, 'pages/law_interface_edit.html', {'form': form})
+        else:
+            writeFileGroup(law, dic)
+            return redirect('/company/')
+    else:
+        questions = getQuestionsGroup(law)
+        form.initials(questions)
+    return render(request, 'pages/law_interface_edit.html', {'form': form})
 
-    return render(request, "pages/show_regulation_information.html", {'questions':questions, 'is_inspection_question':is_inspection_question})
+def edit_flow_law(request):
+    law = 'NSR10'
+    form = ContactForm()
+    if request.method == 'POST':
+        dic = request.POST.dict()
+        if request.POST.get("addOption"):
+            form.addOption(dic)
+            return render(request, 'pages/law_interface_edit.html', {'form': form})
+        elif request.POST.get("removeOption"):
+            form.removeOption(dic)
+            return render(request, 'pages/law_interface_edit.html', {'form': form})
+        elif request.POST.get("addQuestion"):
+            form.addQuestion(dic)
+            return render(request, 'pages/law_interface_edit.html', {'form': form})
+        elif request.POST.get("addFlow"):
+            form.addFlow(dic)
+            return render(request, 'pages/law_interface_edit.html', {'form': form})
+        elif request.POST.get("remove"):
+            form.remove(dic)
+            return render(request, 'pages/law_interface_edit.html', {'form': form})
+        else:
+            writeFileFlow(law, dic)
+            return redirect('/company/')
+    else:
+        questions = getQuestionsFlow(law)
+        form.initials(questions)
+    return render(request, 'pages/law_interface_edit.html', {'form': form})
+
+def edit_flow_law1(request):
+    law = 'NFPA101'
+    form = ContactForm()
+    if request.method == 'POST':
+        dic = request.POST.dict()
+        if request.POST.get("addOption"):
+            form.addOption(dic)
+            return render(request, 'pages/law_interface_edit.html', {'form': form})
+        elif request.POST.get("removeOption"):
+            form.removeOption(dic)
+            return render(request, 'pages/law_interface_edit.html', {'form': form})
+        elif request.POST.get("addQuestion"):
+            form.addQuestion(dic)
+            return render(request, 'pages/law_interface_edit.html', {'form': form})
+        elif request.POST.get("addFlow"):
+            form.addFlow(dic)
+            return render(request, 'pages/law_interface_edit.html', {'form': form})
+        elif request.POST.get("remove"):
+            form.remove(dic)
+            return render(request, 'pages/law_interface_edit.html', {'form': form})
+        else:
+            writeFileFlow(law, dic)
+            return redirect('/company/')
+    else:
+        questions = getQuestionsFlow(law)
+        form.initials(questions)
+    return render(request, 'pages/law_interface_edit.html', {'form': form})

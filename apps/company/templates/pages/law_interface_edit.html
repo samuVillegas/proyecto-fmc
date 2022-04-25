@@ -1,0 +1,46 @@
+{% extends 'containers/base_landing_page.html' %}
+{% block body %}
+{% load static %}
+<div align="center">
+<form method="post" novalidate>
+  {% csrf_token %}
+  {{ form.non_field_errors }}
+  {{ form.source.errors }}
+  {{ form.source }}
+
+    <table border="2", width="50%", bgcolor="ffdbdb">
+    <br>
+    {% for x in form %}
+      {% if 'type' not in x.label_tag and 'size' not in x.label_tag and 'numOptions' not in x.label_tag and 'tag' not in x.label_tag %}
+        <tr>
+          <th>{{ x.label_tag }}</th>
+          <td>
+            {{ x.errors }}
+            {{ x }}
+          </td>
+        </tr>
+      {% else %}
+        <tr><td>{{ x.as_hidden }}</td></tr>
+      {% endif %}
+
+      {% if 'numOptions' in x.label_tag %}
+      <tr><td>
+        <input type="submit" name="addOption" value=" + ">
+        <input type="submit" name="removeOption" value=" - ">
+      </td></tr>
+        </table><br><table border="2", width="50%", bgcolor="#ffdbdb">
+      {% endif %}
+      {% if 'law' in x.label_tag %}
+        </table><br><table border="2", width="50%", bgcolor="#ffdbdb">
+      {% endif %}
+
+    {% endfor %}
+  <input type="submit" name="addQuestion" value="Nueva pregunta">--- 
+  <input type="submit" name="addFlow" value="Nuevo flujo">---
+  <input type="submit" name="remove" value="Eliminar ultimo">
+  <br>
+  <br>
+  <input type="submit" value="Guardar cambios">
+</form>
+</div>
+{% endblock %}

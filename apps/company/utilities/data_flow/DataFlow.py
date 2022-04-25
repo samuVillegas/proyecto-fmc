@@ -50,7 +50,7 @@ def getQuestions(list, law, key):
         if key in q.lock:
             if cont == len(list) and isinstance(q,Question):
                 if len(flow) == 0:
-                    flow = ''
+                    flow = ['Ya se cumple la ley ' + law]
                 return {'question':q.question,'options':q.options,'image':q.image,'exist_flow':False}
             if isinstance(q,Flow):
                 if len(q.law) > 0:
@@ -62,20 +62,19 @@ def getQuestions(list, law, key):
                 cont += 1
             references.append(q.reference)
     if len(flow) == 0:
-        flow = ''
-
+        flow = ['Ya se cumple la ley ' + law]
     return {'exist_flow':True,'flow':flow, 'references':references}
 
 
-def getQuestions2(law):
+def getQuestionsFlow(law):
     return readFile(dir + '/Flow' + law + '.txt')
 
-def writeFile(law, dic):
+def writeFileFlow(law, dic):
     n = int(dic['size'])
     string = str(n) + '\n\n'
 
     count = 1
-    while count <= n:
+    while count < n + 1:
         type = dic['type' + str(count)]
         string += type + '\n'
         if type == 'Pregunta':
@@ -94,7 +93,7 @@ def writeFile(law, dic):
             string += dic['law' + str(count)] + '\n'
         count += 1
         string += '\n'
-    logging.warning(string)
+    
     f = open(dir + '/Flow' + law + '.txt',"w",encoding='utf-8')
     f.write(string)
     f.close()

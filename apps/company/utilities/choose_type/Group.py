@@ -1,4 +1,4 @@
-from apps.company.utilities.choose_type.Question import Question
+from apps.company.utilities.data_flow.Question import Question
 #from Question import Question
 import os
 dir = os.path.dirname(os.path.realpath(__file__))
@@ -38,6 +38,29 @@ def getQuestions(list, law):
                     key = selected
     return {'exist_key':True,'key':key}
 
+def getQuestionsGroup(law):
+    return readFile(dir + '/Group' + law + '.txt')
+
+def writeFileGroup(law, dic):
+    n = int(dic['size'])
+    string = str(n) + '\n'
+
+    count = 1
+    while count < n + 1:
+        string += dic['lock' + str(count)] + '\n'
+        string += dic['question' + str(count)] + '\n'
+        string += dic['image' + str(count)] + '\n'
+        count2 = 1
+        while 'option' + str(count) + '_' + str(count2) in dic:
+            string += dic['option' + str(count) + '_' + str(count2)] + '\n'
+            string += dic['output' + str(count) + '_' + str(count2)] + '\n'
+            count2 += 1
+        count += 1
+        string += '\n'
+    
+    f = open(dir + '/Group' + law + '.txt',"w",encoding='utf-8')
+    f.write(string)
+    f.close()
 
 #Testing
 def FindGroup(law):
