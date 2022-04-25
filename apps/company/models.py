@@ -1,8 +1,14 @@
 import uuid
 from django.db import models
-from django.forms import JSONField
 
 # Create your models here.
+
+class Inspection(models.Model):
+    code=models.UUIDField(primary_key=True,default=uuid.uuid4,editable=False,unique=True)
+    date = models.DateField()
+    description=models.CharField(max_length=250)
+    pass_building=models.CharField(max_length=10)
+    #Inspector de tipo Inspector (es quien realiza la inspeccion)
 
 class Building(models.Model):
     code=models.UUIDField(primary_key=True,default=uuid.uuid4,editable=False,unique=True)
@@ -12,10 +18,7 @@ class Building(models.Model):
     contact_mobile_number=models.PositiveIntegerField(unique=False)
     site_type=models.CharField(max_length=3,null=True, default=None, unique=False)
     regulation=models.CharField(max_length=7,null=True, default=None, unique=False)
+    inspections = models.ForeignKey(Inspection, on_delete=models.CASCADE, null=True)
 
-class Inspection(models.Model):
-    code=models.UUIDField(primary_key=True,default=uuid.uuid4,editable=False,unique=True)
-    date = models.DateTimeField(auto_now=True)
-    description = models.CharField(max_length=1000, null=True, default=None)
-    is_inspection_successful=models.BooleanField(null=True, default=None)
-    building = models.ForeignKey(to=Building, on_delete=models.CASCADE, null=True)
+    class Meta:
+        ordering = ['site_name']

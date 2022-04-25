@@ -71,7 +71,7 @@ C2
 
 L
 ¿Qué tipo de reuniones? 
-lugares de reunion deportivos;lugares de reunion culturales;lugares de reunion religiosos;lugares de reunion transporte
+[listas en L]
 Deportivos
 L1
 Culturales o de teatro
