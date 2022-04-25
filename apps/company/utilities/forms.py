@@ -67,7 +67,7 @@ class ContactForm(forms.Form):
                 self.fields[lastKey] = forms.CharField(initial=lastVal,
                     required=False, widget=forms.Textarea(attrs={"rows":(len(val)/size)+1, "cols":size}))
             
-        self.fields['size'] = forms.CharField(initial=str(int(form['size'])+1))
+        self.fields['size'] = forms.CharField(initial=form['size'])
 
     def removeOption(self, form):
         size = 40
@@ -77,14 +77,13 @@ class ContactForm(forms.Form):
         val_list.pop(0)
         self.fields.clear()
         numOptKey = ''
-        optkey = ''
+        outkey = ''
         for key,val in zip(key_list,val_list):
             if 'remove' not in key:
-                outkey = optkey
-                optkey = numOptKey
+                optkey = outkey
+                outkey = numOptKey
                 numOptKey = key
                 numOptVal = val
-                logging.warning(outkey + ' ' + optkey)
                 if 'lock' in key:
                     self.fields[key] = forms.CharField(initial=val, 
                         widget=forms.Textarea(attrs={"rows":1, "cols":size/2, "style": "resize: none"}))
@@ -92,13 +91,92 @@ class ContactForm(forms.Form):
                     self.fields[key] = forms.CharField(initial=val,
                         required=False, widget=forms.Textarea(attrs={"rows":(len(val)/size)+1, "cols":size}))
             else:
-                logging.warning(outkey + ' ' + optkey)
-                self.fields.pop(optkey, None)
-                self.fields.pop(outkey, None)
-                self.fields[numOptKey] = forms.CharField(initial=str(int(numOptVal) - 1),
-                    required=False, widget=forms.Textarea(attrs={"rows":(len(val)/size)+1, "cols":size}))
-            
-        self.fields['size'] = forms.CharField(initial=str(int(form['size'])+1))
-            
+                if int(optkey.split('_')[1]) > 1:   
+                    self.fields.pop(optkey, None)
+                    self.fields.pop(outkey, None)
+                    self.fields[numOptKey] = forms.CharField(initial=str(int(numOptVal) - 1),
+                        required=False, widget=forms.Textarea(attrs={"rows":(len(val)/size)+1, "cols":size}))
+        self.fields['size'] = forms.CharField(initial=form['size'])
         
+            
+    def addQuestion(self, form):
+        size = 40
+        key_list = list(form.keys())
+        val_list = list(form.values())
+        key_list.pop(0)
+        val_list.pop(0)
+        key_list.pop()
+        val_list.pop()
+        self.fields.clear()
+        for key,val in zip(key_list,val_list):
+            if 'lock' in key:
+                self.fields[key] = forms.CharField(initial=val, 
+                    widget=forms.Textarea(attrs={"rows":1, "cols":size/2, "style": "resize: none"}))
+            else: 
+                self.fields[key] = forms.CharField(initial=val,
+                    required=False, widget=forms.Textarea(attrs={"rows":(len(val)/size)+1, "cols":size}))
+
+        nextN = key_list[-2].replace('numOptions','').replace('law','')
+        nextN = str(int(nextN) + 1)
+
+        self.fields['type' + nextN] = forms.CharField(initial='Pregunta')
+        self.fields['lock' + nextN] = forms.CharField(widget=forms.Textarea(attrs={"rows":1, "cols":size/2, "style": "resize: none"}))
+        self.fields['question' + nextN] = forms.CharField(widget=forms.Textarea(attrs={"rows":2, "cols":size}))
+        self.fields['reference' + nextN] = forms.CharField(widget=forms.Textarea(attrs={"rows":1, "cols":size}))
+        self.fields['image' + nextN] = forms.CharField(widget=forms.Textarea(attrs={"rows":1, "cols":size}))
+        self.fields['option' + nextN + '_1'] = forms.CharField(widget=forms.Textarea(attrs={"rows":1, "cols":size}))
+        self.fields['output' + nextN + '_1'] = forms.CharField( widget=forms.Textarea(attrs={"rows":1, "cols":size}))
+        self.fields['numOptions' + nextN] = forms.CharField(initial='1')
+        
+        self.fields.pop('size', None)
+        self.fields['size'] = forms.CharField(initial=str(int(form['size'])+1))
+
+    def addFlow(self, form):
+        size = 40
+        key_list = list(form.keys())
+        val_list = list(form.values())
+        key_list.pop(0)
+        val_list.pop(0)
+        key_list.pop()
+        val_list.pop()
+        self.fields.clear()
+        for key,val in zip(key_list,val_list):
+            if 'lock' in key:
+                self.fields[key] = forms.CharField(initial=val, 
+                    widget=forms.Textarea(attrs={"rows":1, "cols":size/2, "style": "resize: none"}))
+            else: 
+                self.fields[key] = forms.CharField(initial=val,
+                    required=False, widget=forms.Textarea(attrs={"rows":(len(val)/size)+1, "cols":size}))
+
+        nextN = key_list[-2].replace('numOptions','')
+        nextN = str(int(nextN) + 1)
+
+        self.fields['type' + nextN] = forms.CharField(initial='Flujo')
+        self.fields['lock' + nextN] = forms.CharField(widget=forms.Textarea(attrs={"rows":1, "cols":size/2, "style": "resize: none"}))
+        self.fields['reference' + nextN] = forms.CharField(widget=forms.Textarea(attrs={"rows":1, "cols":size}))
+        self.fields['law' + nextN] = forms.CharField(widget=forms.Textarea(attrs={"rows":2, "cols":size}))
+        
+        self.fields.pop('size', None)
+        self.fields['size'] = forms.CharField(initial=str(int(form['size'])+1))
+
+    def remove(self, form):
+        size = 40
+        key_list = list(form.keys())
+        val_list = list(form.values())
+        key_list.pop(0)
+        val_list.pop(0)
+        key_list.pop()
+        val_list.pop()
+        self.fields.clear()
+        for key,val in zip(key_list,val_list):
+            if key == 'lock' + form['size']:
+                break
+            if 'lock' in key:
+                self.fields[key] = forms.CharField(initial=val, 
+                    widget=forms.Textarea(attrs={"rows":1, "cols":size/2, "style": "resize: none"}))
+            else: 
+                self.fields[key] = forms.CharField(initial=val,
+                    required=False, widget=forms.Textarea(attrs={"rows":(len(val)/size)+1, "cols":size}))
+        
+        self.fields['size'] = forms.CharField(initial=str(int(form['size'])-1))
     

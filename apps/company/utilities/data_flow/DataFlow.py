@@ -70,7 +70,7 @@ def getQuestions2(law):
     return readFile(dir + '/Flow' + law + '.txt')
 
 def writeFile(law, dic):
-    n = int(dic['size']) - 2
+    n = int(dic['size'])
     string = str(n) + '\n\n'
 
     count = 1
@@ -93,7 +93,7 @@ def writeFile(law, dic):
             string += dic['law' + str(count)] + '\n'
         count += 1
         string += '\n'
-    logging.warning(string)
+    
     f = open(dir + '/Flow' + law + '.txt',"w",encoding='utf-8')
     f.write(string)
     f.close()

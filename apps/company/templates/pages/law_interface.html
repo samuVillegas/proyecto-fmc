@@ -8,7 +8,6 @@
   {{ form.source.errors }}
   {{ form.source }}
 
-  <table border="2", width="50%", bgcolor="white">
     <table border="2", width="50%", bgcolor="ffdbdb">
     <br>
     {% for x in form %}
@@ -26,8 +25,8 @@
 
       {% if 'numOptions' in x.label_tag %}
       <tr><td>
-        <input type="submit" name="add" value=" + ">
-        <input type="submit" name="remove" value=" - ">
+        <input type="submit" name="addOption" value=" + ">
+        <input type="submit" name="removeOption" value=" - ">
       </td></tr>
         </table><br><table border="2", width="50%", bgcolor="#ffdbdb">
       {% endif %}
@@ -36,10 +35,12 @@
       {% endif %}
 
     {% endfor %}
-    </table>
-  </table>
+  <input type="submit" name="addQuestion" value="Nueva pregunta">--- 
+  <input type="submit" name="addFlow" value="Nuevo flujo">---
+  <input type="submit" name="remove" value="Eliminar ultimo">
   <br>
-  <button type="submit">Submit</button>
+  <br>
+  <input type="submit" value="Guardar cambios">
 </form>
 </div>
 {% endblock %}

@@ -1,3 +1,4 @@
+import logging
 from django.shortcuts import render, redirect
 from django.contrib import messages
 
@@ -155,11 +156,20 @@ def law_interface(request):
     form = ContactForm()
     if request.method == 'POST':
         dic = request.POST.dict()
-        if request.POST.get("add"):
+        if request.POST.get("addOption"):
             form.addOption(dic)
             return render(request, 'pages/law_interface.html', {'form': form})
-        if request.POST.get("remove"):
+        elif request.POST.get("removeOption"):
             form.removeOption(dic)
+            return render(request, 'pages/law_interface.html', {'form': form})
+        elif request.POST.get("addQuestion"):
+            form.addQuestion(dic)
+            return render(request, 'pages/law_interface.html', {'form': form})
+        elif request.POST.get("addFlow"):
+            form.addFlow(dic)
+            return render(request, 'pages/law_interface.html', {'form': form})
+        elif request.POST.get("remove"):
+            form.remove(dic)
             return render(request, 'pages/law_interface.html', {'form': form})
         else:
             writeFile('NSR10', dic)
