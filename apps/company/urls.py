@@ -22,10 +22,6 @@ urlpatterns = [
     path('site_inspection/<building_name>/<building_type>/<building_regulation>/<building_id>',views.site_inspection, name = "site_inspection"),
     path('choose_regulation_to_show', views.choose_regulation_to_show),
     path('show_regulation_information/<regulation>/<is_inspection_question>', views.show_regulation_information),
-    
     path('law_interface', views.law_interface), 
-    path('edit_group_law', views.edit_group_law), 
-    path('edit_flow_law', views.edit_flow_law), 
-    path('edit_group_law1', views.edit_group_law1), 
-    path('edit_flow_law1', views.edit_flow_law1), 
+    path('edit_law/<law>', views.edit_law), 
 ]
