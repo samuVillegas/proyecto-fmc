@@ -136,7 +136,7 @@ def search_flow(request, building_id, building_name, building_type, building_reg
     else:
         current_question = getQuestionsInsp([], building_regulation, building_type)
 
-    print(is_material_list)
+    #print(is_material_list)
     #print(type(current_question['image']))
     return render(request,"pages/site_inspection.html",{'current_question':current_question, 'building_regulation': building_regulation, 'building_id':building_id, 'building_name':building_name, "building_type": building_type, 'is_material_list': is_material_list})
 
