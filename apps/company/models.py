@@ -1,11 +1,21 @@
 import uuid
 from django.db import models
+from django.forms import JSONField
 
 # Create your models here.
+
 class Building(models.Model):
-    code=models.UUIDField(primary_key=True,default=uuid.uuid4,editable=False)
-    site_name=models.CharField(max_length=50)
-    address=models.CharField(max_length=70)
-    contact_email=models.CharField(max_length=40)
-    contact_mobile_number=models.PositiveIntegerField()
-    site_type=models.CharField(max_length=3, unique=True, blank=True, null=True, default=None)
+    code=models.UUIDField(primary_key=True,default=uuid.uuid4,editable=False,unique=True)
+    site_name=models.CharField(max_length=50, unique=True)
+    address=models.CharField(max_length=70, unique=False)
+    contact_email=models.CharField(max_length=40, unique=False)
+    contact_mobile_number=models.PositiveIntegerField(unique=False)
+    site_type=models.CharField(max_length=3,null=True, default=None, unique=False)
+    regulation=models.CharField(max_length=7,null=True, default=None, unique=False)
+
+class Inspection(models.Model):
+    code=models.UUIDField(primary_key=True,default=uuid.uuid4,editable=False,unique=True)
+    date = models.DateTimeField(auto_now=True)
+    description = models.CharField(max_length=1000, null=True, default=None)
+    is_inspection_successful=models.BooleanField(null=True, default=None)
+    building = models.ForeignKey(to=Building, on_delete=models.CASCADE, null=True)

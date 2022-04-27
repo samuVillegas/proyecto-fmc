@@ -1,14 +1,32 @@
 {% extends 'containers/base.html' %}
 {% block body %}
+{% load static %}
 <div class="container">
-  <h4 class="text-center mt-3 mb-4">Encuesta para saber a que grupo pertenece el edificio {{building_name}}</h2>
+    <h4 class="text-center mt-3 mb-4">Encuesta para saber a que grupo pertenece el edificio {{building_name}}</h2>
         <div class="container">
-            <form action="/company/search_key" method="POST">{% csrf_token %}
+            <form action="/company/search_key/{{building_id}}/{{building_name}}/{{building_regulation}}" method="POST">{% csrf_token %}
                 {% if current_question.exist_key %}
                 <h3>Tú establecimiento es de tipo {{current_question.key}}</h3>
-		<button type="submit" onclick="this.form.action='set_building_type/{{building_id}}/{{current_question.key}}';this.form.submit()" class="btn btn-primary">Terminar</button>
+                <button type="submit"
+                    onclick="this.form.action='/company/set_building_type/{{building_id}}/{{current_question.key}}';this.form.submit()"
+                    class="btn btn-primary">Terminar</button>
+                <button type="submit"
+                    onclick="this.form.action='/company/site_inspection/{{building_name}}/{{current_question.key}}/{{building_regulation}}/{{building_id}}';this.form.submit()"
+                    class="btn btn-primary">Inspeccionar</button>
                 {% else %}
-                <h6 class="text-center">{{current_question.question}}</h6>
+                
+                <div class="text-center">
+                    <h6 class="text-center">{{current_question.question}}</h6>
+                    {% if is_material_list %}
+                        <ul class="list-group">
+                            {% for m in current_question.image %}
+                                <li class="list-group-item">{{m}}</li> 
+                            {% endfor %}
+                        </ul>  
+                    {% else %}
+                        <img src="{% static current_question.image %}" alt="" width="300px" height="300px">
+                    {% endif %}
+                </div> 
                 <div id="options">
                     {% for i in current_question.options %}
                     <div class="form-check d-flex justify-content-center p-1">
@@ -21,10 +39,9 @@
                     <input id="current_ids" name="current_ids" value="" style="visibility: hidden;"></input>
                 </div>
                 <div class="text-end">
-                    <button type="submit" class="btn btn-primary" onclick="next()">Siguiente</button>
+                    <button type="submit" id="set_type" class="btn btn-primary" onclick="next()">Siguiente</button>
                 </div>
                 {% endif%}
-
             </form>
         </div>
 </div>

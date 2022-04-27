@@ -1,12 +1,14 @@
 class Question:
     lock = ''
     question = ''
+    image = ''
     options = []
     outputs = []
 
-    def __init__(self, lock, question):
+    def __init__(self, lock, question, image):
         self.lock = lock
         self.question = question
+        self.image = image
         self.options = []
         self.outputs = []
 

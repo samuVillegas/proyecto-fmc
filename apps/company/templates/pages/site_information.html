@@ -1,30 +1,60 @@
 {% extends 'containers/base.html' %}
 {% block body %}
+{% load static %}
 <div class="container mt-3 building_form" >
     <h4 class="text-center">Información general del edificio</h4>
+    {% if messages %}
+       {% for message in messages %}
+           {% if message.tags == 'error' %}
+              <div class="alert alert-dismissible alert-danger">
+                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                 <strong class="text-dark">{{ message }}</strong>
+              </div>
+           {% else %}
+                 <div class="alert alert-dismissible alert-success">
+                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                     <strong class="text-dark">{{ message }}</strong>
+                 </div>
+          {% endif %}
+      {% endfor %}
+    {% endif %}
+
     <form action="" method="POST">{% csrf_token %}
         <div class="mb-3">
-          <label for="site_name" class="form-label">Nombre del establecimiento</label>
-        <input name="site_name" type="text" class="form-control" id="site_name" aria-describedby="emailHelp" placeholder="León XIII">
+            <label for="site_name" class="form-label">Nombre del establecimiento</label>
+            <input name="site_name" type="text" class="form-control" id="site_name" aria-describedby="emailHelp" placeholder="Edificio A" value="{{building_name}}"required>
         </div>
         <div class="mb-3 mb-4">
-        <label for="address" class="form-label">Dirección</label>
-        <input name="address" type="text" class="form-control" id="address" aria-describedby="emailHelp" placeholder="Cra. 51B #69-1-51">
-          </div>
+            <label for="address" class="form-label">Dirección</label>
+            <input name="address" type="text" class="form-control" id="address" aria-describedby="emailHelp" placeholder="Cra. 51B #66-1-51" value="{{building_address}}" required>
+        </div>
           <span >Información de contacto del establecimiento</span>
           <hr>
           <div class="mb-3">
-          <label for="contact_email" class="form-label">Email</label>
-         <input name="contact_email" type="email" class="form-control" id="contact_email" aria-describedby="emailHelp" placeholder="ejemplo@dominio.com">
+              <label for="contact_email" class="form-label">Email</label>
+              <input name="contact_email" type="email" class="form-control" id="contact_email" aria-describedby="emailHelp" placeholder="ejemplo@dominio.com" value="{{building_email}}" required>
           </div>
           <div class="mb-3">
-          <label for="contact_mobile_number" class="form-label">Celular</label>
-          <input name="contact_mobile_number" type="number" class="form-control" id="contact_mobile_number" aria-describedby="emailHelp" placeholder="301932029">
+              <label for="contact_mobile_number" class="form-label">Celular</label>
+              <input name="contact_mobile_number" type="number" class="form-control" id="contact_mobile_number" aria-describedby="emailHelp" placeholder="123456789" value="{{building_number}}" required>
           </div>
-        <div>
+
+        <hr>
+
+        <div class="mb-5">
+          <label for="select1">Selecciona la normativa</label>
+          <select class="form-select" id="sel_regulation" name="sel_regulation" aria-label="Default select example">
+            <option value="NSR10">Normativa Nacional</option>
+            <option value="NFPA101">Normativa Internacional</option>
+          </select>
+        </div>
+
+        <div class="mt-2">
             <button type="submit" onclick="this.form.action='add_building';this.form.submit();" class="btn btn-success button_style">Guardar</button>
-	    <button type="submit"  onclick="this.form.action='add_building_type';this.form.submit();" class="btn btn-info button_style">Caracterizar establecimiento</button>
+            <button type="submit"  onclick="this.form.action='add_building_type';this.form.submit();" class="btn btn-info button_style">Caracterizar establecimiento</button>
         </div>
       </form>
 </div>
+
+<script src="{% static 'scripts/notification.js' %}"></script>
 {% endblock %}
