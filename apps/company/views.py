@@ -356,6 +356,7 @@ def edit_law(request, law):
         else:
             questions = getQuestionsGroup(law)
             form.initials(questions)
+            return render(request, 'pages/law_interface_edit_group.html', {'form': form})
 
     elif 'Flow' in law:
         law = law.replace('Flow','')

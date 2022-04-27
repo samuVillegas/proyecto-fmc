@@ -1,6 +1,10 @@
 {% extends 'containers/base.html' %}
 {% block body %}
 {% load static %}
+<style>
+  table{border: 1.5px solid; width: 53%;}
+  th, td {padding-left: 10px;padding-right: 10px;}
+</style>
 <div align="center">
 <form method="post" novalidate>
   {% csrf_token %}
@@ -8,30 +12,58 @@
   {{ form.source.errors }}
   {{ form.source }}
 
-    <table border="2", width="50%", bgcolor="ffdbdb">
+    <table>
     <br>
     {% for x in form %}
       {% if 'type' not in x.label_tag and 'size' not in x.label_tag and 'numOptions' not in x.label_tag %}
-        <tr>
-          <th>{{ x.label_tag }}</th>
-          <td>
-            {{ x.errors }}
-            {{ x }}
-          </td>
-        </tr>
+
+        {% if 'question' in x.label_tag %}
+          <tr><th colspan="2">Pregunta</th></tr>
+        {% elif 'reference' in x.label_tag %}
+          <tr><th colspan="2">Referencia o ubicacion en la ley</th></tr>
+        {% elif 'law' in x.label_tag %}
+          <tr><th colspan="2">Ley</th></tr>
+        {% elif 'image' in x.label_tag %}
+          <tr><th colspan="2">Direccion de la imagen o elementos a mostrar en una tabla (Cada fila es un enter)</th></tr>
+        {% endif %} 
+
+
+        {% if 'option' in x.label_tag %}
+          <tr><td>Opcion</td><td>Ley</td></tr>
+          <tr><td>{{ x }}</td>
+        {% elif 'output' in x.label_tag %}
+          <td>{{ x }}</td></tr>
+        {% else %}
+          <tr><td colspan="2">{{ x }}</td></tr>
+        {% endif %} 
+
+        {% if 'image' in x.label_tag %}
+          <tr><th colspan="2">Al seleccionar una opcion entonces la ley que esta 
+            a su derecha se debe cumplir, puede estar vacia.</th></tr>
+        {% endif %} 
+
       {% else %}
-        <tr><td>{{ x.as_hidden }}</td></tr>
+        <tr><td colspan="2">{{ x.as_hidden }}</td></tr>
+        
+        {% if 'type' in x.label_tag %}
+          {% if 'Flujo' in x.initial %}
+            <tr><th colspan="2">Estos grupo(s) deben cumplir esta ley:</th></tr>
+          {% elif 'Pregunta' in x.initial %}
+            <tr><th colspan="2">A que grupo(s) se les hace una pregunta:</th></tr>
+          {% endif %}
+        {% endif %}
+        
       {% endif %}
 
       {% if 'numOptions' in x.label_tag %}
-      <tr><td>
-        <input type="submit" name="addOption" value=" + ">
-        <input type="submit" name="removeOption" value=" - ">
+      <tr><td colspan="2">
+        <input type="submit" name="addOption" value="Añadir opcion">
+        <input type="submit" name="removeOption" value="Eliminar opcion">
       </td></tr>
-        </table><br><table border="2", width="50%", bgcolor="#ffdbdb">
+        </table><br><table>
       {% endif %}
       {% if 'law' in x.label_tag %}
-        </table><br><table border="2", width="50%", bgcolor="#ffdbdb">
+        </table><br><table>
       {% endif %}
 
     {% endfor %}
