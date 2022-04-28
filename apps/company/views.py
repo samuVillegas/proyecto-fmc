@@ -1,7 +1,11 @@
 from cgi import print_directory
+from contextlib import nullcontext
 from typing import final
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.contrib.auth.models import User
+from django.conf import settings 
+
 import re
 import os
 
@@ -17,7 +21,8 @@ from apps.company.utilities.data_flow.DataFlow import readFile as readFileIns
 from apps.company.utilities.data_flow.Question import Question
 
 def index(request):
-    return render(request,"pages/index.html")
+    username = settings.username
+    return render(request,"pages/index.html", {'username': username})
 
 #def site_parameterization(request):
  #   current_question = getQuestions([])
@@ -181,14 +186,18 @@ def check_inspection(request, building_name):
     #print(final_flow)
 
     #print(final_flow)
+    username = settings.username
     b = Building.objects.filter(site_name__iexact=building_name).get()
-    Inspection.objects.create(description=final_flow, is_inspection_successful=is_inspection_succesfull, building=b)
+    b.modificated_by = username
+    b.save()
+    Inspection.objects.create(description=final_flow, is_inspection_successful=is_inspection_succesfull, building=b, inspected_by=username)
     return redirect('/company/search_building')
 
 def site_information(request):
     return render(request,"pages/site_information.html")
 
-def add_building(request):
+def add_building(request):    
+    username = settings.username
     building_information_list = get_building_information(request)
     
     if request.POST['contact_mobile_number'] != '' and request.POST['site_name'] != '' and request.POST['address'] != '' and request.POST['contact_email'] != '':
@@ -197,7 +206,7 @@ def add_building(request):
             messages.error(request, 'Edificio ya existe')
         else:
             regulation_re = request.POST['sel_regulation']
-            Building.objects.create(site_name=building_information_list[0],address=building_information_list[1],contact_email=building_information_list[2], contact_mobile_number=building_information_list[3], regulation=regulation_re)
+            Building.objects.create(site_name=building_information_list[0],address=building_information_list[1],contact_email=building_information_list[2], contact_mobile_number=building_information_list[3], regulation=regulation_re, created_by=username, modificated_by=username)
             messages.success(request, 'Edificio creado con exito')
     else:
         messages.error(request, 'Por favor llenar todos los campos')
@@ -221,11 +230,13 @@ def edit_building(request, building_id):
         messages.error(request, 'Se cambio la normativa: Debe categorizar de nuevo el edificio')
 
     if request.POST['contact_mobile_number'] != '' and request.POST['site_name'] != '' and request.POST['address'] != '' and request.POST['contact_email'] != '':
+        username = settings.username
         building.site_name = building_information_list[0]
         building.address = building_information_list[1]
         building.contact_email = building_information_list[2]
         building.contact_mobile_number = building_information_list[3]
         building.regulation = regulation_req
+        building.modificated_by = username
         building.save()
         messages.success(request, 'Edificio editado con exito')
     else: 
@@ -234,6 +245,7 @@ def edit_building(request, building_id):
     return redirect('/company/search_building')
     
 def add_building_type(request):
+    username = settings.username
     building_information_list = get_building_information(request)
     if request.POST['contact_mobile_number'] != '' and request.POST['site_name'] != ' ' and request.POST['address'] != '' and request.POST['contact_email'] != '':
         building = Building.objects.filter(site_name__iexact=building_information_list[0])
@@ -241,7 +253,7 @@ def add_building_type(request):
             messages.error(request, 'Edificio ya existe')
         else:
             regulation_re = request.POST['sel_regulation']
-            b = Building.objects.create(site_name=building_information_list[0],address=building_information_list[1],contact_email=building_information_list[2], contact_mobile_number=building_information_list[3],regulation=regulation_re)
+            b = Building.objects.create(site_name=building_information_list[0],address=building_information_list[1],contact_email=building_information_list[2], contact_mobile_number=building_information_list[3],regulation=regulation_re, created_by=username)
             current_question = getQuestions([], b.regulation)
             return render(request,"pages/site_parameterization.html",{'building_id': b.code, 'building_name': b.site_name, 'building_regulation': b.regulation, 'current_question':current_question})
     else:
@@ -252,7 +264,9 @@ def add_building_type(request):
     return render (request, 'pages/site_information.html')
 
 def set_building_type(request, building_id, building_type):
+    username = settings.username
     building = Building.objects.get(code=building_id)
+    building.modificated_by=username
     building.site_type = building_type
     building.save()
 

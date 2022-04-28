@@ -1,6 +1,5 @@
 import uuid
 from django.db import models
-from django.forms import JSONField
 
 # Create your models here.
 
@@ -12,6 +11,8 @@ class Building(models.Model):
     contact_mobile_number=models.PositiveIntegerField(unique=False)
     site_type=models.CharField(max_length=3,null=True, default=None, unique=False)
     regulation=models.CharField(max_length=7,null=True, default=None, unique=False)
+    created_by=models.CharField(max_length=20, null=False, default=None, unique=False)
+    modificated_by=models.CharField(max_length=20, null=True, default=None, unique=False)
 
 class Inspection(models.Model):
     code=models.UUIDField(primary_key=True,default=uuid.uuid4,editable=False,unique=True)
@@ -19,3 +20,4 @@ class Inspection(models.Model):
     description = models.CharField(max_length=1000, null=True, default=None)
     is_inspection_successful=models.BooleanField(null=True, default=None)
     building = models.ForeignKey(to=Building, on_delete=models.CASCADE, null=True)
+    inspected_by=models.CharField(max_length=20, null=False, default=None, unique=False)
