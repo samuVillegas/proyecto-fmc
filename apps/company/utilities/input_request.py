@@ -1,3 +1,6 @@
+from ctypes.wintypes import PINT
+
+
 def get_building_information(request):
     building_information_list = []
 
