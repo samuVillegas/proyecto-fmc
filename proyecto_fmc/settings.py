@@ -52,6 +52,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+username = ''
+
 ROOT_URLCONF = 'proyecto_fmc.urls'
 
 TEMPLATES = [

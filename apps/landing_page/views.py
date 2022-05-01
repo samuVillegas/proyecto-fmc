@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import check_password
+from django.conf import settings 
 
 from apps.company.utilities.choose_type.Group import getQuestions
 from apps.company.utilities.data_flow.DataFlow import getQuestions as getQuestionsInsp
@@ -21,9 +22,11 @@ def login(request):
                 return redirect('/administration/')
             else: 
                 print('Employee')
+                username = user[0].get_full_name()
+                settings.username = username
                 return redirect('/company/')
         else:
-            messages.error(request,'No existen usuarios con esas credenciales')  
+            messages.error(request,'No existen usuarios con esas credenciales')
     return render(request,"pages/login.html")
 
 def inspect(request):

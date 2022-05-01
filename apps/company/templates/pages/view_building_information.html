@@ -8,6 +8,8 @@
     <h2>Numero: {{building.contact_mobile_number}}</h2>
     <h2>Caracterizacion: {{building.site_type}}</h2>
     <h2>Normativa: {{building.regulation}}</h2>
+    <h2>Creado por: {{building.created_by}}</h2>
+    <h2>Ultima modificacion por: {{building.modificated_by}}</h2>
   </div>
   {% if descriptions|length > 0 %}
   <h2 class="m-5">Inspecciones</h2>
@@ -16,6 +18,7 @@
         <tr>
             <th scope="col">#</th>
             <th scope="col">Fecha</th>
+            <th scope="col">Inspector</th>
             <th scope="col">Resultado</th>
             <th scope="col">Descripcion</th>
         </tr>
@@ -26,6 +29,7 @@
             <tr>
               <th scope="row">{{forloop.counter}}</th>
               <td>{{i.0.date}}</td>
+              <td>{{i.0.inspected_by}}</td>
               {% if i.0.is_inspection_successful == True %}
                 <td><button type="button" class="btn btn-outline-success" disabled="true">Aprobado</button></td>
               {% else %}
