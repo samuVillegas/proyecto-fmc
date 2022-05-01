@@ -1,4 +1,4 @@
-21
+16
 
 Flujo
 C1 C2
@@ -9,7 +9,7 @@ Pregunta
 C1
 J.4.2.2.1
 En la edificación:
-[Grafica mostrando niveles de carga de personas]
+img/questions_assets/capacity_people.svg
 La carga de ocupantes es 500 o más personas
 Se requiere un sistema de alarma con iniciación manual
 Se tienen cargas de ocupación mayores a 100 personas por encima o por debajo del nivel de descarga de la salida
@@ -21,7 +21,7 @@ Pregunta
 C2
 J.4.2.2.1
 En la edificación:
-[Grafica mostrando niveles de carga de personas]
+img/questions_assets/capacity_people.svg
 La carga de ocupantes de todos los pisos es superior a 500 personas
 Se requiere un sistema de alarma con iniciación manual
 Se tienen cargas de ocupación mayores a 100 personas por encima o por debajo del nivel de descarga de salida
@@ -34,7 +34,7 @@ C2
 J.4.2.2.2
 ¿Es un centro comercial cubierto con área construida superior a 5000m^2?
 []
-Si 
+Si
 Se requiere un sistema de evacuación de emergencia Voz/Sirena el cual debe ser accesible a los bomberos
 No
 
@@ -48,7 +48,7 @@ Pregunta
 F1 F2
 J.4.2.2.1
 En la edificación:
-[Grafica mostrando niveles de carga de personas]
+img/questions_assets/capacity_people.svg
 La edificación es de dos o más pisos de altura
 Se requiere un sistema de alarma con iniciación manual
 Se tiene una carga de ocupación de 500 personas o más por encima o por debajo del nivel más bajo de la descarga de salida
@@ -70,7 +70,7 @@ Pregunta
 I3
 J.4.2.4.3
 ¿Cumple todas las condiciones de la tabla o tiene una carga de ocupación menor a 50 personas?
-[lista de J.4.2.4.3]
+Los pasillos interiores están protegidos por los detectores de incendio;Los auditorios, cafeterías, gimnasios y áreas similares están protegidos por detectores de calor u otros dispositivos de detección;Los talleres y laboratorios están protegidos por detectores de calor o de otros dispositivos de detección apropiados;Se tiene la capacidad de activar la señal de evacuación desde un punto localizado cerca del centro de la edificación
 Cumple todas las condiciones
 
 Tiene una carga de ocupación menor a 50 personas
@@ -81,7 +81,7 @@ Se debe contar con un sistema de iniciación manual que permita la activación d
 Flujo
 I3
 J.4.2.4.3
-Cuando se cuente con sistemas de rociadores automáticos o detectores de incendio estos deben conectarse al sistema de alarma contra incendios. 
+Cuando se cuente con sistemas de rociadores automáticos o detectores de incendio estos deben conectarse al sistema de alarma contra incendios.
 
 Pregunta
 L1 L2 L3 L4 L5
@@ -99,9 +99,10 @@ J.4.2.7
 Debe estar protegida por un sistema de alarmas contra incendio diseñado tomando como referencia la norma NFPA 72. Se dispondrá de un sistema de iniciación manual y un sistema de detección de incendio automático que podrá activar el sistema de notificación.
 
 Pregunta
-R1 
+R1
 J.4.2.8.1
 ¿Tiene más de 100m^2 de área construida?
+[]
 Si
 Debe estar protegida mediante un sistema de alarma y detección de incendio, conformado por detectores con base sonora, en cada nivel. En caso de tener más de un detector el sistema debe estar interconectado de forma tal que la activación de un detector active a los demás. Para su diseño se podrá tomar como referencia la norma NFPA 72.
 No

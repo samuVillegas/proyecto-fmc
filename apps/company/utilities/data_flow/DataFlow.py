@@ -1,14 +1,15 @@
 from apps.company.utilities.data_flow.Question import Question, Flow
 #from Question import Question, Flow
 import os
+import logging
 dir = os.path.dirname(os.path.realpath(__file__))
 
 def readFile(txt):
     f = open(txt,"r",encoding='utf-8')
     n = int(f.readline())
-    f.readline()
+    
     fullFlow = []
-    while n > 0:
+    while n >= 0:
         type = f.readline().strip()
         if type == 'Pregunta':
             fullFlow.append(typeGroup(f))
@@ -36,11 +37,11 @@ def typeFlow(f):
     reference = f.readline().strip()
     law = f.readline().strip()
     flow = Flow(lock, reference, law)
+    f.readline()
     return flow
 
 
-def getQuestions(list, key):
-    law = 'NSR10'
+def getQuestions(list, law, key):
     fullFlow = readFile(dir + '/Flow' + law + '.txt')
     flow = []
     references = []
@@ -48,14 +49,54 @@ def getQuestions(list, key):
     for q in fullFlow:
         if key in q.lock:
             if cont == len(list) and isinstance(q,Question):
+                if len(flow) == 0:
+                    flow = ['Ya se cumple la ley ' + law]
                 return {'question':q.question,'options':q.options,'image':q.image,'exist_flow':False}
             if isinstance(q,Flow):
-                flow.append(q.law)
+                if len(q.law) > 0:
+                    flow.append(q.law)
             else:
-                flow.append(q.select(int(list[cont])-1))
+                selected = q.select(int(list[cont])-1)
+                if len(selected) > 0:
+                    flow.append(selected)
                 cont += 1
             references.append(q.reference)
-    return {'exist_flow':True,'flow':flow, 'references':references, 'law':q.lock}
+    if len(flow) == 0:
+        flow = ['Ya se cumple la ley ' + law]
+    return {'exist_flow':True,'flow':flow, 'references':references}
+
+
+def getQuestionsFlow(law):
+    return readFile(dir + '/Flow' + law + '.txt')
+
+def writeFileFlow(law, dic):
+    n = int(dic['size'])
+    string = str(n) + '\n\n'
+
+    count = 1
+    while count < n + 1:
+        type = dic['type' + str(count)]
+        string += type + '\n'
+        if type == 'Pregunta':
+            string += dic['lock' + str(count)] + '\n'
+            string += dic['reference' + str(count)] + '\n'
+            string += dic['question' + str(count)] + '\n'
+            string += dic['image' + str(count)].replace('\r\n',';') + '\n'
+            count2 = 1
+            while 'option' + str(count) + '_' + str(count2) in dic:
+                string += dic['option' + str(count) + '_' + str(count2)] + '\n'
+                string += dic['output' + str(count) + '_' + str(count2)] + '\n'
+                count2 += 1
+        elif type == 'Flujo':
+            string += dic['lock' + str(count)] + '\n'
+            string += dic['reference' + str(count)] + '\n'
+            string += dic['law' + str(count)] + '\n'
+        count += 1
+        string += '\n'
+    
+    f = open(dir + '/Flow' + law + '.txt',"w",encoding='utf-8')
+    f.write(string)
+    f.close()
 
 #Testing
 def FindGroup(law, key):
@@ -78,4 +119,5 @@ def FindGroup(law, key):
 
     print('\n' + flow)
 
-#FindGroup('NSR10','C2')
+#FindGroup('NSR10','R2') 
+#print(getQuestions([2],'NSR10','A1'))
