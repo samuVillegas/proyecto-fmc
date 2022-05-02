@@ -5,6 +5,8 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.conf import settings 
+import csv
+from django.http import HttpResponse
 
 import re
 import os
@@ -339,3 +341,31 @@ def show_regulation_information(request, regulation, is_inspection_question):
                     questions[ite].image = ''
 
     return render(request, "pages/show_regulation_information.html", {'questions':questions, 'is_inspection_question':is_inspection_question})
+
+def download_inspection_register(request, building_name):
+    building = Building.objects.get(site_name=building_name)
+    inspections = Inspection.objects.filter(building=building)
+    
+    print(inspections)
+    response = HttpResponse(
+        content_type='text/csv',
+        headers={'Content-Disposition': 'attachment; filename="{}.csv'.format(building_name)},
+    )
+
+    writer = csv.writer(response)
+    writer.writerow(['Nombre', 'Direccion', 'Email', 'Numero', 'Caracterizacion', 'Normativa','Creado por', 'Ultima modificacion por'])
+    writer.writerow([building.site_name, building.address,building.contact_email,building.contact_mobile_number, building.site_type,
+                    building.regulation, building.created_by,building.modificated_by])
+    writer.writerow([])
+    writer.writerow(['Fecha', 'inspector', 'Resultado', 'Descripcion'])
+
+    for i in inspections:
+        description = None
+        if i.description == '[]':
+            description = 'Ninguna'
+        else:
+            description = i.description
+            
+        writer.writerow([i.date, i.inspected_by, i.is_inspection_successful, description])
+        
+    return response
