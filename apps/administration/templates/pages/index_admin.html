@@ -1,0 +1,20 @@
+{% extends 'containers/base_admin.html' %}
+{% block body %}
+<div class="container">
+    <h1 class="text-center">Dashboard administración</h1>
+    <div class="d-flex justify-content-center">
+        <div style="width: 500px;height: 500px;" class="m-5">
+            <canvas id="buildingsByRegulation"></canvas>
+        </div>
+        <div style="width: 500px;height: 500px;" class="m-5">
+            <h6 class="text-center">Edificios por tipo</h6>
+            <canvas id="buildingsByType"></canvas>
+        </div>
+        <div style="width: 500px;height: 500px;" class="m-5">
+            <canvas id="buildingsByInspectionState"></canvas>
+        </div>
+    </div>
+    
+</div>
+
+{% endblock %}

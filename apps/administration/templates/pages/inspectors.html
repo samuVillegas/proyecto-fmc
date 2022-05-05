@@ -1,0 +1,37 @@
+{% extends 'containers/base_admin.html' %}
+{% block body %}
+<div class="container">
+    <h1>Buscar inspector{% if searchTerm != None and searchTerm != '' %}: {{searchTerm}}{% endif %}</h1>
+    <form class="d-flex mt-3" action="">
+        <input class="form-control me-2" type="search" placeholder="Nombre, Apellido o Email" aria-label="Search"
+            name="searchTerm">
+        <button class="btn btn-outline-success" type="submit">Buscar</button>
+    </form>
+
+    <table class="table mt-3" id="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Apellido</th>
+                <th scope="col">Email</th>
+            </tr>
+        </thead>
+        <div id="table-body">
+            <tbody>
+                {% for inspector in inspectors %}
+                <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td>{{inspector.first_name}}</td>
+                    <td>{{inspector.last_name}}</td>
+                    <td>{{inspector.email}}</td>
+                </tr>
+                {% endfor%}
+            </tbody>
+        </div>
+    </table>
+    {% if inspectors|length == 0 and searchTerm%}
+    <h3 class="text-center">No hay inspectores con el filtro '{{searchTerm}}'</h3>
+    {% endif %}
+</div>
+{% endblock %}
