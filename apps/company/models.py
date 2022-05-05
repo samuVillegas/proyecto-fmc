@@ -16,7 +16,7 @@ class Building(models.Model):
 
 class Inspection(models.Model):
     code=models.UUIDField(primary_key=True,default=uuid.uuid4,editable=False,unique=True)
-    date = models.DateTimeField(auto_now_add=True)
+    date = models.DateTimeField(auto_now=True)
     description = models.CharField(max_length=1000, null=True, default=None)
     is_inspection_successful=models.BooleanField(null=True, default=None)
     building = models.ForeignKey(to=Building, on_delete=models.CASCADE, null=True)
