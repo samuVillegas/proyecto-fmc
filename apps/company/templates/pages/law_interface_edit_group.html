@@ -1,0 +1,64 @@
+{% extends 'containers/base.html' %}
+{% block body %}
+{% load static %}
+<style>
+  table{border: 1.5px solid; width: 53%;}
+  th, td {padding-left: 10px;padding-right: 10px;}
+</style>
+<div align="center">
+<form method="post" novalidate>
+  {% csrf_token %}
+  {{ form.non_field_errors }}
+  {{ form.source.errors }}
+  {{ form.source }}
+
+    <table>
+    <br>
+    {% for x in form %}
+      {% if 'type' not in x.label_tag and 'size' not in x.label_tag and 'numOptions' not in x.label_tag and 'reference' not in x.label_tag %}
+
+        {% if 'lock' in x.label_tag %}
+          <tr><th colspan="2">A que grupo(s) se les hace una pregunta: 
+            (Si el cuadro esta vacio, se le pregunta a todos)</th></tr>
+        {% elif 'question' in x.label_tag %}
+          <tr><th colspan="2">Pregunta</th></tr>
+        {% elif 'image' in x.label_tag %}
+          <tr><th colspan="2">Direccion de la imagen o elementos a mostrar en una tabla (Cada fila es un enter)</th></tr>
+        {% endif %} 
+
+
+        {% if 'option' in x.label_tag %}
+          <tr><td>Opcion</td><td>Ley</td></tr>
+          <tr><td>{{ x }}</td>
+        {% elif 'output' in x.label_tag %}
+          <td>{{ x }}</td></tr>
+        {% else %}
+          <tr><td colspan="2">{{ x }}</td></tr>
+        {% endif %} 
+
+        {% if 'image' in x.label_tag %}
+          <tr><th colspan="2">Al seleccionar una opcion entonces se cambia el 
+            grupo actual al que esta a su derecha.</th></tr>
+        {% endif %} 
+
+      {% else %}
+        <tr><td colspan="2">{{ x.as_hidden }}</td></tr>
+      {% endif %}
+
+      {% if 'numOptions' in x.label_tag %}
+      <tr><td colspan="2">
+        <input type="submit" name="addOption" value="Añadir opcion">
+        <input type="submit" name="removeOption" value="Eliminar opcion">
+      </td></tr>
+      </table><br><table>
+      {% endif %}
+
+    {% endfor %}
+  <input type="submit" name="addQuestion" value="Nueva pregunta">--- 
+  <input type="submit" name="remove" value="Eliminar ultimo">
+  <br>
+  <br>
+  <input type="submit" value="Guardar cambios">
+</form>
+</div>
+{% endblock %}
