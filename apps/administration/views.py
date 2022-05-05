@@ -30,13 +30,14 @@ def dashboard_building_inspection_state(request):
 
     data = [0,0,0];
     for p in buildings:
+        print(p.valor)
         if p.valor == 1:
-            data[0] = data[0] + 1;
+            data[0] = p.cantidad
         elif p.valor == 0:
-            data[1] = data[1] + 1
+            data[1] = p.cantidad
         else:
-            data[2] = data[2] + 1
-    
+            data[2] = p.cantidad
+    print(data)
     return HttpResponse(json.dumps(data, indent=4, sort_keys=True), content_type="application/json")
 
 def buildings(request):
