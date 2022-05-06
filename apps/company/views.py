@@ -153,7 +153,7 @@ def search_flow(request, building_id, building_name, building_type, building_reg
 def check_inspection(request, building_name):
     current_final_ids = request.POST.get('ids_final_flow')
     final_flow = request.POST.get('final_flow')
-    
+
     if current_final_ids != None:
         current_final_ids = current_final_ids.split(',')
 
