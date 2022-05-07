@@ -61,25 +61,28 @@ def parameterization(request, building_regulation):
 def search_key_no_loging(request, building_regulation):
     current_ids = request.POST.get('current_ids')
 
-    split_current_ids = current_ids.split(',')
+    if current_ids:
+        split_current_ids = current_ids.split(',')
 
-    current_question = None
-    is_material_list = None
-    #print(len(split_current_ids))
-    #print(split_current_ids)
-    if split_current_ids != ['']:
-        current_question = getQuestions(split_current_ids, building_regulation)
-        #is_material_list = False
-        try:
-            if 'img' not in current_question['image']:
-                is_material_list = True
-                current_question['image'] = current_question['image'].split(';')
-        except:
-            is_material_list = False
+        current_question = None
+        is_material_list = None
+        #print(len(split_current_ids))
+        #print(split_current_ids)
+        if split_current_ids != ['']:
+            current_question = getQuestions(split_current_ids, building_regulation)
+            #is_material_list = False
+            try:
+                if 'img' not in current_question['image']:
+                    is_material_list = True
+                    current_question['image'] = current_question['image'].split(';')
+            except:
+                is_material_list = False
+        else:
+            current_question = getQuestions([], building_regulation)
+
+        return render(request,"pages/site_parameterization_no_loging.html",{'current_question':current_question,'building_regulation': building_regulation, "is_material_list": is_material_list})
     else:
-        current_question = getQuestions([], building_regulation)
-
-    return render(request,"pages/site_parameterization_no_loging.html",{'current_question':current_question,'building_regulation': building_regulation, "is_material_list": is_material_list})
+         return redirect('/inspect')
 
 def inspection(request, building_type,building_regulation):
     current_question = getQuestionsInsp([], building_regulation, building_type)
