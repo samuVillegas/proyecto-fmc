@@ -7,7 +7,8 @@ from django.contrib.auth.models import User
 from django.conf import settings 
 import csv
 from django.http import HttpResponse
-
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
 import re
 import os
 
@@ -25,10 +26,16 @@ from apps.company.utilities.forms import ContactForm
 from apps.company.utilities.data_flow.DataFlow import getQuestionsFlow, writeFileFlow
 from apps.company.utilities.choose_type.Group import getQuestionsGroup, writeFileGroup
 
+@login_required
 def index(request):
-    username = settings.username
-    return render(request,"pages/index.html", {'username': username})
+    #print(request.user.get_full_name())
+    return render(request,"pages/index.html")
 
+@login_required
+def logout_user(request):
+    logout(request)
+    return redirect("/")
+    
 #def site_parameterization(request):
  #   current_question = getQuestions([])
   #  is_material_list = False
@@ -47,6 +54,7 @@ def index(request):
     #print(current_question)
  #   return render(request,"pages/site_inspection.html", {'building_id': building_id, 'building_name': building_name, 'building_type': building_type, "is_national_regulation": True, "current_question":current_question})
 
+@login_required
 def site_inspection(request, building_name, building_type, building_regulation, building_id):
     building = Building.objects.get(code=building_id)
     building.site_type = building_type
@@ -66,12 +74,14 @@ def site_inspection(request, building_name, building_type, building_regulation, 
     #print(current_question)
     return render(request, "pages/site_inspection.html", {'current_question':current_question, 'building_id': building_id, 'building_name': building_name, 'building_type': building_type, 'building_regulation': building_regulation, 'is_material_list':is_material_list})
 
+@login_required
 def site_parameterization_from_edit(request, building_id, building_name, building_regulation):
     current_question = getQuestions([], building_regulation)
     is_material_list = False
     return render(request,"pages/site_parameterization.html", {'current_question':current_question , 'building_id':building_id,
                     'building_name': building_name, 'building_regulation': building_regulation, "is_material_list": is_material_list})
 
+@login_required
 def search_building(request):
     searchTerm = request.GET.get('searchTerm')
     inspections_list = []
@@ -102,6 +112,7 @@ def search_building(request):
 
     return render(request,"pages/search_building.html", {"inspections_list":inspections_list, "list": list, "searchTerm":searchTerm})
 
+@login_required
 def search_key(request, building_id, building_name, building_regulation):
     current_ids = request.POST.get('current_ids')
 
@@ -125,6 +136,7 @@ def search_key(request, building_id, building_name, building_regulation):
 
     return render(request,"pages/site_parameterization.html",{'current_question':current_question, 'building_id':building_id, 'building_name':building_name, 'building_regulation': building_regulation, "is_material_list": is_material_list})
 
+@login_required
 def search_flow(request, building_id, building_name, building_type, building_regulation):
     current_ids = request.POST.get('current_ids_flow')
     split_current_ids = current_ids.split(',')
@@ -150,6 +162,7 @@ def search_flow(request, building_id, building_name, building_type, building_reg
     #print(type(current_question['image']))
     return render(request,"pages/site_inspection.html",{'current_question':current_question, 'building_regulation': building_regulation, 'building_id':building_id, 'building_name':building_name, "building_type": building_type, 'is_material_list': is_material_list})
 
+@login_required
 def check_inspection(request, building_name):
     current_final_ids = request.POST.get('ids_final_flow')
     final_flow = request.POST.get('final_flow')
@@ -191,18 +204,20 @@ def check_inspection(request, building_name):
     #print(final_flow)
 
     #print(final_flow)
-    username = settings.username
+    username = request.user.get_full_name()
     b = Building.objects.filter(site_name__iexact=building_name).get()
     b.modificated_by = username
     b.save()
     Inspection.objects.create(description=final_flow, is_inspection_successful=is_inspection_succesfull, building=b, inspected_by=username)
     return redirect('/company/search_building')
 
+@login_required
 def site_information(request):
     return render(request,"pages/site_information.html")
 
+@login_required
 def add_building(request):    
-    username = settings.username
+    username = request.user.get_full_name()
     building_information_list = get_building_information(request)
     
     if request.POST['contact_mobile_number'] != '' and request.POST['site_name'] != '' and request.POST['address'] != '' and request.POST['contact_email'] != '':
@@ -220,10 +235,12 @@ def add_building(request):
                       'building_email': building_information_list[2],'building_number': building_information_list[3]})
     return render (request, 'pages/site_information.html')
 
+@login_required
 def edition_building(request, building_id):
     building = Building.objects.get(code=building_id)
     return render(request, "pages/edit_building.html", {'building':building})
 
+@login_required
 def edit_building(request, building_id):
     building_information_list = get_building_information(request)
 
@@ -235,7 +252,7 @@ def edit_building(request, building_id):
         messages.error(request, 'Se cambio la normativa: Debe categorizar de nuevo el edificio')
 
     if request.POST['contact_mobile_number'] != '' and request.POST['site_name'] != '' and request.POST['address'] != '' and request.POST['contact_email'] != '':
-        username = settings.username
+        username = request.user.get_full_name()
         building.site_name = building_information_list[0]
         building.address = building_information_list[1]
         building.contact_email = building_information_list[2]
@@ -249,8 +266,9 @@ def edit_building(request, building_id):
     
     return redirect('/company/search_building')
     
+@login_required
 def add_building_type(request):
-    username = settings.username
+    username = request.user.get_full_name()
     building_information_list = get_building_information(request)
     if request.POST['contact_mobile_number'] != '' and request.POST['site_name'] != ' ' and request.POST['address'] != '' and request.POST['contact_email'] != '':
         building = Building.objects.filter(site_name__iexact=building_information_list[0])
@@ -268,8 +286,9 @@ def add_building_type(request):
                       'building_email': building_information_list[2],'building_number': building_information_list[3]})
     return render (request, 'pages/site_information.html')
 
+@login_required
 def set_building_type(request, building_id, building_type):
-    username = settings.username
+    username = request.user.get_full_name()
     building = Building.objects.get(code=building_id)
     building.modificated_by=username
     building.site_type = building_type
@@ -278,6 +297,7 @@ def set_building_type(request, building_id, building_type):
     messages.success(request, 'Edificio creado con caracterizacion')
     return redirect('/company/search_building')
 
+@login_required
 def delete_building(request):
     code_building = request.POST.get('delete_id_item')
     building = Building.objects.get(code=code_building)
@@ -289,6 +309,7 @@ def delete_building(request):
     
     return redirect('/company/search_building')
 
+@login_required
 def view_building_information(request, building_id):
     building = Building.objects.get(code=building_id)
     inspections = Building.objects.get(site_name=building.site_name).inspection_set.all()
@@ -310,9 +331,11 @@ def view_building_information(request, building_id):
 
     return render(request, "pages/view_building_information.html", {'building':building, 'inspections': inspections, 'descriptions':descriptions})
 
+@login_required
 def choose_regulation_to_show(request):
     return render(request, "pages/choose_regulation_to_show.html")
 
+@login_required
 def show_regulation_information(request, regulation, is_inspection_question):
     questions = []
     table_list = []
@@ -345,6 +368,7 @@ def show_regulation_information(request, regulation, is_inspection_question):
 
     return render(request, "pages/show_regulation_information.html", {'questions':questions, 'is_inspection_question':is_inspection_question})
 
+@login_required
 def download_inspection_register(request, building_name):
     building = Building.objects.get(site_name=building_name)
     inspections = Building.objects.get(site_name=building.site_name).inspection_set.all()
@@ -372,9 +396,11 @@ def download_inspection_register(request, building_name):
         
     return response
 
+@login_required
 def law_interface(request):
     return render(request, 'pages/law_interface_select.html')
 
+@login_required
 def edit_law(request, law):
     form = ContactForm()
     if 'Group' in law:

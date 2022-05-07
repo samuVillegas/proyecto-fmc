@@ -25,4 +25,5 @@ urlpatterns = [
     path('download_inspection_register/<building_name>', views.download_inspection_register),
     path('law_interface', views.law_interface), 
     path('edit_law/<law>', views.edit_law), 
+    path('logout_user', views.logout_user), 
 ]
