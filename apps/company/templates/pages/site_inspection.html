@@ -2,7 +2,7 @@
 {% block body %}
 {% load static %}
 <div class="container">
-    <form action="/company/search_flow/{{building_id}}/{{building_name}}/{{building_type}}/{{building_regulation}}" method="POST">{% csrf_token %}
+    <form action="/company/search_flow/{{building_name}}/{{building_type}}/{{building_regulation}}" method="POST">{% csrf_token %}
         {% if current_question.exist_flow %}
             {% if current_question.flow != '' %}
                 <h3>Seleccione solo los que cumple el edificio:</h3>

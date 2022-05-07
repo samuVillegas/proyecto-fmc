@@ -19,6 +19,7 @@
             <th scope="col">#</th>
             <th scope="col">Fecha</th>
             <th scope="col">Inspector</th>
+            <th scope="col">Tipo de edificio</th>
             <th scope="col">Resultado</th>
             <th scope="col">Descripcion</th>
         </tr>
@@ -30,6 +31,7 @@
               <th scope="row">{{forloop.counter}}</th>
               <td>{{i.0.date}}</td>
               <td>{{i.0.inspected_by}}</td>
+              <td>{{i.0.site_type}}</td>
               {% if i.0.is_inspection_successful == True %}
                 <td><button type="button" class="btn btn-outline-success" disabled="true">Aprobado</button></td>
               {% else %}

@@ -4,14 +4,14 @@
 <div class="container">
     <h4 class="text-center mt-3 mb-4">Encuesta para saber a que grupo pertenece el edificio {{building_name}}</h2>
         <div class="container">
-            <form action="/company/search_key/{{building_id}}/{{building_name}}/{{building_regulation}}" method="POST">{% csrf_token %}
+            <form action="/company/search_key/{{building_name}}/{{building_regulation}}" method="POST">{% csrf_token %}
                 {% if current_question.exist_key %}
                 <h3>Tú establecimiento es de tipo {{current_question.key}}</h3>
                 <button type="submit"
-                    onclick="this.form.action='/company/set_building_type/{{building_id}}/{{current_question.key}}';this.form.submit()"
+                    onclick="this.form.action='/company/set_building_type/{{building_name}}/{{current_question.key}}';this.form.submit()"
                     class="btn btn-primary">Terminar</button>
                 <button type="submit"
-                    onclick="this.form.action='/company/site_inspection/{{building_name}}/{{current_question.key}}/{{building_regulation}}/{{building_id}}';this.form.submit()"
+                    onclick="this.form.action='/company/site_inspection/{{building_name}}/{{current_question.key}}/{{building_regulation}}';this.form.submit()"
                     class="btn btn-primary">Inspeccionar</button>
                 {% else %}
                 

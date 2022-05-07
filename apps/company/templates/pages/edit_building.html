@@ -39,11 +39,11 @@
 
                     <div class="form-group">
                       <button type="submit" class="btn btn-success btn-block text-white"
-                        onclick="this.form.action='/company/edit_building/{{building.code}}';this.form.submit()" >Guardar</button>
+                        onclick="this.form.action='/company/edit_building/{{building.site_name}}';this.form.submit()" >Guardar</button>
                       <button type="submit" class="btn btn-success btn-block text-white"
-			                  onclick="this.form.action='/company/site_parameterization_from_edit/{{building.code}}/{{building.site_name}}/{{building.regulation}}';this.form.submit()" >Cambiar tipo</button>
+			                  onclick="this.form.action='/company/site_parameterization_from_edit/{{building.site_name}}/{{building.regulation}}';this.form.submit()" >Cambiar tipo</button>
                       {% if building.site_type != None %}
-                        <button type="submit" class="btn btn-success btn-block text-white" onclick="this.form.action='/company/site_inspection/{{building.site_name}}/{{building.site_type}}/{{building.regulation}}/{{building.code}}';this.form.submit()">Nueva inspeccion</button>
+                        <button type="submit" class="btn btn-success btn-block text-white" onclick="this.form.action='/company/site_inspection/{{building.site_name}}/{{building.site_type}}/{{building.regulation}}';this.form.submit()">Nueva inspeccion</button>
                       {% else %}
                         <button type="submit" class="btn btn-success btn-block text-white" disabled="true">Nueva inspeccion</button>    
                       {% endif %}

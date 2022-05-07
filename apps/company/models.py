@@ -22,3 +22,4 @@ class Inspection(models.Model):
     is_inspection_successful=models.BooleanField(null=True, default=None)
     building = models.ForeignKey(to=Building, on_delete=models.CASCADE, null=True)
     inspected_by=models.CharField(max_length=20, null=False, default=None, unique=False)
+    site_type=models.CharField(max_length=3,null=True, default=None, unique=False)
