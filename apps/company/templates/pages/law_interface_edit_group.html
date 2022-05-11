@@ -1,3 +1,18 @@
+<style>
+  .btn-success {
+      background-color: #FF5F00 !important;
+      color: black !important;
+  }
+
+  .btn-danger {
+      background-color: #B20600 !important;
+  }
+
+  .btn-primary {
+      background-color: #00092C !important;
+  }
+
+</style>
 {% extends 'containers/base.html' %}
 {% block body %}
 {% load static %}
@@ -47,18 +62,20 @@
 
       {% if 'numOptions' in x.label_tag %}
       <tr><td colspan="2">
-        <input type="submit" name="addOption" value="Añadir opcion">
-        <input type="submit" name="removeOption" value="Eliminar opcion">
-      </td></tr>
-      </table><br><table>
+        <input type="submit" name="addOption" value="Añadir opcion" class="btn btn-success button_style">
+        <input type="submit" name="removeOption" value="Eliminar opcion" class="btn btn-danger button_style">
+      </td>
+      </tr>
+      </table><br>
+      <table>
       {% endif %}
 
     {% endfor %}
-  <input type="submit" name="addQuestion" value="Nueva pregunta">--- 
-  <input type="submit" name="remove" value="Eliminar ultimo">
+    <input type="submit" name="addQuestion" value="Nueva pregunta" class="btn btn-success button_style">
+    <input type="submit" name="remove" value="Eliminar ultimo" class="btn btn-danger button_style">
   <br>
   <br>
-  <input type="submit" value="Guardar cambios">
+  <input type="submit" value="Guardar cambios" class="btn btn-primary button_style">
 </form>
 </div>
 {% endblock %}

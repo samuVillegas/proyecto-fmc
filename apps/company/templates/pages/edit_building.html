@@ -1,58 +1,72 @@
+<style>
+  .btn-success {
+    background-color: #FF5F00 !important;
+    color: black !important;
+  }
+
+  .btn-danger {
+    background-color: #B20600 !important;
+  }
+</style>
 {% extends 'containers/base.html' %}
 {% block body %}
 
 <div class="row">
-    <div class="col-md-5 offset-md-4">
-        <h2>Edición de Curso</h2>
-        <div class="card">
-            <div class="card-body">
-               <form action="" method="POST">{% csrf_token %}
-                    <div class="form-group">
-                      <input type="text" id="site_name" name="site_name" value="{{building.site_name}}" class="form-control"
-                        placeholder="Nombre Edificio"  maxlength="50" style="margin-bottom:10px;" required>
-                    </div>
-                    <div class="form-group">
-                    <input type="text" id="address" name="address" value="{{building.address}}" class="form-control" 
-                       placeholder="Direccion edificio" maxlength="70" required style="margin-bottom:10px;" required>
-                    </div>
-                    <div class="form-group">
-                      <input type="email" id="contact_email" name="contact_email" value="{{building.contact_email}}" 
-                         placeholder="Email de contacto" class="form-control" maxlength="40" style="margin-bottom:10px;" required>
-                    </div>
-                    <div class="form-group">
-                    <input type="number" id="contact_mobile_number" name="contact_mobile_number" value="{{building.contact_mobile_number}}" 
-                         placeholder="Numero de contacto" class="form-control" style="margin-bottom:10px;" required>
-                    </div>
+  <div class="col-md-5 offset-md-4">
+    <h2>Edición de Curso</h2>
+    <div class="card">
+      <div class="card-body">
+        <form action="" method="POST">{% csrf_token %}
+          <div class="form-group">
+            <input type="text" id="site_name" name="site_name" value="{{building.site_name}}" class="form-control"
+              placeholder="Nombre Edificio" maxlength="50" style="margin-bottom:10px;" required>
+          </div>
+          <div class="form-group">
+            <input type="text" id="address" name="address" value="{{building.address}}" class="form-control"
+              placeholder="Direccion edificio" maxlength="70" required style="margin-bottom:10px;" required>
+          </div>
+          <div class="form-group">
+            <input type="email" id="contact_email" name="contact_email" value="{{building.contact_email}}"
+              placeholder="Email de contacto" class="form-control" maxlength="40" style="margin-bottom:10px;" required>
+          </div>
+          <div class="form-group">
+            <input type="number" id="contact_mobile_number" name="contact_mobile_number"
+              value="{{building.contact_mobile_number}}" placeholder="Numero de contacto" class="form-control"
+              style="margin-bottom:10px;" required>
+          </div>
 
-                    <div class="mb-5">
-                      <label for="select1">Selecciona la normativa</label>
-                      <select class="form-select" id="sel_regulation" name="sel_regulation" aria-label="Default select example">
-                        {% if building.regulation == "NSR10" %}
-                          <option value="NSR10">Normativa Nacional</option>
-                          <option value="NFPA101">Normativa Internacional</option>
-                        {% else %}
-                          <option value="NFPA101">Normativa Internacional</option>
-                          <option value="NSR10">Normativa Nacional</option>
-                        {% endif %}
-                      </select>
-                    </div>
+          <div class="mb-5">
+            <label for="select1">Selecciona la normativa</label>
+            <select class="form-select" id="sel_regulation" name="sel_regulation" aria-label="Default select example">
+              {% if building.regulation == "NSR10" %}
+              <option value="NSR10">Normativa Nacional</option>
+              <option value="NFPA101">Normativa Internacional</option>
+              {% else %}
+              <option value="NFPA101">Normativa Internacional</option>
+              <option value="NSR10">Normativa Nacional</option>
+              {% endif %}
+            </select>
+          </div>
 
-                    <div class="form-group">
-                      <button type="submit" class="btn btn-success btn-block text-white"
-                        onclick="this.form.action='/company/edit_building/{{building.site_name}}';this.form.submit()" >Guardar</button>
-                      <button type="submit" class="btn btn-success btn-block text-white"
-			                  onclick="this.form.action='/company/site_parameterization_from_edit/{{building.site_name}}/{{building.regulation}}';this.form.submit()" >Cambiar tipo</button>
-                      {% if building.site_type != None %}
-                        <button type="submit" class="btn btn-success btn-block text-white" onclick="this.form.action='/company/site_inspection/{{building.site_name}}/{{building.site_type}}/{{building.regulation}}';this.form.submit()">Nueva inspeccion</button>
-                      {% else %}
-                        <button type="submit" class="btn btn-success btn-block text-white" disabled="true">Nueva inspeccion</button>    
-                      {% endif %}
-                      <button type="submit" class="btn btn-danger btn-block text-white"
-					              onclick="this.form.action='/company/search_building';this.form.submit()" >Cancelar</button>
-                    </div>
-                </form>
-            </div>
-        </div>
+          <div class="form-group">
+            <button type="submit" class="btn btn-success btn-block text-white"
+              onclick="this.form.action='/company/edit_building/{{building.site_name}}';this.form.submit()">Guardar</button>
+            <button type="submit" class="btn btn-success btn-block text-white"
+              onclick="this.form.action='/company/site_parameterization_from_edit/{{building.site_name}}/{{building.regulation}}';this.form.submit()">Cambiar
+              tipo</button>
+            {% if building.site_type != None %}
+            <button type="submit" class="btn btn-success btn-block text-white"
+              onclick="this.form.action='/company/site_inspection/{{building.site_name}}/{{building.site_type}}/{{building.regulation}}';this.form.submit()">Nueva
+              inspeccion</button>
+            {% else %}
+            <button type="submit" class="btn btn-success btn-block text-white" disabled="true">Nueva inspeccion</button>
+            {% endif %}
+            <button type="submit" class="btn btn-danger btn-block text-white"
+              onclick="this.form.action='/company/search_building';this.form.submit()">Cancelar</button>
+          </div>
+        </form>
+      </div>
     </div>
+  </div>
 </div>
 {% endblock %}

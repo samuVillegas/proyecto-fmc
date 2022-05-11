@@ -1,3 +1,9 @@
+<style>
+  .btn-warning {
+    background-color: #FF5F00 !important;
+    color: black !important;
+  }
+</style>
 {% extends 'containers/base_landing_page.html' %}
 {% block body %}
 {% load static %}
@@ -23,7 +29,8 @@
       <form action="" method="POST">{% csrf_token %}
         <div class="mb-3">
           <label for="exampleInputEmail1" class="form-label">Correo</label>
-          <input type="email" class="form-control" id="exampleInputEmail1" name="email" aria-describedby="emailHelp" required>
+          <input type="email" class="form-control" id="exampleInputEmail1" name="email" aria-describedby="emailHelp"
+            required>
         </div>
         <div class="mb-3">
           <label for="exampleInputPassword1" class="form-label">Contraseña</label>
