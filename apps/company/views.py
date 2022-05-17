@@ -217,6 +217,7 @@ def check_inspection(request, building_name):
     Inspection.objects.create(description=final_flow, is_inspection_successful=is_inspection_succesfull, building=b, inspected_by=username, site_type=b.site_type)
     return redirect('/company/search_building')
 
+@login_required
 def site_information(request):
     '''location = geocoder.osm('Calle 78B 69-240 0500 Medellín Antioquia Colombia')
     print(location)'''
@@ -297,13 +298,13 @@ def add_building(request):
     username = request.user.get_full_name()
     building_information_list = get_building_information(request)
     
-    if request.POST['contact_mobile_number'] != '' and request.POST['site_name'] != '' and request.POST['address'] != '' and request.POST['contact_email'] != '':
+    if request.POST['contact_mobile_number'] != '' and request.POST['site_name'] != '' and request.POST['lat'] != '' and request.POST['lon'] != '' and request.POST['contact_email'] != '':
         building = Building.objects.filter(site_name__iexact=building_information_list[0])
         if building:
             messages.error(request, 'Edificio ya existe')
         else:
             regulation_re = request.POST['sel_regulation']
-            Building.objects.create(site_name=building_information_list[0],address=building_information_list[1],contact_email=building_information_list[2], contact_mobile_number=building_information_list[3], regulation=regulation_re, created_by=username, modificated_by=username)
+            Building.objects.create(site_name=building_information_list[0],full_address=building_information_list[1],contact_email=building_information_list[2], contact_mobile_number=building_information_list[3], regulation=regulation_re, created_by=username, modificated_by=username)
             messages.success(request, 'Edificio creado con exito')
     else:
         messages.error(request, 'Por favor llenar todos los campos')
@@ -331,7 +332,7 @@ def edit_building(request, building_name):
     if request.POST['contact_mobile_number'] != '' and request.POST['site_name'] != '' and request.POST['address'] != '' and request.POST['contact_email'] != '':
         username = request.user.get_full_name()
         building.site_name = building_information_list[0]
-        building.address = building_information_list[1]
+        building.full_address = building_information_list[1]
         building.contact_email = building_information_list[2]
         building.contact_mobile_number = building_information_list[3]
         building.regulation = regulation_req
@@ -347,13 +348,13 @@ def edit_building(request, building_name):
 def add_building_type(request):
     username = request.user.get_full_name()
     building_information_list = get_building_information(request)
-    if request.POST['contact_mobile_number'] != '' and request.POST['site_name'] != ' ' and request.POST['address'] != '' and request.POST['contact_email'] != '':
+    if request.POST['contact_mobile_number'] != '' and request.POST['site_name'] != ' ' and request.POST['lat'] != '' and request.POST['lon'] != '' and request.POST['contact_email'] != '':
         building = Building.objects.filter(site_name__iexact=building_information_list[0])
         if building:
             messages.error(request, 'Edificio ya existe')
         else:
             regulation_re = request.POST['sel_regulation']
-            b = Building.objects.create(site_name=building_information_list[0],address=building_information_list[1],contact_email=building_information_list[2], contact_mobile_number=building_information_list[3],regulation=regulation_re, created_by=username)
+            b = Building.objects.create(site_name=building_information_list[0],full_address=building_information_list[1],contact_email=building_information_list[2], contact_mobile_number=building_information_list[3],regulation=regulation_re, created_by=username)
             current_question = getQuestions([], b.regulation)
             return render(request,"pages/site_parameterization.html",{'building_name': b.site_name, 'building_regulation': b.regulation, 'current_question':current_question})
     else:

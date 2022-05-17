@@ -2,6 +2,11 @@ let myMarker;
 let map_l;
 let arr_addr;
 
+
+const options = document.getElementById('options')
+const table = document.getElementById("table");
+const delete_id_item = document.getElementById('delete_id_item');
+
 function map_init_basic (map) {
     map_l = map
     myMarker = L.marker([50.5, 30.5], {title: "Coordinates", alt: "Coordinates", draggable: true}).addTo(map).on('dragend', function() {
@@ -27,6 +32,7 @@ function chooseAddr(lat1, lng1, id)
     lon = lng1.toFixed(8);
     document.getElementById('lat').value = lat;
     document.getElementById('lon').value = lon;
+    document.getElementById('address_b').value = arr_addr[id].display_name;
     console.log(arr_addr[id].display_name);
     myMarker.bindPopup(arr_addr[id].display_name).openPopup();
 }
@@ -66,4 +72,46 @@ function addr_search()
     };
     xmlhttp.open("GET", url, true);
     xmlhttp.send();
+}
+
+if(table !== null && delete_id_item !== null){
+    table.addEventListener('click',(e) =>{
+        if (e.target.innerHTML === 'Eliminar') 
+            delete_id_item.value = e.target.id
+    })
+}
+
+if(options!==null){
+    options.addEventListener('click',(e)=>{
+        if(e.target.id != null){
+            console.log("entrando a evento")
+            localStorage.setItem('current_id',e.target.id)
+        }
+    })
+}
+
+const next = () => {
+    if(localStorage.getItem('current_ids') === null){
+        if(localStorage.getItem('current_id') != null){
+            console.log("entrando a next 1")
+            localStorage.setItem('current_ids',localStorage.getItem('current_id'))
+        }
+    }else{
+        if(localStorage.getItem('current_id') != null && localStorage.getItem('current_ids')){
+            console.log("entrando a next 2")
+            const temp = `${localStorage.getItem('current_ids')},${localStorage.getItem('current_id')}`
+            localStorage.setItem('current_ids',temp)
+        }
+    }
+
+    if(localStorage.getItem('current_ids') != null){
+        const current_ids_input = document.getElementById('current_ids');
+        current_ids_input.value = localStorage.getItem('current_ids');
+    }
+    localStorage.removeItem('current_id');
+    //localStorage.clear()
+}
+
+const clean_local = () =>{
+    localStorage.clear()
 }
