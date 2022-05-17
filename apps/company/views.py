@@ -21,7 +21,7 @@ import folium
 from matplotlib import image
 from numpy import append
 
-from .models import Building, Inspection
+from .models import Building, Inspection, Address
 from apps.company.utilities.choose_type.Group import getQuestions
 from apps.company.utilities.data_flow.DataFlow import getQuestions as getQuestionsInsp
 from apps.company.utilities.input_request import get_building_information
@@ -304,7 +304,10 @@ def add_building(request):
             messages.error(request, 'Edificio ya existe')
         else:
             regulation_re = request.POST['sel_regulation']
-            Building.objects.create(site_name=building_information_list[0],full_address=building_information_list[1],contact_email=building_information_list[2], contact_mobile_number=building_information_list[3], regulation=regulation_re, created_by=username, modificated_by=username)
+            lat = request.POST['lat']
+            lng = request.POST['lon']
+            b = Building.objects.create(site_name=building_information_list[0],full_address=building_information_list[1],contact_email=building_information_list[2], contact_mobile_number=building_information_list[3], regulation=regulation_re, created_by=username, modificated_by=username)
+            Address.objects.create(lat=lat, lng=lng, building=b)
             messages.success(request, 'Edificio creado con exito')
     else:
         messages.error(request, 'Por favor llenar todos los campos')
@@ -329,10 +332,10 @@ def edit_building(request, building_name):
         building.site_type = None
         messages.error(request, 'Se cambio la normativa: Debe categorizar de nuevo el edificio')
 
-    if request.POST['contact_mobile_number'] != '' and request.POST['site_name'] != '' and request.POST['address'] != '' and request.POST['contact_email'] != '':
+    if request.POST['contact_mobile_number'] != '' and request.POST['site_name'] != '' and request.POST['contact_email'] != '':
         username = request.user.get_full_name()
         building.site_name = building_information_list[0]
-        building.full_address = building_information_list[1]
+        #building.full_address = building_information_list[1]
         building.contact_email = building_information_list[2]
         building.contact_mobile_number = building_information_list[3]
         building.regulation = regulation_req
@@ -354,7 +357,12 @@ def add_building_type(request):
             messages.error(request, 'Edificio ya existe')
         else:
             regulation_re = request.POST['sel_regulation']
+
+            lat = request.POST['lat']
+            lng = request.POST['lon']
+
             b = Building.objects.create(site_name=building_information_list[0],full_address=building_information_list[1],contact_email=building_information_list[2], contact_mobile_number=building_information_list[3],regulation=regulation_re, created_by=username)
+            Address.objects.create(lat=lat, lng=lng, building=b)
             current_question = getQuestions([], b.regulation)
             return render(request,"pages/site_parameterization.html",{'building_name': b.site_name, 'building_regulation': b.regulation, 'current_question':current_question})
     else:

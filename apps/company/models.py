@@ -15,7 +15,6 @@ class Building(models.Model):
     modificated_by=models.CharField(max_length=20, null=True, default=None, unique=False)
 
 class Address(models.Model):
-    full_address=models.CharField(max_length=20, null=True, default=None, unique=False)
     lat=models.CharField(max_length=20, null=False, default=None, unique=False)
     lng=models.CharField(max_length=20, null=False, default=None, unique=False)
     building = models.ForeignKey(to=Building, on_delete=models.CASCADE, null=True)
