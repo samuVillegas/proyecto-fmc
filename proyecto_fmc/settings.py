@@ -12,6 +12,22 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 
+#Configuration for map in Leaflet
+LEAFLET_CONFIG = {
+    'DEFAULT_CENTER': (6.25184, -75.56359),
+    'DEFAULT_ZOOM': 11,
+    'MIN_ZOOM': 3,
+    'MAX_ZOOM': 18,
+    'DEFAULT_PRECISION': 6,
+    'ATTRIBUTION_PREFIX': 'Powered by django-leaflet',
+    'PLUGINS': {
+        'geocoder': {
+            'css': ['https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css'],
+            'js': ['https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js'],
+        }
+    },
+}
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -41,7 +57,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'apps.company',
     'apps.landing_page',
-    'apps.administration'
+    'apps.administration',
+    'leaflet',
 ]
 
 MIDDLEWARE = [

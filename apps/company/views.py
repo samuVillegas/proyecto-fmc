@@ -11,6 +11,12 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 import re
 import os
+import json 
+
+from matplotlib.style import context
+from geopy.geocoders import Nominatim
+import geocoder
+import folium
 
 from matplotlib import image
 from numpy import append
@@ -211,9 +217,80 @@ def check_inspection(request, building_name):
     Inspection.objects.create(description=final_flow, is_inspection_successful=is_inspection_succesfull, building=b, inspected_by=username, site_type=b.site_type)
     return redirect('/company/search_building')
 
-@login_required
 def site_information(request):
+    '''location = geocoder.osm('Calle 78B 69-240 0500 Medellín Antioquia Colombia')
+    print(location)'''
+    '''Nomi_locator = Nominatim(user_agent="My App")
+
+    address= "Calle 78 B NO. 69 - 240 Medellín, Colombia"
+
+    #get the location detail 
+    location = Nomi_locator.geocode(address)
+
+    print("You find for the location:", location)'''
+    
+    '''map = folium.Map(location=[6.2402, -75.5767], zoom_start=13)
+    #popup1 = folium.LatLngPopup()
+
+    #map.add_child(popup1)
+    #print("Latitude of Popup: ", popup1) 
+    
+    #map = folium.Map(location=[19, -12], zoom_start=2)
+    #folium.Marker([], tooltip='Ver', popup="Carrera 49, Cl. 7 Sur #50, Medellín, Antioquia").add_to(map)
+    map = map._repr_html_()'''
     return render(request,"pages/site_information.html")
+
+'''@login_required
+def search_in_map(request):
+    site_name = request.POST['site_name']
+    address = request.POST['address']
+    contact_email = request.POST['contact_email']
+    contact_mobile_number = request.POST['contact_mobile_number']
+    
+    map = folium.Map(location=[6.2402, -75.5767], zoom_start=10)
+    popup1 = folium.LatLngPopup()
+    print(popup1)
+    location = geocoder.osm(address)
+    if location != None:
+        lat = location.lat
+        lng = location.lng
+        folium.Marker([lat, lng], tooltip='ver', popup=address).add_to(map)
+
+    map = map._repr_html_()
+
+    context = {
+        'map': map,
+        'building_name': site_name,
+        'building_address':address,
+        'building_email': contact_email,
+        'building_number': contact_mobile_number,
+    }
+
+    return render(request,"pages/site_information.html", context)'''
+
+'''@login_required
+def change_address(request):
+    site_name = request.POST['site_name']
+    contact_email = request.POST['contact_email']
+    contact_mobile_number = request.POST['contact_mobile_number']
+
+    map = folium.Map(location=[6.2402, -75.5767], zoom_start=10)
+    popup1 = folium.LatLngPopup()
+    map.add_child(popup1)
+    map = map._repr_html_()
+    map = folium.Map(location=[6.2402, -75.5767], zoom_start=10)
+    folium.Marker(
+        draggable=True
+    ).add_to(map)
+    map = map._repr_html_()
+    context = {
+        'map': map,
+        'building_name': site_name,
+        'building_email': contact_email,
+        'building_number': contact_mobile_number,
+    }
+
+    return render(request,"pages/site_information.html", context)'''
 
 @login_required
 def add_building(request):    
@@ -371,7 +448,7 @@ def show_regulation_information(request, regulation, is_inspection_question):
 @login_required
 def download_inspection_register(request, building_name):
     building = Building.objects.get(site_name=building_name)
-    inspections = Building.objects.get(site_name=building.site_name).inspection_set.all()
+    inspections = Inspection.objects.filter(building=building)
 
     response = HttpResponse(
         content_type='text/csv',
@@ -387,6 +464,7 @@ def download_inspection_register(request, building_name):
 
     for i in inspections:
         description = None
+        print(i.date)
         if i.description == '[]':
             description = 'Ninguna'
         else:

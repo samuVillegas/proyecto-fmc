@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "esri-leaflet": "^3.0.8",
+    "leaflet-geosearch": "^3.6.0"
+  }
+}
