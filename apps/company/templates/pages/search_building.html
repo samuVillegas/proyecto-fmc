@@ -1,11 +1,12 @@
 <style>
     .btn-outline-success {
-        background-color: #FF5F00 !important;
-        color: black !important;
+        border-color: #F25A00 !important;
+        color: #F25A00 !important;
     }
 
     .btn-outline-danger {
-        background-color: #B20600 !important;
+        border-color: #B20600 !important;
+        color: #B20600 !important;
     }
 
     .btn-info {
@@ -15,6 +16,11 @@
 
     .btn-danger {
         background-color: #B20600 !important;
+    }
+
+    .btn-success {
+        background-color: #F25A00 !important;
+        color: black !important;
     }
 </style>
 {% extends 'containers/base.html' %}
@@ -42,7 +48,7 @@
     <form class="d-flex" action="search_building">
         <input class="form-control me-2" type="search" placeholder="Nombre del edificio" aria-label="Search"
             name="searchTerm">
-        <button class="btn btn-outline-success" type="submit">Buscar</button>
+        <button class="btn btn-success" type="submit">Buscar</button>
     </form>
     <table class="table mt-3" id="table">
         <thead>
