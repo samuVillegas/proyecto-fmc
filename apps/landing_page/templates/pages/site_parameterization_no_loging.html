@@ -1,3 +1,8 @@
+<style>
+    .btn-primary {
+        background-color: #00092C !important;
+    }
+</style>
 {% extends 'containers/base_landing_page.html' %}
 {% block body %}
 {% load static %}
@@ -7,26 +12,25 @@
             <form action="/search_key_no_loging/{{building_regulation}}" method="POST">{% csrf_token %}
                 {% if current_question.exist_key %}
                 <h3>Tú establecimiento es de tipo {{current_question.key}}</h3>
-                <button type="submit"
-                    onclick="this.form.action='/';this.form.submit();clean_local()"
+                <button type="submit" onclick="this.form.action='/';this.form.submit();clean_local()"
                     class="btn btn-primary">Terminar</button>
                 <button type="submit"
                     onclick="this.form.action='/inspection/{{current_question.key}}/{{building_regulation}}';this.form.submit()"
                     class="btn btn-primary">Inspeccionar</button>
                 {% else %}
-                
+
                 <div class="text-center">
                     <h6 class="text-center">{{current_question.question}}</h6>
                     {% if is_material_list %}
-                        <ul class="list-group">
-                            {% for m in current_question.image %}
-                                <li class="list-group-item">{{m}}</li> 
-                            {% endfor %}
-                        </ul>  
+                    <ul class="list-group">
+                        {% for m in current_question.image %}
+                        <li class="list-group-item">{{m}}</li>
+                        {% endfor %}
+                    </ul>
                     {% else %}
-                        <img src="{% static current_question.image %}" alt="" width="300px" height="300px">
+                    <img src="{% static current_question.image %}" alt="" width="300px" height="300px">
                     {% endif %}
-                </div> 
+                </div>
                 <div id="options">
                     {% for i in current_question.options %}
                     <div class="form-check d-flex justify-content-center p-1">
