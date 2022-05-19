@@ -33,7 +33,7 @@ def login(request):
                 print('Employee')
                 auth_login(request, user)
                 return redirect('/company/')
-    else:
+    elif email:
         messages.error(request,'No existen usuarios con esas credenciales')
     return render(request,"pages/login.html")
 
