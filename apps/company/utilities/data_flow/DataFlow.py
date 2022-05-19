@@ -50,7 +50,7 @@ def getQuestions(list, law, key):
         if key in q.lock:
             if cont == len(list) and isinstance(q,Question):
                 if len(flow) == 0:
-                    flow = ['Ya se cumple la ley ' + law]
+                    flow = ''
                 return {'question':q.question,'options':q.options,'image':q.image,'exist_flow':False}
             if isinstance(q,Flow):
                 if len(q.law) > 0:
@@ -62,7 +62,7 @@ def getQuestions(list, law, key):
                 cont += 1
             references.append(q.reference)
     if len(flow) == 0:
-        flow = ['Ya se cumple la ley ' + law]
+        flow = ''
     return {'exist_flow':True,'flow':flow, 'references':references}
 
 

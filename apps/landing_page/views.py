@@ -4,6 +4,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth.hashers import check_password
 from django.conf import settings 
 from django.db import models
+from django.contrib.auth import authenticate
+from django.contrib.auth import login as auth_login
 
 from apps.company.utilities.choose_type.Group import getQuestions
 from apps.company.utilities.data_flow.DataFlow import getQuestions as getQuestionsInsp
@@ -15,7 +17,28 @@ def langing_page(request):
 def login(request):
     email = request.POST.get('email')
     password = request.POST.get('password')
-    user = User.objects.filter(email=email)
+    
+    user_email = User.objects.filter(email=email)
+    if email and password and user_email:
+        user = authenticate(request, username=user_email[0].username, password=password)
+        print(user)
+        if user:
+            print("autorizado")
+
+            if user.is_superuser:
+                print('Admin')
+                auth_login(request, user)
+                return redirect('/administration/')
+            else: 
+                print('Employee')
+                auth_login(request, user)
+                return redirect('/company/')
+    else:
+        messages.error(request,'No existen usuarios con esas credenciales')
+    return render(request,"pages/login.html")
+
+    """ user = User.objects.filter(email=email)
+    print(user)
     if email and password:
         if user and check_password(password,user[0].password):
             if user[0].is_superuser:
@@ -25,10 +48,10 @@ def login(request):
                 print('Employee')
                 username = user[0].get_full_name()
                 settings.username = username
-                return redirect('/company/')
+                return redirect(f'/company/{username}')
         else:
             messages.error(request,'No existen usuarios con esas credenciales')
-    return render(request,"pages/login.html")
+    return render(request,"pages/login.html") """
 
 def inspect(request):
     return render(request,"pages/choose_regulation.html")
@@ -40,25 +63,28 @@ def parameterization(request, building_regulation):
 def search_key_no_loging(request, building_regulation):
     current_ids = request.POST.get('current_ids')
 
-    split_current_ids = current_ids.split(',')
+    if current_ids:
+        split_current_ids = current_ids.split(',')
 
-    current_question = None
-    is_material_list = None
-    #print(len(split_current_ids))
-    #print(split_current_ids)
-    if split_current_ids != ['']:
-        current_question = getQuestions(split_current_ids, building_regulation)
-        #is_material_list = False
-        try:
-            if 'img' not in current_question['image']:
-                is_material_list = True
-                current_question['image'] = current_question['image'].split(';')
-        except:
-            is_material_list = False
+        current_question = None
+        is_material_list = None
+        #print(len(split_current_ids))
+        #print(split_current_ids)
+        if split_current_ids != ['']:
+            current_question = getQuestions(split_current_ids, building_regulation)
+            #is_material_list = False
+            try:
+                if 'img' not in current_question['image']:
+                    is_material_list = True
+                    current_question['image'] = current_question['image'].split(';')
+            except:
+                is_material_list = False
+        else:
+            current_question = getQuestions([], building_regulation)
+
+        return render(request,"pages/site_parameterization_no_loging.html",{'current_question':current_question,'building_regulation': building_regulation, "is_material_list": is_material_list})
     else:
-        current_question = getQuestions([], building_regulation)
-
-    return render(request,"pages/site_parameterization_no_loging.html",{'current_question':current_question,'building_regulation': building_regulation, "is_material_list": is_material_list})
+         return redirect('/inspect')
 
 def inspection(request, building_type,building_regulation):
     current_question = getQuestionsInsp([], building_regulation, building_type)
