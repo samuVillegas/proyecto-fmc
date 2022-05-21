@@ -1,6 +1,7 @@
 <style>
-    .btn-primary {
-        background-color: #00092C !important;
+    table {
+        border: solid black 5px;
+        width: 50% !important;
     }
 </style>
 {% extends 'containers/base.html' %}
@@ -23,11 +24,11 @@
                 <div class="text-center">
                     <h6 class="text-center">{{current_question.question}}</h6>
                     {% if is_material_list %}
-                    <ul class="list-group">
+                    <table class="table table-striped">
                         {% for m in current_question.image %}
-                        <li class="list-group-item">{{m}}</li>
+                        {% cycle '<tr>' '' '' %}<td>{{m}}</td>{% cycle '' '' '</tr>' %}
                         {% endfor %}
-                    </ul>
+                    </table>
                     {% else %}
                     <img src="{% static current_question.image %}" alt="" width="300px" height="300px">
                     {% endif %}

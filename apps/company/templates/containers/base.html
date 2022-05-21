@@ -1,3 +1,13 @@
+<style>
+  a {
+    color: #EEEEEE !important;
+  }
+
+  a:hover,
+  a:focus {
+    background-color: #eeeeee20 !important;
+  }
+</style>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,6 +25,7 @@
   <link rel="stylesheet" href="{% static 'styles/building_information.css' %}">
   <link rel="stylesheet" href="{% static 'styles/index.css' %}">
   <link rel="icon" href="{% static 'img/logo.png' %}">
+  <link rel="stylesheet" href="{% static 'styles/color_pallet.css' %}">
   <title>ProyectoFMC</title>
 </head>
 
@@ -45,7 +56,8 @@
             <a class="nav-link" href="/company/choose_regulation_to_show">Normativas</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/company/logout_user" style="color: #F25A00;">Log out</a>
+            <a class="nav-link" href="/company/logout_user" style="-webkit-text-stroke-width: 1px;
+            -webkit-text-stroke-color: #F25A00;">Log out</a>
           </li>
         </ul>
       </div>

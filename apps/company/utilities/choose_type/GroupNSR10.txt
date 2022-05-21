@@ -23,7 +23,7 @@ E
 
 A F C
 ¿Trata con materiales peligrosos pertenecientes a la siguiente lista?
-Productos combustibles Industrias de plásticos Explosivos;Productos inflamables Álcalis Ropa sintética;Productos explosivos Ácidos Polvorerias;Productos corrosivos Gas acetileno Cerillas;Productos tóxicos Productos piroxílicos Procesadoras de papel;Industrias de armas y municiones Estaciones de gasolina Expendios de Cocinol;Productos químicos tóxicos Depósitos de algodón Aceites;Destilerías Kerosene;Industrias de pinturas y esmaltes Expendios de combustibles
+Productos combustibles ;Industrias de plásticos ;Explosivos;Productos inflamables ;Álcalis Ropa sintética;Productos explosivos ;Ácidos ;Polvorearías;Productos corrosivos ;Gas acetileno ;Cerillas;Productos tóxicos ;Productos piroxílicos ;Procesadoras de papel;Industrias de armas y municiones ;Estaciones de gasolina ;Expendios de Cocinol;Productos químicos tóxicos ;Depósitos de algodón ;Aceites;Destilerías ;Kerosene;Industrias de pinturas y esmaltes ;Expendios de combustibles
 Si
 P
 No
@@ -31,7 +31,7 @@ A F C
 
 A
 ¿Utiliza uno o más de los siguientes materiales?
-Papel Muebles Cera;Vestidos Maderas Pieles;Zapatos Linóleo Establos y galpones;Paja Azúcares Estacionamientos;Cuero Seda Talleres mecánicos;Cartón;Tabaco Productos fotográficos;Adhesivos Cigarrillos Otros similares;Cales Granos
+Papel ;Muebles ;Cera;Vestidos ;Maderas ;Pieles;Zapatos ;Linóleo ;Establos y galpones;Paja ;Azúcares ;Estacionamientos;Cuero ;Seda ;Talleres mecánicos;Cartón;Tabaco ;Productos fotográficos;Adhesivos ;Cigarrillos ;Cales Granos;Otros similares
 Si
 A1
 No
@@ -47,7 +47,7 @@ E
 
 F
 ¿Utiliza uno o más de los siguientes materiales?
-Plantas de asfalto Cueros;Industria farmacéutica Papel;Lavanderías y tintorerías Tabaco;Subestaciones eléctricas Plásticos y cauchos;Madera Textil;Elementos fotográficos Automotriz;Vidrio Otros similares;Gráficas Industria metal mecánica
+Plantas de asfalto ;Cueros;Industria farmacéutica ;Papel;Lavanderías y tintorerías ;Tabaco;Subestaciones eléctricas ;Plásticos y cauchos;Madera ;Textil;Elementos fotográficos ;Automotriz;Vidrio ;Gráficas Industria metal mecánica;Otros similares
 Si
 F1
 No

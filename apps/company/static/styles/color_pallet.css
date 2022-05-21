@@ -1,0 +1,68 @@
+.btn-outline-success {
+  border-color: #F25A00 !important;
+  color: #F25A00 !important;
+  border-width: 2px !important;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #F25A00;
+}
+
+.btn-outline-danger {
+  border-color: #B20600 !important;
+  color: #B20600 !important;
+  border-width: 2px !important;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #B20600;
+}
+
+.btn-outline-secondary {
+  border-width: 2px !important;
+  -webkit-text-stroke-width: 1px;
+}
+
+.btn-primary {
+  background-color: #00092C !important;
+  color: white !important;
+  border-color: #00092C !important;
+}
+
+.btn-primary:hover, .btn-primary:focus {
+  background-color: #00092cee !important;
+}
+
+.btn-success {
+  background-color: #F25A00 !important;
+  color: white !important;
+  border-color: #F25A00 !important;
+}
+
+.btn-success:hover,
+.btn-success:focus {
+  background-color: #F25A00ee !important;
+}
+
+.btn-danger {
+  background-color: #B20600 !important;
+  color: white !important;
+  border-color: #B20600 !important;
+}
+
+.btn-danger:hover, .btn-danger:focus {
+  background-color: #B20600ee !important;
+}
+
+.btn-info {
+  background-color: #00092C !important;
+  color: white !important;
+  border-color: #00092C !important;
+}
+
+.btn-info:hover,
+.btn-info:focus {
+  background-color: #00092cee !important;
+}
+
+table {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}

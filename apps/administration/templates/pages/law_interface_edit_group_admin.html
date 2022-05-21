@@ -18,7 +18,7 @@
     padding-right: 10px;
   }
 </style>
-{% extends 'containers/base.html' %}
+{% extends 'containers/base_admin.html' %}
 {% block body %}
 {% load static %}
 <div align="center">
@@ -31,19 +31,17 @@
     <table>
       <br>
       {% for x in form %}
-      {% if 'type' not in x.label_tag and 'size' not in x.label_tag and 'numOptions' not in x.label_tag %}
+      {% if 'type' not in x.label_tag and 'size' not in x.label_tag and 'numOptions' not in x.label_tag and 'reference'
+      not in x.label_tag %}
 
-      {% if 'question' in x.label_tag %}
+      {% if 'lock' in x.label_tag %}
+      <tr>
+        <th colspan="2">A que grupo(s) se les hace una pregunta:
+          (Si el cuadro esta vacio, se le pregunta a todos)</th>
+      </tr>
+      {% elif 'question' in x.label_tag %}
       <tr>
         <th colspan="2">Pregunta</th>
-      </tr>
-      {% elif 'reference' in x.label_tag %}
-      <tr>
-        <th colspan="2">Referencia o ubicacion en la ley</th>
-      </tr>
-      {% elif 'law' in x.label_tag %}
-      <tr>
-        <th colspan="2">Ley</th>
       </tr>
       {% elif 'image' in x.label_tag %}
       <tr>
@@ -70,8 +68,8 @@
 
       {% if 'image' in x.label_tag %}
       <tr>
-        <th colspan="2">Al seleccionar una opcion entonces la ley que esta
-          a su derecha se debe cumplir, puede estar vacia.</th>
+        <th colspan="2">Al seleccionar una opcion entonces se cambia el
+          grupo actual al que esta a su derecha.</th>
       </tr>
       {% endif %}
 
@@ -79,19 +77,6 @@
       <tr>
         <td colspan="2">{{ x.as_hidden }}</td>
       </tr>
-
-      {% if 'type' in x.label_tag %}
-      {% if 'Flujo' in x.initial %}
-      <tr>
-        <th colspan="2">Estos grupo(s) deben cumplir esta ley:</th>
-      </tr>
-      {% elif 'Pregunta' in x.initial %}
-      <tr>
-        <th colspan="2">A que grupo(s) se les hace una pregunta:</th>
-      </tr>
-      {% endif %}
-      {% endif %}
-
       {% endif %}
 
       {% if 'numOptions' in x.label_tag %}
@@ -104,14 +89,9 @@
     </table><br>
     <table>
       {% endif %}
-      {% if 'law' in x.label_tag %}
-    </table><br>
-    <table>
-      {% endif %}
 
       {% endfor %}
       <input type="submit" name="addQuestion" value="Nueva pregunta" class="btn btn-success button_style">
-      <input type="submit" name="addFlow" value="Nueva pregunta" class="btn btn-success button_style">
       <input type="submit" name="remove" value="Eliminar ultimo" class="btn btn-danger button_style">
       <br>
       <br>
