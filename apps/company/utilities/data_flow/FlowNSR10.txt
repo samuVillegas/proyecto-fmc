@@ -1,4 +1,4 @@
-16
+17
 
 Flujo
 C1 C2
@@ -132,6 +132,16 @@ Tiene aire acondicionado?
 []
 Si
 Se deberá disponer de detectores de humo en los ductos principales, que actúen desconectando automáticamente el sistema. Adicionalmente se dispondrá de un tablero de desconexión del sistema central de aire acondicionado ubicado adyacente al tablero general eléctrico y para el uso exclusivo del cuerpo de bomberos.
+No
+
+
+Pregunta
+R2
+
+Las salidas están separadas a menos de un medio de la diagonal?
+
+Si
+Debe tener rociadores
 No
 
 

@@ -66,3 +66,12 @@ table {
   margin-right: auto;
   text-align: center;
 }
+
+a {
+  color: #EEEEEE !important;
+}
+
+a:hover,
+a:focus {
+  background-color: #eeeeee20 !important;
+}
