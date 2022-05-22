@@ -1,4 +1,10 @@
 {% extends 'containers/base_admin.html' %}
 {% block body %}
+{% load static %}
+{% load leaflet_tags %}
+{% leaflet_js %}
+{% leaflet_css %}
 <h1>Hola dashboard</h1>
+{% leaflet_map "map_admin" callback="window.map_init_basic" %}
+<script src="{% static 'scripts/map.js' %}"></script>
 {% endblock %}

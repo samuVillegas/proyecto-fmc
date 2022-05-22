@@ -1,7 +1,7 @@
 let myMarker;
 let map_l;
 let arr_addr;
-
+let addr;
 
 const options = document.getElementById('options')
 const table = document.getElementById("table");
@@ -14,14 +14,11 @@ function map_init_basic (map) {
         var lon = myMarker.getLatLng().lng.toFixed(8);
         document.getElementById('lat').value = lat;
         document.getElementById('lon').value = lon;
-        console.log(lat,lon);
-        myMarker.bindPopup("Lat " + lat + "<br />Lon " + lon).openPopup();
+        //console.log(latlng_search(lat, lon));
+        //myMarker.bindPopup("Lat " + lat + "<br />Lon " + lon).openPopup();
     });
     //myMarker = L.marker([50.5, 30.5]).addTo(map);S
 }
-
-
-
 
 function chooseAddr(lat1, lng1, id)
 {
@@ -33,8 +30,8 @@ function chooseAddr(lat1, lng1, id)
     document.getElementById('lat').value = lat;
     document.getElementById('lon').value = lon;
     document.getElementById('address_b').value = arr_addr[id].display_name;
-    console.log(arr_addr[id].display_name);
-    myMarker.bindPopup(arr_addr[id].display_name).openPopup();
+    //console.log(arr_addr[id].display_name);
+    //myMarker.bindPopup(arr_addr[id].display_name).openPopup();
 }
 
 function myFunction(arr)
@@ -61,7 +58,7 @@ function addr_search()
     var inp = document.getElementById("addr");
     var xmlhttp = new XMLHttpRequest();
     var url = "https://nominatim.openstreetmap.org/search?format=json&limit=3&q=" + inp.value;
-    console.log(url);
+    //console.log(url);
     xmlhttp.onreadystatechange = function()
     {
     if (this.readyState == 4 && this.status == 200)

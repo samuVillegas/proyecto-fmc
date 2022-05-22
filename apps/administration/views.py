@@ -1,6 +1,8 @@
 from django.shortcuts import render
-from apps.company.models import Building
+from apps.company.models import Address, Building
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
+import json
 
 # Create your views here.
 
@@ -8,6 +10,15 @@ from django.contrib.auth.decorators import login_required
 def index(request):
     return render(request,"pages/index_admin.html")
 
+@login_required
+def map_building(request):
+    address_list = Address.objects.all()
+    data = []
+    for addr in address_list:
+        data.append({"lat":addr.lat,"lng":addr.lng})
+
+    return HttpResponse(json.dumps(data, indent=4, sort_keys=True), content_type="application/json")
+    
 @login_required
 def buildings(request):
     searchTerm = request.GET.get('searchTerm')

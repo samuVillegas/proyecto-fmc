@@ -26,6 +26,7 @@ def login(request):
 
             if user.is_superuser:
                 print('Admin')
+                auth_login(request, user)
                 return redirect('/administration/')
             else: 
                 print('Employee')
