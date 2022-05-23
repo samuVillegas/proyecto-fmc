@@ -5,7 +5,6 @@ for(let i = 0;i<100;i++){
     colors.push(`rgba(${Math.floor((Math.random() * (255 - 0 + 1)) + 0)}, ${Math.floor((Math.random() * (255 - 0 + 1)) + 0)}, ${Math.floor((Math.random() * (255 - 0 + 1)) + 0)})`);
 }
 
-
 //Por cada gráfica se debe hacer una petición
 fetch(`${URL}/administration/dashboard_char_regulation/`).then(res => res.json()).then(res => {
     const config = {
@@ -84,6 +83,4 @@ fetch(`${URL}/administration/dashboard_building_inspection_state/`).then(res => 
     }
 
 }).catch(err => err)
-
-
 

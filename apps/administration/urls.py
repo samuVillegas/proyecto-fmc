@@ -4,6 +4,8 @@ from . import views
 urlpatterns = [
     path('',views.index),
     path('inspectors/',views.inspectors),
+    path('map_building/', views.map_building),
+    path('show_map/',views.show_map),
     path('buildings/',views.buildings),
     path('choose_regulation_to_show/', views.choose_regulation_to_show_admin),
     path('show_regulation_information/<regulation>/<is_inspection_question>', views.show_regulation_information_admin),

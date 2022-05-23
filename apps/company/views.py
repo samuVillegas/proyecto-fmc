@@ -15,10 +15,10 @@ import os
 from matplotlib import image
 from numpy import append
 
-from .models import Building, Inspection
+from .models import Building, Inspection, Address
 from apps.company.utilities.choose_type.Group import getQuestions
 from apps.company.utilities.data_flow.DataFlow import getQuestions as getQuestionsInsp
-from apps.company.utilities.input_request import get_building_information
+from apps.company.utilities.input_request import get_building_information, get_information
 from apps.company.utilities.choose_type.Group import readFile as readFileType
 from apps.company.utilities.data_flow.DataFlow import readFile as readFileIns
 from apps.company.utilities.data_flow.Question import Question
@@ -220,13 +220,14 @@ def add_building(request):
     username = request.user.get_full_name()
     building_information_list = get_building_information(request)
     
-    if request.POST['contact_mobile_number'] != '' and request.POST['site_name'] != '' and request.POST['address'] != '' and request.POST['contact_email'] != '':
+    if request.POST['contact_mobile_number'] != '' and request.POST['site_name'] != '' and request.POST['contact_email'] != '':
         building = Building.objects.filter(site_name__iexact=building_information_list[0])
         if building:
             messages.error(request, 'Edificio ya existe')
         else:
             regulation_re = request.POST['sel_regulation']
-            Building.objects.create(site_name=building_information_list[0],address=building_information_list[1],contact_email=building_information_list[2], contact_mobile_number=building_information_list[3], regulation=regulation_re, created_by=username, modificated_by=username)
+            b = Building.objects.create(site_name=building_information_list[0],contact_email=building_information_list[2], contact_mobile_number=building_information_list[3], regulation=regulation_re, created_by=username, modificated_by=username)
+            Address.objects.create(full_address=building_information_list[1], lat=float(building_information_list[4]), lng=float(building_information_list[5]), building=b)
             messages.success(request, 'Edificio creado con exito')
     else:
         messages.error(request, 'Por favor llenar todos los campos')
@@ -242,7 +243,7 @@ def edition_building(request, building_name):
 
 @login_required
 def edit_building(request, building_name):
-    building_information_list = get_building_information(request)
+    building_information_list = get_information(request)
 
     regulation_req = request.POST['sel_regulation']
     building = Building.objects.get(site_name=building_name)
@@ -251,12 +252,12 @@ def edit_building(request, building_name):
         building.site_type = None
         messages.error(request, 'Se cambio la normativa: Debe categorizar de nuevo el edificio')
 
-    if request.POST['contact_mobile_number'] != '' and request.POST['site_name'] != '' and request.POST['address'] != '' and request.POST['contact_email'] != '':
+    if request.POST['contact_mobile_number'] != '' and request.POST['site_name'] != '' and request.POST['contact_email'] != '':
         username = request.user.get_full_name()
         building.site_name = building_information_list[0]
-        building.address = building_information_list[1]
-        building.contact_email = building_information_list[2]
-        building.contact_mobile_number = building_information_list[3]
+        #building.address = building_information_list[1]
+        building.contact_email = building_information_list[1]
+        building.contact_mobile_number = building_information_list[2]
         building.regulation = regulation_req
         building.modificated_by = username
         building.save()
@@ -270,13 +271,14 @@ def edit_building(request, building_name):
 def add_building_type(request):
     username = request.user.get_full_name()
     building_information_list = get_building_information(request)
-    if request.POST['contact_mobile_number'] != '' and request.POST['site_name'] != ' ' and request.POST['address'] != '' and request.POST['contact_email'] != '':
+    if request.POST['contact_mobile_number'] != '' and request.POST['site_name'] != ' ' and request.POST['contact_email'] != '':
         building = Building.objects.filter(site_name__iexact=building_information_list[0])
         if building:
             messages.error(request, 'Edificio ya existe')
         else:
             regulation_re = request.POST['sel_regulation']
-            b = Building.objects.create(site_name=building_information_list[0],address=building_information_list[1],contact_email=building_information_list[2], contact_mobile_number=building_information_list[3],regulation=regulation_re, created_by=username)
+            b = Building.objects.create(site_name=building_information_list[0],contact_email=building_information_list[2], contact_mobile_number=building_information_list[3],regulation=regulation_re, created_by=username)
+            Address.objects.create(full_address=building_information_list[1], lat=float(building_information_list[4]), lng=float(building_information_list[5]), building=b)
             current_question = getQuestions([], b.regulation)
             return render(request,"pages/site_parameterization.html",{'building_name': b.site_name, 'building_regulation': b.regulation, 'current_question':current_question})
     else:
@@ -313,8 +315,8 @@ def delete_building(request):
 def view_building_information(request, building_name):
     building = Building.objects.get(site_name=building_name)
     inspections = Building.objects.get(site_name=building.site_name).inspection_set.all()
-
-    #print(inspections[1].description)
+    address = Address.objects.get(building=building)
+    
     descriptions = []
     desc = []
     descs = []
@@ -329,7 +331,7 @@ def view_building_information(request, building_name):
 
         descriptions.append([i,descs])
 
-    return render(request, "pages/view_building_information.html", {'building':building, 'inspections': inspections, 'descriptions':descriptions})
+    return render(request, "pages/view_building_information.html", {'building':building, 'inspections': inspections, 'descriptions':descriptions, 'address': address.full_address})
 
 @login_required
 def choose_regulation_to_show(request):
@@ -372,6 +374,7 @@ def show_regulation_information(request, regulation, is_inspection_question):
 def download_inspection_register(request, building_name):
     building = Building.objects.get(site_name=building_name)
     inspections = Building.objects.get(site_name=building.site_name).inspection_set.all()
+    address = Address.objects.get(building=building)
 
     response = HttpResponse(
         content_type='text/csv',
@@ -380,7 +383,7 @@ def download_inspection_register(request, building_name):
 
     writer = csv.writer(response)
     writer.writerow(['Nombre', 'Direccion', 'Email', 'Numero', 'Caracterizacion', 'Normativa','Creado por', 'Ultima modificacion por'])
-    writer.writerow([building.site_name, building.address,building.contact_email,building.contact_mobile_number, building.site_type,
+    writer.writerow([building.site_name, address.full_address,building.contact_email,building.contact_mobile_number, building.site_type,
                     building.regulation, building.created_by,building.modificated_by])
     writer.writerow([])
     writer.writerow(['inspector', 'Resultado', 'Descripcion'])
