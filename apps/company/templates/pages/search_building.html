@@ -23,7 +23,7 @@
     <form class="d-flex" action="search_building">
         <input class="form-control me-2" type="search" placeholder="Nombre del edificio" aria-label="Search"
             name="searchTerm">
-        <button class="btn btn-outline-success" type="submit">Buscar</button>
+        <button class="btn btn-success" type="submit">Buscar</button>
     </form>
     <table class="table mt-3" id="table">
         <thead>
@@ -45,18 +45,23 @@
                     <td>{{b.0.regulation}}</td>
                     <td>{{b.0.site_type}}</td>
                     {% if b.1.is_inspection_successful == True %}
-                        <td><button type="button" class="btn btn-outline-success" disabled="true">Aprobado</button></td>
+                    <td><button type="button" class="btn btn-outline-success" disabled="true">Aprobado</button></td>
                     {% elif b.1.is_inspection_successful == False %}
-                        <td><button type="button" class="btn btn-outline-danger" disabled="true">No aprobado</button></td>
+                    <td><button type="button" class="btn btn-outline-danger" disabled="true">No aprobado</button></td>
                     {% else %}
-                        <td><button type="button" class="btn btn-outline-secondary" disabled="true">Sin inspeccion</button></td>
+                    <td><button type="button" class="btn btn-outline-secondary" disabled="true">Sin inspeccion</button>
+                    </td>
                     {% endif %}
-                    <td><a href="view_building_information/{{b.0.code}}" class="btn btn-info">Ver información</a></td>
-                    <td><a href="edition_building/{{b.0.code}}" class="btn btn-info" onclick="clean_local()">Editar</a></td>
-                    {% if  b.1.is_inspection_successful == None %}
-                        <td><a href="" data-bs-toggle="modal" class="btn btn-danger" data-bs-target="#exampleModal" id="{{b.0.code}}">Eliminar</a></td>
+                    <td><a href="view_building_information/{{b.0.site_name}}" class="btn btn-info">Ver información</a>
+                    </td>
+                    <td><a href="edition_building/{{b.0.site_name}}" class="btn btn-info"
+                            onclick="clean_local()">Editar</a></td>
+                    {% if b.1.is_inspection_successful == None %}
+                    <td><a href="" data-bs-toggle="modal" class="btn btn-danger" data-bs-target="#exampleModal"
+                            id="{{b.0.code}}">Eliminar</a></td>
                     {% else %}
-                        <td><a href="" data-bs-toggle="modal" class="btn btn-danger" style="visibility: hidden;" data-bs-target="#exampleModal" id="{{b.0.code}}">Eliminar</a></td>
+                    <td><a href="" data-bs-toggle="modal" class="btn btn-danger" style="visibility: hidden;"
+                            data-bs-target="#exampleModal" id="{{b.0.code}}">Eliminar</a></td>
                     {% endif %}
                 </tr>
                 {% endfor %}

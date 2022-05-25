@@ -1,3 +1,13 @@
+<style>
+  a {
+    color: #EEEEEE !important;
+  }
+
+  a:hover,
+  a:focus {
+    background-color: #eeeeee20 !important;
+  }
+</style>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,13 +23,14 @@
   <link rel="stylesheet" href="{% static 'styles/base_landing_page.css' %}">
   <link rel="stylesheet" href="{% static 'styles/login.css' %}">
   <link rel="icon" href="{% static 'img/logo.png' %}">
+  <link rel="stylesheet" href="{% static 'styles/color_pallet.css' %}">
   <title>ProyectoFMC</title>
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-light" style="background: #ff0000c7;">
+  <nav class="navbar navbar-expand-lg navbar-light" style="background: #B20600;">
     <div class="container-fluid">
-      <a class="navbar-brand fw-bold " href="/">ProyectoFMC</a>
+      <a class="navbar-brand fw-bold " href="/administration">ProyectoFMC</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
         aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -42,12 +53,18 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/administration/regulations/">
-              Normativas  
+            <a class="nav-link" href="/administration/choose_regulation_to_show/">
+              Normativas
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-warning" href="/">Log out</a>
+            <a class="nav-link" href="/admin/">
+              Crear usuarios
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/" style="color: #F25A00;-webkit-text-stroke-width: 1px;
+            -webkit-text-stroke-color: #F25A00;">Log out</a>
           </li>
         </ul>
       </div>
@@ -61,11 +78,11 @@
         <p><b>ProyectoFMC</b> Company Inc © 2022</p>
       </div>
     </div>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="{% static 'scripts/dashboard.js' %}" type="module"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+      crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{% static 'scripts/dashboard.js' %}" type="module"></script>
 </body>
 
 </html>

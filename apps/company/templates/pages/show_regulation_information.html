@@ -1,35 +1,57 @@
 {% extends 'containers/base.html' %}
 {% block body %}
 {% load static %}
-<div">
+<div>
     <h1 class="text-center">Informacion de la normativa con la que rige la plataforma</h1>
-    <div>
+    <div style="margin-left: 15%;">
         {% for q in questions %}
-            <div class="card m-3" style="width: 60rem;">
-                <div class="card-body">
-                    <h5 class="card-title">Pregunta: {{q.question}}</h5>
-                    {% if q.lock != '' %}
-                        <p class="card-text">Clave: {{q.lock}}</p>
-                    {% endif %}
+        <div class="card m-3" style="width: 60rem;">
+            <div class="card-body">
+                <p class="card-text">A que grupo(s) se les hace una pregunta:
+                    (Si el cuadro esta vacio, se le pregunta a todos): {{q.lock}}</p>
 
-                    {% if q.image != '' %}
-                        <p>Tabla:</p>
-                        <ul>
-                            {% for m in q.image%}
-                                {% if m != '' %}
-                                    <li>{{m}}</li>
-                                {% endif %}
-                            {% endfor %}
-                        </ul>
-                    {% endif %}
-                    <p>Opciones:</p>
-                    <ul>
-                        {% for o in q.options%}
-                            <li>{{o}}</li>
-                        {% endfor %}
-                    </ul>
-                </div>
+                {% if q.reference %}
+                <h5 class="card-title">Referencia en la ley: {{q.reference}}</h5>
+                {% endif %}
+
+                {% if q.question %}
+                <h5 class="card-title">Tipo: {{"Pregunta"}}</h5>
+                <h5 class="card-title">{{q.question}}</h5>
+                {% endif %}
+
+                {% if q.law %}
+                <h5 class="card-title">Tipo: {{"Flujo"}}</h5>
+                <h5 class="card-title">Ley que deben cumplir: {{q.law}}</h5>
+                {% endif %}
+
+                {% if q.image %}
+                <p>Tabla:</p>
+                <ul>
+                    {% for m in q.image%}
+                    <li>{{m}}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+
+                {% if q.options %}
+                <p>Opciones:</p>
+                <ul>
+                    {% for o in q.options %}
+                    <li>{{o}}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+
+                {% if q.outputs %}
+                <p>Resultados:</p>
+                <ul>
+                    {% for o in q.outputs %}
+                    <li>{{o}}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
             </div>
+        </div>
         {% endfor %}
     </div>
 </div>

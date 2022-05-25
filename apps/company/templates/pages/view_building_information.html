@@ -1,51 +1,55 @@
 {% extends 'containers/base.html' %}
 {% block body %}
-<div class="row">
-  <div class="col-md-4 offset-md-4">
-    <h2>Nombre: {{building.site_name}}</h2>
-    <h2>Direccion: {{building.address}}</h2>
-    <h2>Email: {{building.contact_email}}</h2>
-    <h2>Numero: {{building.contact_mobile_number}}</h2>
-    <h2>Caracterizacion: {{building.site_type}}</h2>
-    <h2>Normativa: {{building.regulation}}</h2>
-    <h2>Creado por: {{building.created_by}}</h2>
-    <h2>Ultima modificacion por: {{building.modificated_by}}</h2>
-  </div>
+<div>
+  <table><tr></tr></table>
+  <table class="table table-striped" style="width: 25%; border: solid #adadad 3px; margin-top: 10px;">
+    <tr><td>{{building.site_name}}</td></tr>
+    <tr><td>Direccion: {{building.address}}</td></tr>
+    <tr><td>Email: {{building.contact_email}}</td></tr>
+    <tr><td>Numero: {{building.contact_mobile_number}}</td></tr>
+    <tr><td>Caracterizacion: {{building.site_type}}</td></tr>
+    <tr><td>Normativa: {{building.regulation}}</td></tr>
+    <tr><td>Creado por: {{building.created_by}}</td></tr>
+    <tr><td>Ultima modificacion por: {{building.modificated_by}}</td></tr>
+  </table>
   {% if descriptions|length > 0 %}
   <h2 class="m-5">Inspecciones</h2>
-  <table class="table mt-3 m-5" id="table">
+  <table class="table mt-3 m-5" id="table" style="width: 90%;">
     <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Fecha</th>
-            <th scope="col">Inspector</th>
-            <th scope="col">Resultado</th>
-            <th scope="col">Descripcion</th>
-        </tr>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Fecha</th>
+        <th scope="col">Inspector</th>
+        <th scope="col">Tipo de edificio</th>
+        <th scope="col">Resultado</th>
+        <th scope="col">Descripcion</th>
+      </tr>
     </thead>
     <div id="table-body">
-        <tbody>
-            {% for i in descriptions %}
-            <tr>
-              <th scope="row">{{forloop.counter}}</th>
-              <td>{{i.0.date}}</td>
-              <td>{{i.0.inspected_by}}</td>
-              {% if i.0.is_inspection_successful == True %}
-                <td><button type="button" class="btn btn-outline-success" disabled="true">Aprobado</button></td>
-              {% else %}
-                <td><button type="button" class="btn btn-outline-danger" disabled="true">No aprobado</button></td>
-              {% endif %}
-              <td>
-                {% for d in i.1 %}
-                  <h6>{{d}}</h6>
-                {% endfor %}
-              </td>
-            </tr>
+      <tbody>
+        {% for i in descriptions %}
+        <tr>
+          <th scope="row">{{forloop.counter}}</th>
+          <td>{{i.0.date}}</td>
+          <td>{{i.0.inspected_by}}</td>
+          <td>{{i.0.site_type}}</td>
+          {% if i.0.is_inspection_successful == True %}
+          <td><button type="button" class="btn btn-outline-success" disabled="true">Aprobado</button></td>
+          {% else %}
+          <td><button type="button" class="btn btn-outline-danger" disabled="true">No aprobado</button></td>
+          {% endif %}
+          <td>
+            {% for d in i.1 %}
+            <h6>{{d}}</h6>
             {% endfor %}
-        </tbody>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
     </div>
-</table>
-<a href="/company/download_inspection_register/{{ building.site_name }}" class="btn btn-primary" style="width: 300px;height: 40px;">Descargar registro de informes</a>
-{% endif %}
+  </table>
+  <a href="/company/download_inspection_register/{{ building.site_name }}" class="btn btn-primary"
+    style="width: 300px;height: 40px; margin-left: 5%;">Descargar registro de informes</a>
+  {% endif %}
 </div>
 {% endblock %}
