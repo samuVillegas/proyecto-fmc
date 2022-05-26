@@ -1,6 +1,24 @@
 {% extends 'containers/base.html' %}
 {% block body %}
 {% load static %}
+{% load leaflet_tags %}
+{% leaflet_js %}
+{% leaflet_css %}
+<style>
+  #map {
+    width:100%;
+    height:50%;
+    padding:0;
+    margin:0;
+  }
+  #map a {
+    color: #000000 !important;
+  }
+
+  .address:hover{
+    background-color: #ebebf1;
+  }
+</style>
 <div class="container mt-3 building_form">
   <h4 class="text-center">Información general del edificio</h4>
   {% if messages %}
@@ -20,16 +38,26 @@
   {% endif %}
 
   <form action="" method="POST">{% csrf_token %}
+    <input type="text" name="lat" id="lat" size=12 value="" style="visibility: hidden;">
+    <input type="text" name="lon" id="lon" size=12 value="" style="visibility: hidden;">
+    <input type="text" name="address_b" id="address_b" size=12 value="" style="visibility: hidden;">
     <div class="mb-3">
       <label for="site_name" class="form-label">Nombre del establecimiento</label>
       <input name="site_name" type="text" class="form-control" id="site_name" aria-describedby="emailHelp"
         placeholder="Edificio A" value="{{building_name}}" required>
     </div>
-    <div class="mb-3 mb-4">
+
+    <div class="mb-3">
       <label for="address" class="form-label">Dirección</label>
-      <input name="address" type="text" class="form-control" id="address" aria-describedby="emailHelp"
+      <div class="input-group mb-3">
+        <input name="addr" id="addr" type="text" class="form-control" aria-describedby="emailHelp"
         placeholder="Cra. 51B #66-1-51" value="{{building_address}}" required>
+        <button type="button" class="btn btn-info button_style" onclick="addr_search();">Buscar</button>
+      </div>
+      <div id="results" class="mb-3"></div>
+      {% leaflet_map "map_admin" callback="window.map_init_basic" %}
     </div>
+
     <span>Información de contacto del establecimiento</span>
     <hr>
     <div class="mb-3">

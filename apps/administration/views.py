@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from apps.company.models import Building
+from sklearn import inspection
+from apps.company.models import Building, Address, Inspection
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.db.models import Q
@@ -20,6 +21,27 @@ from apps.company.utilities.choose_type.Group import getQuestionsGroup, writeFil
 @login_required
 def index(request):
     return render(request,"pages/index_admin.html")
+
+@login_required
+def map_building(request):
+    address_list = Address.objects.all()
+    data = []
+    is_inspection_successful = None
+    for addr in address_list:
+        inspection_list = Building.objects.get(site_name=addr.building.site_name).inspection_set.all()
+        if(len(inspection_list) > 0):
+            is_inspection_successful = inspection_list[len(inspection_list) - 1].is_inspection_successful
+        data.append({
+            "lat":addr.lat,"lng":addr.lng, 
+            "is_inspection_successful": is_inspection_successful,
+            "site_name":addr.building.site_name, "site_type": addr.building.site_type
+            })
+
+    return HttpResponse(json.dumps(data, indent=4, sort_keys=True), content_type="application/json")
+
+@login_required
+def show_map(request):
+    return render(request,"pages/map.html")
 
 @login_required
 def dashboard_char_regulation(request):
