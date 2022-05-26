@@ -11,10 +11,14 @@
     padding:0;
     margin:0;
   }
-  #map a {
+  #map_admin a {
     color: #000000 !important;
   }
 
+  .required{
+  color: #b20600;
+  }
+  
   .address:hover{
     background-color: #ebebf1;
   }
@@ -42,13 +46,13 @@
     <input type="text" name="lon" id="lon" size=12 value="" style="visibility: hidden;">
     <input type="text" name="address_b" id="address_b" size=12 value="" style="visibility: hidden;">
     <div class="mb-3">
-      <label for="site_name" class="form-label">Nombre del establecimiento</label>
+      <label for="site_name" class="form-label">Nombre del establecimiento <span class="required">*</span></label>
       <input name="site_name" type="text" class="form-control" id="site_name" aria-describedby="emailHelp"
         placeholder="Edificio A" value="{{building_name}}" required>
     </div>
 
     <div class="mb-3">
-      <label for="address" class="form-label">Dirección</label>
+      <label for="address" class="form-label">Dirección <span class="required">*</span></label>
       <div class="input-group mb-3">
         <input name="addr" id="addr" type="text" class="form-control" aria-describedby="emailHelp"
         placeholder="Cra. 51B #66-1-51" value="{{building_address}}" required>
@@ -61,12 +65,12 @@
     <span>Información de contacto del establecimiento</span>
     <hr>
     <div class="mb-3">
-      <label for="contact_email" class="form-label">Email</label>
+      <label for="contact_email" class="form-label">Email <span class="required">*</span></label>
       <input name="contact_email" type="email" class="form-control" id="contact_email" aria-describedby="emailHelp"
         placeholder="ejemplo@dominio.com" value="{{building_email}}" required>
     </div>
     <div class="mb-3">
-      <label for="contact_mobile_number" class="form-label">Celular</label>
+      <label for="contact_mobile_number" class="form-label">Celular <span class="required">*</span></label>
       <input name="contact_mobile_number" type="number" class="form-control" id="contact_mobile_number"
         aria-describedby="emailHelp" placeholder="123456789" value="{{building_number}}" required>
     </div>
@@ -74,7 +78,7 @@
     <hr>
 
     <div class="mb-5">
-      <label for="select1">Selecciona la normativa</label>
+      <label for="select1">Selecciona la normativa <span class="required">*</span></label>
       <select class="form-select" id="sel_regulation" name="sel_regulation" aria-label="Default select example">
         <option value="NSR10">Normativa Nacional</option>
         <option value="NFPA101">Normativa Internacional</option>

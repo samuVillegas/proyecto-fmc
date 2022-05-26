@@ -220,7 +220,7 @@ def add_building(request):
     username = request.user.get_full_name()
     building_information_list = get_building_information(request)
     
-    if request.POST['contact_mobile_number'] != '' and request.POST['site_name'] != '' and request.POST['contact_email'] != '':
+    if request.POST['lat'] != '' and request.POST['lon'] != '' and request.POST['contact_mobile_number'] != '' and request.POST['site_name'] != '' and request.POST['contact_email'] != '':
         building = Building.objects.filter(site_name__iexact=building_information_list[0])
         if building:
             messages.error(request, 'Edificio ya existe')
@@ -271,7 +271,7 @@ def edit_building(request, building_name):
 def add_building_type(request):
     username = request.user.get_full_name()
     building_information_list = get_building_information(request)
-    if request.POST['contact_mobile_number'] != '' and request.POST['site_name'] != ' ' and request.POST['contact_email'] != '':
+    if request.POST['lat'] != '' and request.POST['lon'] != '' and request.POST['contact_mobile_number'] != '' and request.POST['site_name'] != ' ' and request.POST['contact_email'] != '':
         building = Building.objects.filter(site_name__iexact=building_information_list[0])
         if building:
             messages.error(request, 'Edificio ya existe')
