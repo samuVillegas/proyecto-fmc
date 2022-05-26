@@ -1,5 +1,4 @@
 from django.shortcuts import render
-from sklearn import inspection
 from apps.company.models import Building, Address, Inspection
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User

@@ -5,7 +5,7 @@ const delete_id_item = document.getElementById('delete_id_item');
 let myMarker;
 let map_l;
 let arr_addr;
-
+let addr_;
 function map_init_basic (map) {
     map_l = map
     myMarker = L.marker([50.5, 30.5], {title: "Coordinates", alt: "Coordinates", draggable: true}).addTo(map).on('dragend', function() {
@@ -13,10 +13,31 @@ function map_init_basic (map) {
         var lon = myMarker.getLatLng().lng.toFixed(8);
         document.getElementById('lat').value = lat;
         document.getElementById('lon').value = lon;
-        myMarker.bindPopup("Lat " + lat + "<br />Lon " + lon).openPopup();
+        reverseGeocoding(lon,lat);
+        setTimeout(() => { myMarker.bindPopup(addr_).openPopup(); }, 310);
     });
 }
 
+
+function reverseGeocoding(lon, lat)
+{
+    var inp = document.getElementById("addr");
+    var xmlhttp = new XMLHttpRequest();
+    var url = 'http://nominatim.openstreetmap.org/reverse?format=json&lon=' + lon + '&lat=' + lat;
+    //console.log(url);
+    xmlhttp.onreadystatechange = function()
+    {
+    if (this.readyState == 4 && this.status == 200)
+    {
+        var myArr = JSON.parse(this.responseText);
+        document.getElementById('address_b').value = myArr.display_name;
+        addr_ = myArr.display_name;
+        //console.log(myArr.display_name);
+    }
+    };
+    xmlhttp.open("GET", url, true);
+    xmlhttp.send();
+}
 
 function chooseAddr(lat1, lng1, id)
 {
