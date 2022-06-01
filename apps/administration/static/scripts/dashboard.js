@@ -61,7 +61,7 @@ fetch(`${URL}/administration/dashboard_buildings_by_type/`).then(res => res.json
 
 fetch(`${URL}/administration/dashboard_building_inspection_state/`).then(res => res.json()).then(res => {
     const config = {
-        type: 'line',
+        type: 'bar',
         data: {
             labels:['Aprobados','No Aprobados','Sin información'],
             datasets: [{

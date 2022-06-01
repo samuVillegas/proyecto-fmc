@@ -254,14 +254,30 @@ def edit_building(request, building_name):
 
     if request.POST['contact_mobile_number'] != '' and request.POST['site_name'] != '' and request.POST['contact_email'] != '':
         username = request.user.get_full_name()
-        building.site_name = building_information_list[0]
-        #building.address = building_information_list[1]
-        building.contact_email = building_information_list[1]
-        building.contact_mobile_number = building_information_list[2]
-        building.regulation = regulation_req
-        building.modificated_by = username
-        building.save()
-        messages.success(request, 'Edificio editado con exito')
+        site_name = building_information_list[0]
+        
+        if building.site_name == site_name:
+            #building.site_name = site_name
+            #building.address = building_information_list[1]
+            building.contact_email = building_information_list[1]
+            building.contact_mobile_number = building_information_list[2]
+            building.regulation = regulation_req
+            building.modificated_by = username
+            building.save()
+            messages.success(request, 'Edificio editado con exito')
+        else:
+            b = Building.objects.filter(site_name=site_name)
+            if not b.exists():
+                building.site_name = site_name
+                #building.address = building_information_list[1]
+                building.contact_email = building_information_list[1]
+                building.contact_mobile_number = building_information_list[2]
+                building.regulation = regulation_req
+                building.modificated_by = username
+                building.save()
+                messages.success(request, 'Edificio editado con exito')
+            else:
+                messages.error(request, 'Edificio con el mismo nombre ya existe')
     else: 
         messages.error(request, 'Por favor llenar todos los campos')
     
